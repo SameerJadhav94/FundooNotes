@@ -1,22 +1,17 @@
+const dotenv = require('dotenv');
 const express = require('express');
-const mongoose = require('mongoose');
-const dbConfig = require('./config/database.config.js');
 
 // create express app
 const app = express();
 
-app.use(express.json())
+//Specifying path for .env
+dotenv.config({ path: './.env'});
 
-// Connecting to the database
-mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true
-    
-}).then(() => {
-    console.log("Successfully connected to the database");    
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-});
+require('./config/database.config');
+
+const PORT = process.env.PORT;
+
+app.use(express.json())
 
 // define a route
 app.get('/', (req, res) => {
@@ -27,6 +22,6 @@ app.get('/', (req, res) => {
 require('./app/routes/note.routes.js')(app);
 
 // listen for requests
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
 });

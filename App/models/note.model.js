@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
         timestamps: true
     })
 
-const user = mongoose.model('no', userSchema);
+const user = mongoose.model('note', userSchema);
 
 class userModel {
 
