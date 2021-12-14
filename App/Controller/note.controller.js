@@ -9,6 +9,7 @@ class Controller {
                 email: req.body.email,
                 password: req.body.password
             };
+            // Registration validation
             const registerValidation = validation.authRegister.validate(user);
             if(registerValidation.error) {
                 return res.status(400).send({
@@ -45,6 +46,14 @@ class Controller {
             email: req.body.email,
             password: req.body.password
           };
+          //Login Validations
+          const loginValidation = validation.authLogin.validate(userLoginInfo);
+          if(loginValidation.error){
+              res.status(400).send({
+                  success:false,
+                  message: loginValidation.error.message
+              });
+            };    
           userService.userLogin(userLoginInfo, (error,data) => {
             if (error) {
               return res.status(400).json({
