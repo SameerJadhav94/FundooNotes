@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+
 const userSchema = mongoose.Schema({
     firstName: {
         type: String,
@@ -22,14 +22,6 @@ const userSchema = mongoose.Schema({
     {
         timestamps: true
     })
-
-    // Hashing password using bcrypt 
-userSchema.pre('save',async function(next){
-    if(this.isModified('password')){
-        this.password = await bcrypt.hash(this.password, 12)
-    }
-    next();
-});    
 
 const user = mongoose.model('note', userSchema);
 

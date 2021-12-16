@@ -1,13 +1,16 @@
 const userService = require('../service/service.js')
 const validation = require('../utilities/validation');
+const encryption = require('../utilities/encryption');
+
 class Controller {
     register = (req, res) => {
         try {
+          let password  = encryption.hashedPassword(req.params.password);
             const user = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
-                password: req.body.password
+                password: password
             };
             // Registration validation
             const registerValidation = validation.authRegister.validate(user);
@@ -46,6 +49,7 @@ class Controller {
             email: req.body.email,
             password: req.body.password
           };
+          
           //Login Validations
           const loginValidation = validation.authLogin.validate(userLoginInfo);
           if(loginValidation.error){
@@ -53,7 +57,8 @@ class Controller {
                   success:false,
                   message: loginValidation.error.message
               });
-            };    
+            };   
+             
           userService.userLogin(userLoginInfo, (error,data) => {
             if (error) {
               return res.status(400).json({
@@ -62,12 +67,15 @@ class Controller {
                 error
               });
             }
-            return res.status(200).json({
-              success: true,
-              message: 'User logged in successfully',
-              data: data
-            });
-          });
+            else {
+                  let passwordResult = encryption.comparePassword(userLoginInfo.password, data.password);
+                  return res.status(200).json({
+                    success: true,
+                    message: 'User logged in successfully',
+                    data: data
+                  });
+            }
+          })
         } 
         catch (error) {
           return res.status(500).json({
