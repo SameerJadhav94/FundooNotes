@@ -1,6 +1,7 @@
 const userService = require('../service/service.js')
 const validation = require('../utilities/validation');
 const encryption = require('../utilities/encryption');
+const jwt = require('jsonwebtoken')
 
 class Controller {
     register = (req, res) => {
@@ -45,6 +46,7 @@ class Controller {
     }
     login = (req, res) => {
         try {
+          let token;
           const userLoginInfo = {
             email: req.body.email,
             password: req.body.password
@@ -69,6 +71,8 @@ class Controller {
             }
             else {
                   let passwordResult = encryption.comparePassword(userLoginInfo.password, data.password);
+                  token = data.generateAuthToken();
+                  
                   return res.status(200).json({
                     success: true,
                     message: 'User logged in successfully',

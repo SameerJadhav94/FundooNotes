@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const res = require('express/lib/response');
 
 const userSchema = mongoose.Schema({
     firstName: {
@@ -17,11 +19,28 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    tokens:[{
+      token: {
+        type: String,
+        required: true
+      }  
+    }]
 },
     {
         timestamps: true
     })
+
+    userSchema.methods.generateAuthToken = async function(){
+        try {
+            let token =  jwt.sign({_id:this._id}, process.env.SECRET_KEY)
+            this.tokens = this.tokens.concat({token:token});
+            await this.save();
+            return token;
+        }catch(err){
+            res.status(500).json({message:'Cannot generate auth token', err})
+        }
+    }
 
 const user = mongoose.model('note', userSchema);
 
