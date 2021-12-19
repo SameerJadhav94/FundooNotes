@@ -1,4 +1,5 @@
 const userModel = require('../models/note.model.js')
+const encryption = require('../utilities/encryption')
 class userService {
     registerUser = (user, callback) => {
         userModel.registerUser(user, (err, data) => {

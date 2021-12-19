@@ -1,0 +1,35 @@
+{
+    "testData":{
+        "allCreds":{
+            "firstName": "Sameer",
+            "lastName": "Jadhav",
+            "email": "sameer@gmail.com",
+            "password": "1D5f6fg54s"
+        },
+        "withoutFirstName":{
+            "lastName": "Jadhav",
+            "email": "sameer@gmail.com",
+            "password": "1D5f6fg54s"
+        },
+        "withoutLastName":{
+            "firstName": "Sameer",
+            "email": "sameer@gmail.com",
+            "password": "1D5f6fg54s"
+        },
+        "withoutEmail":{
+            "firstName": "Sameer",
+            "lastName": "Jadhav",
+            "password": "1D5f6fg54s"
+        },
+        "correctLogin":{
+            "email": "sameer@gmail.com",
+            "password": "1D5f6fg54s"
+        },
+        "incorrectLogin":{
+            "email": "sameer@gmail.com",
+            "password": "1D5f6fg54s"
+        },
+        "isEmpty":{
+        }
+    }
+} 

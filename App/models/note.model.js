@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const res = require('express/lib/response');
+const encryption = require('../utilities/encryption')
 
 const userSchema = mongoose.Schema({
     firstName: {
@@ -55,6 +56,8 @@ class userModel {
 
         newUser.save()
             .then(data => {
+            let password = encryption.hashedPassword(userDetails.password)
+            newUser.password = password;
                 callback(null, data);
             })
             .catch(err => {
