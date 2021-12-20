@@ -1,5 +1,7 @@
 const dotenv = require('dotenv');
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./swagger/swagger.json');
 
 // create express app
 const app = express();
@@ -12,6 +14,9 @@ require('./config/database.config');
 const PORT = process.env.PORT;
 
 app.use(express.json())
+
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // define a route
 app.get('/', (req, res) => {
