@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const res = require('express/lib/response');
-const encryption = require('../utilities/encryption')
+const encryption = require('../utilities/encryption');
+const salt = bcrypt.genSaltSync(12);
 
 const userSchema = mongoose.Schema({
     firstName: {
@@ -32,6 +34,13 @@ const userSchema = mongoose.Schema({
         timestamps: true
     })
 
+    userSchema.pre('save', async function (next) {
+        if (this.isModified('password')) {
+            this.password = bcrypt.hashSync(this.password, salt)
+        }
+        next();
+    })
+
     userSchema.methods.generateAuthToken = async function(){
         try {
             let token =  jwt.sign({_id:this._id}, process.env.SECRET_KEY)
@@ -54,8 +63,6 @@ class userModel {
         newUser.email = userDetails.email;
         newUser.password = userDetails.password;
 
-        let password = encryption.hashedPassword(userDetails.password)
-            newUser.password = password;
         newUser.save()
             .then(data => {
                 callback(null, data);
