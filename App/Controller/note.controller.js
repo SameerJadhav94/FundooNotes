@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 class Controller {
     register = (req, res) => {
         try {
-          let password  = encryption.hashedPassword(req.body.password);
+          // let password  = encryption.hashedPassword(req.body.password);
             const user = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -47,7 +47,6 @@ class Controller {
     }
     login = (req, res) => {
         try {
-          let token;
           const userLoginInfo = {
             email: req.body.email,
             password: req.body.password
@@ -71,13 +70,21 @@ class Controller {
               });
             }
             else {
-                  let passwordResult = encryption.comparePassword(userLoginInfo.password, data.password);
-                  token = data.generateAuthToken();
-                  return res.status(200).json({
-                    success: true,
-                    message: 'User logged in successfully',
-                    data: data
-                  });
+              if(data){
+                return res.status(200).json({
+                  success: true,
+                  message: 'User logged in successfully',
+                  data: data
+                });
+              }
+              else {
+                return res.status(400).json({
+                  success: false,
+                  message: 'invalid',
+                  data: data
+                });
+              }
+                  
             }
           })
         } 

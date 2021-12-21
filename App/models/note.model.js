@@ -54,10 +54,10 @@ class userModel {
         newUser.email = userDetails.email;
         newUser.password = userDetails.password;
 
+        let password = encryption.hashedPassword(userDetails.password)
+            newUser.password = password;
         newUser.save()
             .then(data => {
-            let password = encryption.hashedPassword(userDetails.password)
-            newUser.password = password;
                 callback(null, data);
             })
             .catch(err => {
@@ -67,7 +67,7 @@ class userModel {
 
     loginModel = (loginData, callBack) => {
         //To find a user email in the database
-        user.findOne({ email: loginData.email }, (error, data) => {
+        user.findOne({email: loginData.email}, (error, data) => {
             if (error) {
                 return callBack(error, null);
             } else if (!data) {

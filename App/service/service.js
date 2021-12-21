@@ -13,7 +13,16 @@ class userService {
     userLogin = (InfoLogin, callback) => {
         userModel.loginModel(InfoLogin, (error, data) => {
           if (data) {
-            return callback(null, data);
+            const passwordResult = encryption.comparePassword(InfoLogin.password, data.password);
+            if(!passwordResult) {
+              
+              return callback("Error ocurred", null);
+            }
+            else{
+              const token = data.generateAuthToken();
+              return callback(null,token);
+            }
+            
           } else {
             return callback(error, null);
           }
