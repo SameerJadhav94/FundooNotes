@@ -1,7 +1,5 @@
 const userService = require('../service/service.js')
 const validation = require('../utilities/validation');
-const encryption = require('../utilities/encryption');
-const jwt = require('jsonwebtoken')
 
 class Controller {
     register = (req, res) => {

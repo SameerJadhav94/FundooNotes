@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const res = require('express/lib/response');
-const encryption = require('../utilities/encryption');
 const salt = bcrypt.genSaltSync(12);
 
 const userSchema = mongoose.Schema({
