@@ -22,14 +22,18 @@
             "password": "1D5f6fg54s"
         },
         "correctLogin":{
-            "email": "sameer@gmail.com",
-            "password": "1D5f6fg54s"
+            "email": "newuserfour@gmail.com",
+            "password": "Newuser4123"
         },
         "incorrectLogin":{
             "email": "sameer@gmail.com",
             "password": "1D5f6fg54s"
         },
-        "isEmpty":{
+        "improper":{
+            "firstName": "sameer",
+            "lastName": "jadhav",
+            "email": "sam@gmail.com",
+            "password": "sameer546@"
         }
     }
 } 
