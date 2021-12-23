@@ -7,6 +7,7 @@ const faker = require('faker');
 
 const Data = require('./note.userInput.json');
 
+
 // Test cases for Registration
 describe('registration API', () => {
 
@@ -111,9 +112,7 @@ describe('Login', () => {
     })
 
     it('given Login details if improper should not log in ', (done) => {
-
         const userDetails = Data.testData.incorrectLogin;
-
 
         chai.request(server)
         .post('/login')
@@ -127,3 +126,19 @@ describe('Login', () => {
         })
     })
 }) 
+describe('forgot password', function () {
+    it.only('should give status 200 when forgot password is called', (done) => {
+        chai.request(server)
+        .post('/forgotPassword')
+        .send({})
+        .end((err, res)=>{
+            if (err) {
+                return done();
+            }else{
+                res.should.have.status(200);
+                return done();
+            }
+            
+        })
+    })
+})

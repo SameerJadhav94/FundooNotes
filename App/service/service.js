@@ -27,6 +27,6 @@ class userService {
             return callback(error, null);
           }
         });
-      }
+      } 
 }
 module.exports = new userService();
