@@ -36,5 +36,11 @@ class Validation{
             .pattern(new RegExp('(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'))
 
         })
+        authForgotPassword = 
+        Joi.object({
+            email: Joi.string()
+            .pattern(new RegExp('^[0-9a-zA-Z]+([._+-][0-9a-zA-Z]+)*@([0-9a-zA-Z][-]?)+[.][a-zA-Z]{2,4}([.][a-zA-Z]{2,4})?$'))
+            .required(),
+        })    
 }
 module.exports = new Validation();

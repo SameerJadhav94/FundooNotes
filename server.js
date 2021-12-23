@@ -7,7 +7,7 @@ const swaggerDocs = require('./swagger/swagger.json');
 const app = express();
 
 //Specifying path for .env
-dotenv.config({ path: './.env'});
+dotenv.config({ path: './.env' });
 
 require('./config/database.config');
 
@@ -20,7 +20,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // define a route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to Fundonotes application. "});
+    res.json({ "message": "Welcome to Fundonotes application. " });
 });
 
 // Require note.routes

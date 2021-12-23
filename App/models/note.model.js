@@ -22,34 +22,34 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    tokens:[{
-      token: {
-        type: String,
-        required: true
-      }  
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
     }]
 },
     {
         timestamps: true
     })
 
-    userSchema.pre('save', async function (next) {
-        if (this.isModified('password')) {
-            this.password = bcrypt.hashSync(this.password, salt)
-        }
-        next();
-    })
-
-    userSchema.methods.generateAuthToken = async function(){
-        try {
-            let token =  jwt.sign({_id:this._id}, process.env.SECRET_KEY, {expiresIn: '12H'})
-            this.tokens = this.tokens.concat({token:token});
-            await this.save();
-            return token;
-        }catch(err){
-            res.status(500).json({message:'Cannot generate auth token', err})
-        }
+userSchema.pre('save', async function (next) {
+    if (this.isModified('password')) {
+        this.password = bcrypt.hashSync(this.password, salt)
     }
+    next();
+})
+
+userSchema.methods.generateAuthToken = async function () {
+    try {
+        let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY, { expiresIn: '12H' })
+        this.tokens = this.tokens.concat({ token: token });
+        await this.save();
+        return token;
+    } catch (err) {
+        res.status(500).json({ message: 'Cannot generate auth token', err })
+    }
+}
 
 const user = mongoose.model('note', userSchema);
 
@@ -73,7 +73,7 @@ class userModel {
 
     loginModel = (loginData, callBack) => {
         //To find a user email in the database
-        user.findOne({email: loginData.email}, (error, data) => {
+        user.findOne({ email: loginData.email }, (error, data) => {
             if (error) {
                 return callBack(error, null);
             } else if (!data) {
@@ -82,6 +82,18 @@ class userModel {
                 return callBack(null, data);
             }
         });
+    }
+
+    forgotPasswordModel = (userValidData, callBack) => {
+        user.findOne({ email: userValidData.email }, (error, data) => {
+            console.log('11')
+            if (data) {
+                return callBack(null, data);
+            }
+            else {
+                return callBack(error, null)
+            }
+        })
     }
 }
 module.exports = new userModel();
