@@ -83,5 +83,8 @@ class userModel {
             }
         });
     }
+    forgotPasswordModel = (emailCheckModel, callBack) => {
+        return callBack(null, emailCheckModel)
+    }
 }
 module.exports = new userModel();

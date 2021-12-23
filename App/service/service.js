@@ -29,7 +29,14 @@ class userService {
     });
   }
   userForgotPassword = (infoCheck, callback)=>{
-    callback(null, infoCheck)
+    userModel.forgotPasswordModel(infoCheck, (err, data) => {
+      if (err) {
+        callback(err, data)
+      }
+      else{
+        callback(null, data)
+      }
+    })
   }
 }
 module.exports = new userService();

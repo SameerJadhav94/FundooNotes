@@ -198,5 +198,19 @@ describe('forgot password', function () {
 
             })
     })
+    it.only('should give status 200 when returning a valid email callback from model', (done) => {
+        chai.request(server)
+            .post('/forgotPassword')
+            .send({"email": 'coder123@gmail.com'})
+            .end((err, res) => {
+                if (err) {
+                    return done();
+                } else {
+                    res.should.have.status(200);
+                    return done();
+                }
+
+            })
+    })
     
 })
