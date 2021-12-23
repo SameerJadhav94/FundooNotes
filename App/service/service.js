@@ -28,5 +28,8 @@ class userService {
       }
     });
   }
+  userForgotPassword = (infoCheck, callback)=>{
+    callback(null, infoCheck)
+  }
 }
 module.exports = new userService();

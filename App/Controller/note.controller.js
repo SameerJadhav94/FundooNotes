@@ -126,11 +126,22 @@ class Controller {
         message: 'Wrong Input Validations',
       })
     }
-      return res.status(200).json({
-        success: true,
-        message: "email sent successfully",
-      });
-    
+
+    userService.userForgotPassword(userEmail, (error, data)=>{
+      if (error) {
+        return res.status(400).json({
+          success: false,
+          message: 'Failed',
+        });
+      }
+      else{
+        return res.status(200).json({
+          success: true,
+          message: "email sent successfully",
+          data: data
+        });
+      }
+    })    
   }
 }
 module.exports = new Controller();
