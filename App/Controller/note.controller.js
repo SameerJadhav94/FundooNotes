@@ -119,17 +119,13 @@ class Controller {
     const userEmail = {
       email: req.body.email,
     }
-    console.log('1')
     const emailValidation = validation.authForgotPassword.validate(userEmail)
-    console.log('2')
     if (emailValidation.error) {
-      console.log('3')
       return res.status(400).send({
         success: false,
         message: 'Wrong Input Validations',
       })
     }
-    console.log('4')
       return res.status(200).json({
         success: true,
         message: "email sent successfully",

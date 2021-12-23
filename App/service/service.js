@@ -28,16 +28,5 @@ class userService {
       }
     });
   }
-  userForgotPassword = (InfoForgotPassword, callBack) => {
-    userModel.forgotPasswordModel(InfoForgotPassword, (err, data) => {
-      console.log('10')
-      if (err) {
-        return callBack(err, null)
-      }
-      else {
-        return callBack(null, data);
-      }
-    })
-  }
 }
 module.exports = new userService();

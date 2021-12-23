@@ -83,17 +83,5 @@ class userModel {
             }
         });
     }
-
-    forgotPasswordModel = (userValidData, callBack) => {
-        user.findOne({ email: userValidData.email }, (error, data) => {
-            console.log('11')
-            if (data) {
-                return callBack(null, data);
-            }
-            else {
-                return callBack(error, null)
-            }
-        })
-    }
 }
 module.exports = new userModel();
