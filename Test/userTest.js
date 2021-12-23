@@ -131,7 +131,7 @@ describe('forgot password', function () {
     it.only('should give status 200 when forgot password is called', (done) => {
         chai.request(server)
             .post('/forgotPassword')
-            .send({"email": 'coder123@gmail.com'})
+            .send({"email": 'sameer0994@gmail.com'})
             .end((err, res) => {
                 if (err) {
                     return done();
@@ -159,7 +159,7 @@ describe('forgot password', function () {
     it.only('should validate the email when given given proper input', (done) => {
         chai.request(server)
             .post('/forgotPassword')
-            .send({"email": 'coder123@gmail.com'})
+            .send({"email": 'sameer0994@gmail.com'})
             .end((err, res) => {
                 if (err) {
                     return done();
@@ -173,7 +173,7 @@ describe('forgot password', function () {
     it.only('should give status 200 when returning a valid email callback from service', (done) => {
         chai.request(server)
             .post('/forgotPassword')
-            .send({"email": 'coder123@gmail.com'})
+            .send({"email": 'sameer0994@gmail.com'})
             .end((err, res) => {
                 if (err) {
                     return done();
@@ -201,7 +201,21 @@ describe('forgot password', function () {
     it.only('should give status 200 when returning a valid email callback from model', (done) => {
         chai.request(server)
             .post('/forgotPassword')
-            .send({"email": 'coder123@gmail.com'})
+            .send({"email": 'sameer0994@gmail.com'})
+            .end((err, res) => {
+                if (err) {
+                    return done();
+                } else {
+                    res.should.have.status(200);
+                    return done();
+                }
+
+            })
+    })
+    it.only('should give status 200 when checking if the email exist in the database', (done) => {
+        chai.request(server)
+            .post('/forgotPassword')
+            .send({"email": 'sameer0994@gmail.com'})
             .end((err, res) => {
                 if (err) {
                     return done();

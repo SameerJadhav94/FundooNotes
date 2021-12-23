@@ -84,7 +84,15 @@ class userModel {
         });
     }
     forgotPasswordModel = (emailCheckModel, callBack) => {
-        return callBack(null, emailCheckModel)
+        user.findOne({email: emailCheckModel.email}, (error, data)=>{
+            if (error) {
+                return callBack(error, null)
+            }else if(!data){
+                return callBack("Enter valid email", null)
+            }else{
+                return callBack(null, data)
+            }
+        })
     }
 }
 module.exports = new userModel();
