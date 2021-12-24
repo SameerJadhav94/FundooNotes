@@ -254,5 +254,19 @@ describe('forgot password', function () {
 
             })
     })
+    it.only('should give status 400 when email has not been sent', (done) => {
+        chai.request(server)
+            .post('/forgotPassword')
+            .send({"email": 'sameer190994@gmail.com'})
+            .end((err, res) => {
+                if (err) {
+                    return done();
+                } else {
+                    res.should.have.status(400);
+                    return done();
+                }
+
+            })
+    })
     
 })
