@@ -268,5 +268,19 @@ describe('forgot password', function () {
 
             })
     })
+    it.only('should give status 200 when otp with email has been sent and is been saved into the database', (done) => {
+        chai.request(server)
+            .post('/forgotPassword')
+            .send({"email": 'sameer0994@gmail.com'})
+            .end((err, res) => {
+                if (err) {
+                    return done();
+                } else {
+                    res.should.have.status(200);
+                    return done();
+                }
+
+            })
+    })
     
 })
