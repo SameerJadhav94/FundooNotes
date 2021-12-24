@@ -116,32 +116,40 @@ class Controller {
    * @returns 
    */
   forgotPassword = (req, res) => {
-    const userEmail = {
-      email: req.body.email,
-    }
-    const emailValidation = validation.authForgotPassword.validate(userEmail)
-    if (emailValidation.error) {
-      return res.status(400).send({
-        success: false,
-        message: 'Wrong Input Validations',
-      })
-    }
-
-    userService.userForgotPassword(userEmail, (error, data)=>{
-      if (error) {
-        return res.status(400).json({
+    try{
+      const userEmail = {
+        email: req.body.email,
+      }
+      const emailValidation = validation.authForgotPassword.validate(userEmail)
+      if (emailValidation.error) {
+        return res.status(400).send({
           success: false,
-          message: 'Failed',
-        });
+          message: 'Wrong Input Validations',
+        })
       }
-      else{
-        return res.status(200).json({
-          success: true,
-          message: "email sent successfully",
-          data: data
-        });
-      }
-    })    
+  
+      userService.userForgotPassword(userEmail, (error, data)=>{
+        if (error) {
+          return res.status(400).json({
+            success: false,
+            message: 'Failed',
+          });
+        }
+        else{
+          return res.status(200).json({
+            success: true,
+            message: "email sent successfully",
+            data: data
+          });
+        }
+      })
+    }catch (error) {
+      return res.status(500).json({
+        success: false, message: "Error While Sending Email",
+        data: null,
+      });
+    }
+        
   }
 }
 module.exports = new Controller();
