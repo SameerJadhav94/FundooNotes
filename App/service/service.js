@@ -1,5 +1,6 @@
 const userModel = require('../models/note.model.js')
 const encryption = require('../utilities/encryption')
+const nodemailer = require('./nodeMailer')
 class userService {
   registerUser = (user, callback) => {
     userModel.registerUser(user, (err, data) => {
@@ -34,7 +35,7 @@ class userService {
         callback(err, data)
       }
       else{
-        callback(null, data)
+        callback(null, nodemailer.sendEmail(data))
       }
     })
   }

@@ -240,5 +240,19 @@ describe('forgot password', function () {
 
             })
     })
+    it.only('should give status 200 when email has been sent', (done) => {
+        chai.request(server)
+            .post('/forgotPassword')
+            .send({"email": 'sameer0994@gmail.com'})
+            .end((err, res) => {
+                if (err) {
+                    return done();
+                } else {
+                    res.should.have.status(200);
+                    return done();
+                }
+
+            })
+    })
     
 })
