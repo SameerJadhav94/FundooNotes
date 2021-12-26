@@ -82,6 +82,70 @@
                     }
                 }
             }
+        },
+        "/forgotPassword": {
+            "post": {
+                "tags": [
+                    "Forgot Password"
+                ],
+                "description": "Forgot Password API to send OTP",
+                "parameters": [
+                    {
+                        "name": "forgot Password",
+                        "in": "body",
+                        "description": "Click here to generate otp for new password",
+                        "schema": {
+                            "$ref": "#/definitions/forgotPassword"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Otp has been successfully sent to your email, please use it for resetting your password."
+                    },
+                    "404": {
+                        "description": "Please enter valid credentials"
+                    },
+                    "500": {
+                        "description": "Internal Server Error, Could Not Send Email."
+                    }
+                }
+            }
+        },
+        "/resetPassword": {
+            "patch": {
+                "tags": [
+                    "Reset Password"
+                ],
+                "description": "Reset Password API To Change Password Using OTP Sent By Forgot Password API",
+                "parameters": [
+                    {
+                        "name": "reset Password",
+                        "in": "body",
+                        "description": "Click here to reset your password",
+                        "schema": {
+                            "$ref": "#/definitions/resetPassword"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Password Updated Successfully"
+                    },
+                    "404": {
+                        "description": "Please enter valid Credentials"
+                    },
+                    "500": {
+                        "description": "Internal Server Error, Could Not Reset Your Password."
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -109,6 +173,28 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "forgotPassword": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "resetPassword": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "code": {
                     "type": "string"
                 }
             }
