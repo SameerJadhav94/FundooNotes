@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const res = require('express/lib/response');
+const otp = require('./oneTimePassword')
 const salt = bcrypt.genSaltSync(12);
 
 const userSchema = mongoose.Schema({
@@ -94,8 +95,26 @@ class userModel {
             }
         })
     }
-    resetPasswordModel = (resetPasswordModel, callBack) => {
-        callBack(null, resetPasswordModel)
+    resetPasswordModel = (PasswordModel, callBack) => {
+        otp.findOne({code: PasswordModel.code}, (error, data) => {
+            if(data){
+                if(PasswordModel.code == data.code){
+                    PasswordModel.password = bcrypt.hashSync(PasswordModel.password, salt)
+                    user.updateOne({email: PasswordModel.email}, {$set: {password: PasswordModel.password}},(error, result)=>{
+                        if(result){
+                            return callBack(error,"Password Updated Successfully")
+                        }
+                        else{
+                            return callBack("Error while updating password",null)
+                        }
+                    })
+                }else{
+                    return callBack("User Not Found",null)
+                }
+            }else{
+                return callBack("Credential does not match",null)
+            }
+        })
     }
 }
 module.exports = new userModel();

@@ -287,11 +287,11 @@ describe('forgot password', function () {
 describe("Reset Password", function () {
     it.only("should return status 200 when reset password api is called", (done) => {
         chai.request(server)
-        .post('/resetPassword')
+        .patch('/resetPassword')
         .send({
             email: "sameerjadhav0994@gmail.com",
-            password: 'Sameer1994',
-            code: "Qi3Pg"
+            password: 'Sameerjadhav123',
+            code: "MIIcE"
         })
         .end((err, res) => {
             res.should.have.status(200);
@@ -300,11 +300,11 @@ describe("Reset Password", function () {
     })
     it.only("should return status 400 when password does not gets validated", (done) => {
         chai.request(server)
-        .post('/resetPassword')
+        .patch('/resetPassword')
         .send({
             email: "sameerjadhav0994@gmail.com",
             password: 'sameer1994',
-            code: "Qi3Pg"
+            code: "MIIcE"
         })
         .end((err, res) => {
             res.should.have.status(400);
@@ -313,11 +313,11 @@ describe("Reset Password", function () {
     })
     it.only("should return status 200 when password gets validated", (done) => {
         chai.request(server)
-        .post('/resetPassword')
+        .patch('/resetPassword')
         .send({
             email: "sameerjadhav0994@gmail.com",
             password: 'Sameer1994',
-            code: "Qi3Pg"
+            code: "MIIcE"
         })
         .end((err, res) => {
             res.should.have.status(200);
@@ -326,11 +326,11 @@ describe("Reset Password", function () {
     })
     it.only("should return status 200 when gets callback from service", (done) => {
         chai.request(server)
-        .post('/resetPassword')
+        .patch('/resetPassword')
         .send({
             email: "sameerjadhav0994@gmail.com",
             password: 'Sameer1994',
-            code: "Qi3Pg"
+            code: "MIIcE"
         })
         .end((err, res) => {
             res.should.have.status(200);
@@ -339,10 +339,10 @@ describe("Reset Password", function () {
     })
     it.only("should return status 400 when gets invalid callback from service", (done) => {
         chai.request(server)
-        .post('/resetPassword')
+        .patch('/resetPassword')
         .send({
             email: "sameerjadhav0994@gmail.com",
-            password: 'sameer1994',
+            password: 'Sameer1994',
             code: "Qi3Pg"
         })
         .end((err, res) => {
@@ -352,15 +352,29 @@ describe("Reset Password", function () {
     })
     it.only("should return status 200 when gets callback from model", (done) => {
         chai.request(server)
-        .post('/resetPassword')
+        .patch('/resetPassword')
         .send({
             email: "sameerjadhav0994@gmail.com",
             password: 'Sameer1994',
-            code: "Qi3Pg"
+            code: "MIIcE"
         })
         .end((err, res) => {
             res.should.have.status(200);
             done();
         })
     })
+    it.only("should return status 200 when Otp maches with database", (done) => {
+        chai.request(server)
+        .patch('/resetPassword')
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'Sameer1994',
+            code: "MIIcE"
+        })
+        .end((err, res) => {
+            res.should.have.status(200);
+            done();
+        })
+    })
+    
 })
