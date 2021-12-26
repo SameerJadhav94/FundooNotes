@@ -321,4 +321,13 @@ describe("Reset Password", function () {
             done();
         })
     })
+    it.only("should return status 400 when gets invalid callback from service", (done) => {
+        chai.request(server)
+        .post('/resetPassword')
+        .send({password: 'sameer1994'})
+        .end((err, res) => {
+            res.should.have.status(400);
+            done();
+        })
+    })
 })
