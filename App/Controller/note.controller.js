@@ -141,13 +141,22 @@ class Controller {
     }
         
   }
-  resetPassword(req, res) {
+  resetPassword(req, res) { 
     try {
-      res.status(200).json({
+      const userPassword = {
+        password: req.body.password,
+      }
+      const passwordValidation = validation.authResetPassword.validate(userPassword)
+      if (passwordValidation.error) {
+        return res.status(400).send({
+          success: false,
+          message: 'Wrong Input Validations',
+        })
+      }
+      return res.status(200).json({
         success: true,
         message: 'Password Reset Successfully',
       })
-
     }
     catch (error) {
       return res.status(500).json({

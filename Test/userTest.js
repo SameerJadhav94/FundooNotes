@@ -288,9 +288,18 @@ describe("Reset Password", function () {
     it.only("should return status 200 when reset password api is called", (done) => {
         chai.request(server)
         .post('/resetPassword')
-        .send({})
+        .send({password: 'Sameer1994'})
         .end((err, res) => {
             res.should.have.status(200);
+            done();
+        })
+    })
+    it.only("should return status 400 when password does not gets validated", (done) => {
+        chai.request(server)
+        .post('/resetPassword')
+        .send({password: 'sameer1994'})
+        .end((err, res) => {
+            res.should.have.status(400);
             done();
         })
     })
