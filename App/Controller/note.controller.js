@@ -82,21 +82,11 @@ class Controller {
           });
         }
         else {
-          if (data) {
             return res.status(200).json({
               success: true,
               message: 'User logged in successfully',
               data: data
             });
-          }
-          else {
-            return res.status(400).json({
-              success: false,
-              message: 'invalid',
-              data: data
-            });
-          }
-
         }
       })
     }

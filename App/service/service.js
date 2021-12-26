@@ -32,7 +32,7 @@ class userService {
   userForgotPassword = (infoCheck, callback)=>{
     userModel.forgotPasswordModel(infoCheck, (err, data) => {
       if (err) {
-        callback(err, data)
+        callback(err, null)
       }
       else{
         callback(null, nodemailer.sendEmail(data))
