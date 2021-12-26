@@ -330,4 +330,13 @@ describe("Reset Password", function () {
             done();
         })
     })
+    it.only("should return status 200 when gets callback from model", (done) => {
+        chai.request(server)
+        .post('/resetPassword')
+        .send({password: 'Sameer1994'})
+        .end((err, res) => {
+            res.should.have.status(200);
+            done();
+        })
+    })
 })

@@ -39,8 +39,16 @@ class userService {
       }
     })
   }
+
   userResetPassword = (passwordInfo, callback)=>{
-    callback(null, passwordInfo)
+    userModel.resetPasswordModel(passwordInfo, (err, data) =>{
+      if (err) {
+        callback(err, null)
+      }
+      else{
+        callback(null, data)
+      }
+    })
   }
 }
 module.exports = new userService();

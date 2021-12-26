@@ -94,5 +94,8 @@ class userModel {
             }
         })
     }
+    resetPasswordModel = (resetPasswordModel, callBack) => {
+        callBack(null, resetPasswordModel)
+    }
 }
 module.exports = new userModel();
