@@ -128,7 +128,7 @@ describe('Login', () => {
     })
 })
 describe('forgot password', function () {
-    it.only('should give status 200 when forgot password is called', (done) => {
+    it('should give status 200 when forgot password is called', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer0994@gmail.com'})
@@ -142,7 +142,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 400 when email does not get validated', (done) => {
+    it('should give status 400 when email does not get validated', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'coder 123@gmail.com'})
@@ -156,7 +156,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should validate the email when given given proper input', (done) => {
+    it('should validate the email when given given proper input', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer0994@gmail.com'})
@@ -170,7 +170,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 200 when returning a valid email callback from service', (done) => {
+    it('should give status 200 when returning a valid email callback from service', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer0994@gmail.com'})
@@ -184,7 +184,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 400 when returning a invalid email callback from service', (done) => {
+    it('should give status 400 when returning a invalid email callback from service', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'coder 123@gmail.com'})
@@ -198,7 +198,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 200 when returning a valid email callback from model', (done) => {
+    it('should give status 200 when returning a valid email callback from model', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer0994@gmail.com'})
@@ -212,7 +212,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 200 when checking if the email exist in the database', (done) => {
+    it('should give status 200 when checking if the email exist in the database', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer0994@gmail.com'})
@@ -226,7 +226,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 400 when email does not exist in the database', (done) => {
+    it('should give status 400 when email does not exist in the database', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer190994@gmail.com'})
@@ -240,7 +240,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 200 when email has been sent', (done) => {
+    it('should give status 200 when email has been sent', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer0994@gmail.com'})
@@ -254,7 +254,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 400 when email has not been sent', (done) => {
+    it('should give status 400 when email has not been sent', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameer190994@gmail.com'})
@@ -268,7 +268,7 @@ describe('forgot password', function () {
 
             })
     })
-    it.only('should give status 200 when otp with email has been sent and is been saved into the database', (done) => {
+    it('should give status 200 when otp with email has been sent and is been saved into the database', (done) => {
         chai.request(server)
             .post('/forgotPassword')
             .send({"email": 'sameerjadhav0994@gmail.com'})
@@ -283,4 +283,15 @@ describe('forgot password', function () {
             })
     })
     
+})
+describe("Reset Password", function () {
+    it.only("should return status 200 when reset password api is called", (done) => {
+        chai.request(server)
+        .post('/resetPassword')
+        .send({})
+        .end((err, res) => {
+            res.should.have.status(200);
+            done();
+        })
+    })
 })

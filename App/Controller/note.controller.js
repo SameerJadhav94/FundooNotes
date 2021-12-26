@@ -141,5 +141,20 @@ class Controller {
     }
         
   }
+  resetPassword(req, res) {
+    try {
+      res.status(200).json({
+        success: true,
+        message: 'Password Reset Successfully',
+      })
+
+    }
+    catch (error) {
+      return res.status(500).json({
+        success: false, message: "Error While Resetting Password",
+        data: null
+      });
+    }
+  }
 }
 module.exports = new Controller();
