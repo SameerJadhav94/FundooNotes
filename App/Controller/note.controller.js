@@ -153,10 +153,20 @@ class Controller {
           message: 'Wrong Input Validations',
         })
       }
-      return res.status(200).json({
-        success: true,
-        message: 'Password Reset Successfully',
-      })
+      userService.userResetPassword(userPassword, (error, data) => {
+        if (error) {
+          return res.status(400).send({
+            success: false,
+            message: 'Please Insert Password Properly',
+          })
+        }
+        else {
+          return res.status(200).json({
+            success: true,
+            message: 'Password Reset Successfully',
+          })
+        }
+      })     
     }
     catch (error) {
       return res.status(500).json({

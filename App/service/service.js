@@ -39,5 +39,8 @@ class userService {
       }
     })
   }
+  userResetPassword = (passwordInfo, callback)=>{
+    callback(null, passwordInfo)
+  }
 }
 module.exports = new userService();
