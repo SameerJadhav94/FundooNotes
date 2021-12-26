@@ -376,5 +376,18 @@ describe("Reset Password", function () {
             done();
         })
     })
+    it.only("should return status 400 when Otp does not maches with database", (done) => {
+        chai.request(server)
+        .patch('/resetPassword')
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'Sameer1994',
+            code: "MIIcl"
+        })
+        .end((err, res) => {
+            res.should.have.status(400);
+            done();
+        })
+    })
     
 })
