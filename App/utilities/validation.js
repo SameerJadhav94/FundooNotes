@@ -44,9 +44,16 @@ class Validation{
         })   
         authResetPassword = 
         Joi.object({
+            email: Joi.string()
+            .pattern(new RegExp('^[0-9a-zA-Z]+([._+-][0-9a-zA-Z]+)*@([0-9a-zA-Z][-]?)+[.][a-zA-Z]{2,4}([.][a-zA-Z]{2,4})?$'))
+            .required(),
+
             password: Joi.string()
             .required()
-            .pattern(new RegExp('(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'))
+            .pattern(new RegExp('(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')),
+
+            code: Joi.string()
+            .required()
         }) 
 }
 module.exports = new Validation();

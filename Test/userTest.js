@@ -288,7 +288,11 @@ describe("Reset Password", function () {
     it.only("should return status 200 when reset password api is called", (done) => {
         chai.request(server)
         .post('/resetPassword')
-        .send({password: 'Sameer1994'})
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'Sameer1994',
+            code: "Qi3Pg"
+        })
         .end((err, res) => {
             res.should.have.status(200);
             done();
@@ -297,7 +301,11 @@ describe("Reset Password", function () {
     it.only("should return status 400 when password does not gets validated", (done) => {
         chai.request(server)
         .post('/resetPassword')
-        .send({password: 'sameer1994'})
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'sameer1994',
+            code: "Qi3Pg"
+        })
         .end((err, res) => {
             res.should.have.status(400);
             done();
@@ -306,7 +314,11 @@ describe("Reset Password", function () {
     it.only("should return status 200 when password gets validated", (done) => {
         chai.request(server)
         .post('/resetPassword')
-        .send({password: 'Sameer1994'})
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'Sameer1994',
+            code: "Qi3Pg"
+        })
         .end((err, res) => {
             res.should.have.status(200);
             done();
@@ -315,7 +327,11 @@ describe("Reset Password", function () {
     it.only("should return status 200 when gets callback from service", (done) => {
         chai.request(server)
         .post('/resetPassword')
-        .send({password: 'Sameer1994'})
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'Sameer1994',
+            code: "Qi3Pg"
+        })
         .end((err, res) => {
             res.should.have.status(200);
             done();
@@ -324,7 +340,11 @@ describe("Reset Password", function () {
     it.only("should return status 400 when gets invalid callback from service", (done) => {
         chai.request(server)
         .post('/resetPassword')
-        .send({password: 'sameer1994'})
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'sameer1994',
+            code: "Qi3Pg"
+        })
         .end((err, res) => {
             res.should.have.status(400);
             done();
@@ -333,7 +353,11 @@ describe("Reset Password", function () {
     it.only("should return status 200 when gets callback from model", (done) => {
         chai.request(server)
         .post('/resetPassword')
-        .send({password: 'Sameer1994'})
+        .send({
+            email: "sameerjadhav0994@gmail.com",
+            password: 'Sameer1994',
+            code: "Qi3Pg"
+        })
         .end((err, res) => {
             res.should.have.status(200);
             done();

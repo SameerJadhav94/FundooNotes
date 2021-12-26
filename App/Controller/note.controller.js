@@ -144,7 +144,9 @@ class Controller {
   resetPassword(req, res) { 
     try {
       const userPassword = {
+        email: req.body.email,
         password: req.body.password,
+        code: req.body.code
       }
       const passwordValidation = validation.authResetPassword.validate(userPassword)
       if (passwordValidation.error) {
