@@ -1,6 +1,8 @@
 const userService = require('../service/service.js')
 const validation = require('../utilities/validation');
+const {logger} = require('../../logger/logger')
 const mongoose = require('mongoose');
+
 
 class Controller {
   /**
@@ -67,6 +69,7 @@ class Controller {
       //Login Validations
       const loginValidation = validation.authLogin.validate(userLoginInfo);
       if (loginValidation.error) {
+        logger.error(loginValidation.error)
         res.status(400).send({
           success: false,
           message: loginValidation.error.message
@@ -82,6 +85,7 @@ class Controller {
           });
         }
         else {
+            logger.error("User logged in successfully")
             return res.status(200).json({
               success: true,
               message: 'User logged in successfully',
@@ -141,6 +145,13 @@ class Controller {
     }
         
   }
+
+  /**
+   * @description: Code for Reset Password
+   * @param {*} req 
+   * @param {*} res 
+   * @returns 
+   */
   resetPassword(req, res) { 
     try {
       const userPassword = {
