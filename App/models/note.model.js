@@ -85,6 +85,7 @@ class userModel {
         });
     }
     forgotPasswordModel = (emailCheckModel, callBack) => {
+        //To find a user email in the database
         user.findOne({email: emailCheckModel.email}, (error, data)=>{
             if (error) {
                 return callBack(error, null)
@@ -96,10 +97,12 @@ class userModel {
         })
     }
     resetPasswordModel = (PasswordModel, callBack) => {
+        //To find code in the database
         otp.findOne({code: PasswordModel.code}, (error, data) => {
             if(data){
                 if(PasswordModel.code == data.code){
                     PasswordModel.password = bcrypt.hashSync(PasswordModel.password, salt)
+                    //To update password in the database
                     user.updateOne({email: PasswordModel.email}, {$set: {password: PasswordModel.password}},(error, result)=>{
                         if(result){
                             return callBack(error,"Password Updated Successfully")

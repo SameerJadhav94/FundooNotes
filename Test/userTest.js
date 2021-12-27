@@ -285,7 +285,7 @@ describe('forgot password', function () {
     
 })
 describe("Reset Password", function () {
-    it.only("should return status 200 when reset password api is called", (done) => {
+    it("should return status 200 when reset password api is called", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -298,7 +298,7 @@ describe("Reset Password", function () {
             done();
         })
     })
-    it.only("should return status 400 when password does not gets validated", (done) => {
+    it("should return status 400 when password does not gets validated", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -311,7 +311,7 @@ describe("Reset Password", function () {
             done();
         })
     })
-    it.only("should return status 200 when password gets validated", (done) => {
+    it("should return status 200 when password gets validated", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -324,7 +324,7 @@ describe("Reset Password", function () {
             done();
         })
     })
-    it.only("should return status 200 when gets callback from service", (done) => {
+    it("should return status 200 when gets callback from service", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -337,7 +337,7 @@ describe("Reset Password", function () {
             done();
         })
     })
-    it.only("should return status 400 when gets invalid callback from service", (done) => {
+    it("should return status 400 when gets invalid callback from service", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -350,7 +350,7 @@ describe("Reset Password", function () {
             done();
         })
     })
-    it.only("should return status 200 when gets callback from model", (done) => {
+    it("should return status 200 when gets callback from model", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -363,7 +363,7 @@ describe("Reset Password", function () {
             done();
         })
     })
-    it.only("should return status 200 when Otp maches with database", (done) => {
+    it("should return status 200 when Otp maches with database", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -376,7 +376,7 @@ describe("Reset Password", function () {
             done();
         })
     })
-    it.only("should return status 400 when Otp does not maches with database", (done) => {
+    it("should return status 400 when Otp does not maches with database", (done) => {
         chai.request(server)
         .patch('/resetPassword')
         .send({
@@ -390,4 +390,16 @@ describe("Reset Password", function () {
         })
     })
     
+})
+//Test cases for Create note
+describe('Create note', function(){
+    it.only("should return status response 200 when create note is called", (done) =>{
+        chai.request(server)
+        .post('/createNote')
+        .send({})
+        .end((req, res) => {
+            res.should.have.status(200);
+            done();
+        })
+    })
 })
