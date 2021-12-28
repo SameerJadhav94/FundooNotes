@@ -610,4 +610,17 @@ describe("Get Note",()=>{
         })
         
     }))
+    it.only("should return status 200 when id gets validated", (done =>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .get('/getNote')
+        .set({authorization: tokenCheck})
+        .send("61c526d03a2f81b7cfa32a9a")
+        .end((err, res)=>{
+            res.should.have.status(200);
+            return done();
+        })
+        
+    }))
+    
 })

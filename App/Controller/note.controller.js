@@ -40,11 +40,33 @@ class NoteController{
     }
 
     getNote = (req, res) => {
-        return res.status(200).send({
-            success: true,
-            message: "Here is your note"
-        })
+        try {
+            const userId = {
+                id: req.user._id
+            }
+    
+            const getNoteValidation = validation.getNoteValidation.validate(userId)
+            if (getNoteValidation.error) {
+                return res.status(400).send({
+                    success: false,
+                    message: "Could not find note"
+                })
+            }
+            else{
+                return res.status(200).send({
+                    success: true,
+                    message: "Here is your note"
+                })
+            }
+            
+        }catch(error) {
+            return res.status(500).send({
+                success: false,
+                message: "Internal Server Error"
+            })
+        }
     }
+        
 }
 
 module.exports = new NoteController();
