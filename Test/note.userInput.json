@@ -44,8 +44,8 @@
             "description": "Test session"
         },
         "invalidNote":{
-            "title": "T",
-            "description": "Test session"
+            "title": "Test",
+            "description": ""
         }
     }
 } 
