@@ -394,12 +394,33 @@ describe("Reset Password", function () {
 //Test cases for Create note
 describe('Create note', function(){
     it.only("should return status response 200 when create note is called", (done) =>{
+        const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .post('/createNote')
-        .send({})
-        .end((req, res) => {
-            res.should.have.status(200);
-            done();
+        .set({authorization: tokenCheck})
+        .send({tokenCheck})
+        .end((err, res) => {
+            if (err) {
+                console.log("plz check your credential");
+                return done();
+              }
+              res.should.have.status(201);
+              return done();
+        })
+    })
+    it.only("should return status response 200 when token gets validated", (done) =>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .post('/createNote')
+        .set({authorization: tokenCheck})
+        .send({tokenCheck})
+        .end((err, res) => {
+            if (err) {
+                console.log("plz check your credential");
+                return done();
+              }
+              res.should.have.status(201);
+              return done();
         })
     })
 })
