@@ -50,5 +50,8 @@ class userService {
       }
     })
   }
+  createNote = (checkNote, callback)=>{
+    callback(null,checkNote);
+  }
 }
 module.exports = new userService();

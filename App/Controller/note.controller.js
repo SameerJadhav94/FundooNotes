@@ -1,4 +1,5 @@
 const validation = require('../utilities/validation');
+const userService = require('../service/service.js')
 class NoteController{
     createNote = (req, res) => {
         try{
@@ -15,17 +16,20 @@ class NoteController{
                     data: noteValidator
                 })
             }
-            if (note) {
-                return res.status(201).send({
-                    success: true,
-                    message: "Token verified successfully"
-                });
-            }else{
-                return res.status(400).send({
-                    success: false,
-                    message: "Wrong Input"
-                });
-            }  
+            userService.createNote(note, (error, data) => {
+                if (error) {
+                    return res.status(400).send({
+                        success: false,
+                        message: "Please Give Input Properly"
+                    });
+                }else{  
+                    return res.status(201).send({
+                        success: true,
+                        message: "Note Created Successfully"
+                    });
+                }
+            })
+              
         }catch(error) {
             return res.status(500).send({
                 success: false,
