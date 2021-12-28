@@ -566,5 +566,21 @@ describe('Create note', function(){
               return done();
         })
     })
+    it.only("should return status response 400 when note does not gets created", (done) =>{
+        const tokenCheck = Data.testData.token.authToken
+        const noteCheck = Data.testData.invalidNote
+        chai.request(server)
+        .post('/createNote')
+        .set({authorization: tokenCheck})
+        .send(noteCheck)
+        .end((err, res) => {
+            if (err) {
+                console.log("plz check your credential");
+                return done();
+              }
+              res.should.have.status(400);
+              return done();
+        })
+    })
 
 })
