@@ -38,6 +38,13 @@ class NoteController{
         }
         
     }
+
+    getNote = (req, res) => {
+        return res.status(200).send({
+            success: true,
+            message: "Here is your note"
+        })
+    }
 }
 
 module.exports = new NoteController();

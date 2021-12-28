@@ -14,4 +14,6 @@ module.exports = (app) => {
 
   //api for Create Note
   app.post('/createNote',helper.validateToken ,noteController.createNote);
+  //api for Get Note
+  app.get('/getNote',noteController.getNote);
 } 
