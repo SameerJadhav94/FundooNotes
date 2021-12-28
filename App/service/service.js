@@ -51,7 +51,14 @@ class userService {
     })
   }
   createNote = (checkNote, callback)=>{
-    callback(null,checkNote);
+    userModel.createNoteModel(checkNote, (err, data) =>{
+      if (err) {
+        callback(err, null)
+      }
+      else{
+        callback(null, data)
+      }
+    })
   }
 }
 module.exports = new userService();

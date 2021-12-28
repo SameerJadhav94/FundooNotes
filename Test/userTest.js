@@ -518,5 +518,21 @@ describe('Create note', function(){
               return done();
         })
     })
+    it.only("should return status response 201 when gets callback from model", (done) =>{
+        const tokenCheck = Data.testData.token.authToken
+        const noteCheck = Data.testData.note
+        chai.request(server)
+        .post('/createNote')
+        .set({authorization: tokenCheck})
+        .send(noteCheck)
+        .end((err, res) => {
+            if (err) {
+                console.log("plz check your credential");
+                return done();
+              }
+              res.should.have.status(201);
+              return done();
+        })
+    })
 
 })

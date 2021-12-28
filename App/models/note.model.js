@@ -119,5 +119,9 @@ class userModel {
             }
         })
     }
+
+    createNoteModel = (noteModel, callBack) => {
+        callBack(null, noteModel)
+    }
 }
 module.exports = new userModel();
