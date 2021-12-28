@@ -586,10 +586,24 @@ describe('Create note', function(){
 })
 
 describe("Get Note",()=>{
-    it.only("should return status 200 getNote API is called", (done =>{
+    it.only("should return status 200 when get Note API is called", (done =>{
+        const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get('/getNote')
-        .send()
+        .set({authorization: tokenCheck})
+        .send({tokenCheck})
+        .end((err, res)=>{
+            res.should.have.status(200);
+            return done();
+        })
+        
+    }))
+    it.only("should return status 200 when token gets validated", (done =>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .get('/getNote')
+        .set({authorization: tokenCheck})
+        .send({tokenCheck})
         .end((err, res)=>{
             res.should.have.status(200);
             return done();
