@@ -423,4 +423,19 @@ describe('Create note', function(){
               return done();
         })
     })
+    it.only("should return status response 400 when token does not gets validated", (done) =>{
+        const tokenCheck = Data.testData.token.unAuthToken
+        chai.request(server)
+        .post('/createNote')
+        .set({authorization: tokenCheck})
+        .send({tokenCheck})
+        .end((err, res) => {
+            if (err) {
+                console.log("plz check your credential");
+                return done();
+              }
+              res.should.have.status(400);
+              return done();
+        })
+    })
 })
