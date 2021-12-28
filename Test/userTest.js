@@ -393,7 +393,7 @@ describe("Reset Password", function () {
 })
 //Test cases for Create note
 describe('Create note', function(){
-    it.only("should return status response 200 when create note is called", (done) =>{
+    it("should return status response 200 when create note is called", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .post('/createNote')
@@ -408,7 +408,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 200 when token gets validated", (done) =>{
+    it("should return status response 200 when token gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .post('/createNote')
@@ -423,7 +423,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 400 when token does not gets validated", (done) =>{
+    it("should return status response 400 when token does not gets validated", (done) =>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .post('/createNote')
@@ -435,6 +435,22 @@ describe('Create note', function(){
                 return done();
               }
               res.should.have.status(400);
+              return done();
+        })
+    })
+    it.only("should return status response 200 when note gets validated", (done) =>{
+        const tokenCheck = Data.testData.token.authToken
+        const noteCheck = Data.testData.note
+        chai.request(server)
+        .post('/createNote')
+        .set({authorization: tokenCheck})
+        .send(noteCheck)
+        .end((err, res) => {
+            if (err) {
+                console.log("plz check your credential");
+                return done();
+              }
+              res.should.have.status(201);
               return done();
         })
     })

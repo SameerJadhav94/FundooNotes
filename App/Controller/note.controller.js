@@ -1,8 +1,21 @@
+const validation = require('../utilities/validation');
 class NoteController{
     createNote = (req, res) => {
-        const  token = req.user;
         try{
-            if (token) {
+            const  note = {
+                id: req.user._id,
+                title: req.body.title,
+                description: req.body.description
+            }
+            const noteValidator = validation.createNoteValidation.validate(note);
+            if(noteValidator.error){
+                return res.status(400).send({
+                    message:"Wrong input validation",
+                    success: false,
+                    data: noteValidator
+                })
+            }
+            if (note) {
                 return res.status(201).send({
                     success: true,
                     message: "Token verified successfully"
