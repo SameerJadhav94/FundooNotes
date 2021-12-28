@@ -1,4 +1,5 @@
-const userModel = require('../models/note.model.js')
+const userModel = require('../models/model.js')
+const userNoteModel = require('../models/note.model')
 const encryption = require('../utilities/encryption')
 const nodemailer = require('./nodeMailer')
 class userService {
@@ -51,7 +52,7 @@ class userService {
     })
   }
   createNote = (checkNote, callback)=>{
-    userModel.createNoteModel(checkNote, (err, data) =>{
+    userNoteModel.createNoteModel(checkNote, (err, data) =>{
       if (err) {
         callback(err, null)
       }

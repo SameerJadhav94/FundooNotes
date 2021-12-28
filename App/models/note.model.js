@@ -1,127 +1,42 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const res = require('express/lib/response');
-const otp = require('./oneTimePassword')
-const salt = bcrypt.genSaltSync(12);
-
-const userSchema = mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true
+const noteSchema = mongoose.Schema({
+    id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
-    lastName: {
-        type: String,
-        required: true
-    },
-    email: {
+    title: {
         type: String,
         required: true,
-        unique: true,
+        minLength: 2
     },
-    password: {
+    description: {
         type: String,
         required: true,
+        minLength: 1
     },
-    tokens: [{
-        token: {
-            type: String,
-            required: true
-        }
-    }]
-},
-    {
-        timestamps: true
-    })
-
-userSchema.pre('save', async function (next) {
-    if (this.isModified('password')) {
-        this.password = bcrypt.hashSync(this.password, salt)
-    }
-    next();
+}, {
+    timestamps: true,
 })
 
-userSchema.methods.generateAuthToken = async function () {
-    try {
-        let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY, { expiresIn: '24H' })
-        this.tokens = this.tokens.concat({ token: token });
-        await this.save();
-        return token;
-    } catch (err) {
-        res.status(500).json({ message: 'Cannot generate auth token', err })
-    }
-}
+const Note = mongoose.model('FundooNote', noteSchema);
 
-const user = mongoose.model('note', userSchema);
+class NoteModel{
+    createNoteModel = (noteModel, callBack) => {
+        const fundooNote = new Note();
+        fundooNote.id = noteModel.id,
+        fundooNote.title = noteModel.title,
+        fundooNote.description = noteModel.description
 
-class userModel {
-
-    registerUser = (userDetails, callback) => {
-        const newUser = new user();
-        newUser.firstName = userDetails.firstName;
-        newUser.lastName = userDetails.lastName;
-        newUser.email = userDetails.email;
-        newUser.password = userDetails.password;
-
-        newUser.save()
-            .then(data => {
-                callback(null, data);
-            })
-            .catch(err => {
-                callback({ message: "Error while Storing User Details in DataBase" }, null);
-            })
-    };
-
-    loginModel = (loginData, callBack) => {
-        //To find a user email in the database
-        user.findOne({ email: loginData.email }, (error, data) => {
-            if (error) {
-                return callBack(error, null);
-            } else if (!data) {
-                return callBack("Invalid Credential", null);
-            } else {
-                return callBack(null, data);
+        fundooNote.save((err, data) =>{
+            if(err){
+                return callBack(err, null)
             }
-        });
-    }
-    forgotPasswordModel = (emailCheckModel, callBack) => {
-        //To find a user email in the database
-        user.findOne({email: emailCheckModel.email}, (error, data)=>{
-            if (error) {
-                return callBack(error, null)
-            }else if(!data){
-                return callBack("Enter valid email", null)
-            }else{
+            else{
                 return callBack(null, data)
             }
         })
     }
-    resetPasswordModel = (PasswordModel, callBack) => {
-        //To find code in the database
-        otp.findOne({code: PasswordModel.code}, (error, data) => {
-            if(data){
-                if(PasswordModel.code == data.code){
-                    PasswordModel.password = bcrypt.hashSync(PasswordModel.password, salt)
-                    //To update password in the database
-                    user.updateOne({email: PasswordModel.email}, {$set: {password: PasswordModel.password}},(error, result)=>{
-                        if(result){
-                            return callBack(error,"Password Updated Successfully")
-                        }
-                        else{
-                            return callBack("Error while updating password",null)
-                        }
-                    })
-                }else{
-                    return callBack("User Not Found",null)
-                }
-            }else{
-                return callBack("Credential does not match",null)
-            }
-        })
-    }
-
-    createNoteModel = (noteModel, callBack) => {
-        callBack(null, noteModel)
-    }
 }
-module.exports = new userModel();
+ 
+module.exports = new NoteModel();
+
