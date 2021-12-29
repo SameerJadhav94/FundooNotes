@@ -666,6 +666,16 @@ describe("Get Note",()=>{
         })
         
     }))
-
+    it.only("should return status 200 if id gets checked and matched with the database", (done =>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .get('/getNote')
+        .set({authorization: tokenCheck})
+        .end((err, res)=>{
+            res.should.have.status(200);
+            return done();
+        })
+        
+    }))
     
 })
