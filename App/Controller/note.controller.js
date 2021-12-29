@@ -4,7 +4,7 @@ class NoteController{
     createNote = (req, res) => {
         try{
             const  note = {
-                id: req.user._id,
+                userId: req.user.tokenData.id,
                 title: req.body.title,
                 description: req.body.description
             }
@@ -42,11 +42,11 @@ class NoteController{
 
     getNote = (req, res) => {
         try {
-            const userId = {
-                id: req.user._id
+            const id = {
+                id: req.user.tokenData.id
             }
     
-            const getNoteValidation = validation.getNoteValidation.validate(userId)
+            const getNoteValidation = validation.getNoteValidation.validate(id)
             if (getNoteValidation.error) {
                 return res.status(400).send({
                     success: false,
@@ -54,7 +54,7 @@ class NoteController{
                 })
             }
 
-            userService.getNote(userId, (error, data)=>{
+            userService.getNote(id, (error, data)=>{
                 if (error) {
                     return res.status(400).send({
                         success: false,

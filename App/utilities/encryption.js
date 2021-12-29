@@ -7,6 +7,18 @@ class helperClass {
         return bcrypt.compareSync(password, result);
     }
 
+    token = (data) => {
+        const tokenData = {
+          id: data.id,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          password: data.password,
+          email: data.email
+        };
+        return jwt.sign({ tokenData }, process.env.SECRET_KEY, { expiresIn: "50H" });
+      }
+
+
     validateToken = (req, res, next) => {
         const header = req.headers.authorization;
         const myArray = header.split(" ");

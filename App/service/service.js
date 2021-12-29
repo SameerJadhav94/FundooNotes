@@ -1,5 +1,5 @@
-const userModel = require('../models/model.js')
-const userNoteModel = require('../models/note.model')
+const userModel = require('../models/model.js').UserModel
+const userNoteModel = require('../models/note.model').NoteModel
 const encryption = require('../utilities/encryption')
 const nodemailer = require('./nodeMailer')
 class userService {
@@ -21,7 +21,7 @@ class userService {
           return callback("Error ocurred", null);
         }
         else {
-          const token = data.generateAuthToken();
+          const token = encryption.token(data)
           return callback(null, token);
         }
 

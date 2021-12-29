@@ -394,7 +394,7 @@ describe("Reset Password", function () {
 })
 //Test cases for Create note
 describe('Create note', function(){
-    it.only("should return status response 200 when create note is called", (done) =>{
+    it("should return status response 200 when create note is called", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const fakeNote = {
             title: faker.lorem.word(),
@@ -413,7 +413,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 200 when token gets validated", (done) =>{
+    it("should return status response 200 when token gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const fakeNote = {
             title: faker.lorem.word(),
@@ -432,7 +432,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 400 when token does not gets validated", (done) =>{
+    it("should return status response 400 when token does not gets validated", (done) =>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .post('/createNote')
@@ -447,7 +447,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 200 when note gets validated", (done) =>{
+    it("should return status response 200 when note gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const fakeNote = {
             title: faker.lorem.word(),
@@ -466,7 +466,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 400 when note title does not gets validated", (done) =>{
+    it("should return status response 400 when note title does not gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -482,7 +482,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 400 when note description does not gets validated", (done) =>{
+    it("should return status response 400 when note description does not gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -498,7 +498,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 200 when gets callback from service", (done) =>{
+    it("should return status response 200 when gets callback from service", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const fakeNote = {
             title: faker.lorem.word(),
@@ -517,7 +517,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 400 when get invalid callback from service", (done) =>{
+    it("should return status response 400 when get invalid callback from service", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -533,7 +533,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 201 when gets callback from model", (done) =>{
+    it("should return status response 201 when gets callback from model", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const fakeNote = {
             title: faker.lorem.word(),
@@ -552,7 +552,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 400 when get invalid callback from model", (done) =>{
+    it("should return status response 400 when get invalid callback from model", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -568,7 +568,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 201 when note gets created", (done) =>{
+    it("should return status response 201 when note gets created", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const fakeNote = {
             title: faker.lorem.word(),
@@ -587,7 +587,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it.only("should return status response 400 when note does not gets created", (done) =>{
+    it("should return status response 400 when note does not gets created", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)

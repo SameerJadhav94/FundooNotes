@@ -57,7 +57,7 @@ class Validation{
         }) 
         createNoteValidation = 
         Joi.object({
-            id: Joi.string(),
+            userId: Joi.string(),
             title: Joi.string().min(2).required(),
             description: Joi.string().min(1).required()
         })

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const res = require('express/lib/response');
 const otp = require('./oneTimePassword')
 const salt = bcrypt.genSaltSync(12);
 
@@ -23,12 +21,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    tokens: [{
-        token: {
-            type: String,
-            required: true
-        }
-    }]
 },
     {
         timestamps: true
@@ -40,17 +32,6 @@ userSchema.pre('save', async function (next) {
     }
     next();
 })
-
-userSchema.methods.generateAuthToken = async function () {
-    try {
-        let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY, { expiresIn: '24H' })
-        this.tokens = this.tokens.concat({ token: token });
-        await this.save();
-        return token;
-    } catch (err) {
-        res.status(500).json({ message: 'Cannot generate auth token', err })
-    }
-}
 
 const user = mongoose.model('note', userSchema);
 
@@ -122,4 +103,4 @@ class userModel {
 
     
 }
-module.exports = new userModel();
+module.exports = {UserModel: new userModel(), userDB: user}
