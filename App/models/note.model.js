@@ -36,6 +36,10 @@ class NoteModel{
             }
         })
     }
+
+    getNoteModel = (getNote, callBack) => {
+        callBack(null, getNote)
+    }
 }
  
 module.exports = new NoteModel();

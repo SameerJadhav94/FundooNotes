@@ -622,7 +622,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 200 when id gets authenticated, when getting callback from service", (done =>{
+    it.only("should return status 200 if id gets authenticated, when getting callback from service", (done =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get('/getNote')
@@ -633,13 +633,24 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 400 when id does not gets authenticated, when getting callback from service", (done =>{
+    it.only("should return status 400 if id does not gets authenticated, when getting callback from service", (done =>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .get('/getNote')
         .set({authorization: tokenCheck})
         .end((err, res)=>{
             res.should.have.status(400);
+            return done();
+        })
+        
+    }))
+    it.only("should return status 200 if id gets authenticated, when getting callback from model", (done =>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .get('/getNote')
+        .set({authorization: tokenCheck})
+        .end((err, res)=>{
+            res.should.have.status(200);
             return done();
         })
         

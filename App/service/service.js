@@ -62,8 +62,15 @@ class userService {
     })
   }
 
-  getNote = (checkNote, callback)=>{
-    callback(null, checkNote)
+  getNote = (checkId, callback)=>{
+    userNoteModel.getNoteModel(checkId, (err, data) =>{
+      if (data) {
+        callback(null, data)
+      }
+      else {
+        callback(err, null)
+      }
+    }) 
   }
 }
 module.exports = new userService();
