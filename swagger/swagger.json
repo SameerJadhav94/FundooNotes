@@ -187,6 +187,42 @@
                     }
                 }
             }
+        },
+        "/getNote": {
+            "get": {
+                "tags": [
+                    "Get Notes for User"
+                ],
+                "description": "Get note...",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for authentication",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "schema": {
+                    "$ref": "#/definitions/getNote"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Retrieved notes succesfully."
+                    },
+                    "401": {
+                        "description": "Please enter Valid Token..."
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }    
     },
     "definitions": {
@@ -249,6 +285,21 @@
                 "description": {
                     "type": "string"
                 }
+            }
+        },
+        "getNote": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "title": "Write a title ",
+                "description": "Write a description "
             }
         }
     }
