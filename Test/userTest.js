@@ -655,6 +655,17 @@ describe("Get Note",()=>{
         })
         
     }))
+    it.only("should return status 400 if id does not gets authenticated, when getting invalid callback from model", (done =>{
+        const tokenCheck = Data.testData.token.unAuthToken
+        chai.request(server)
+        .get('/getNote')
+        .set({authorization: tokenCheck})
+        .end((err, res)=>{
+            res.should.have.status(400);
+            return done();
+        })
+        
+    }))
 
     
 })
