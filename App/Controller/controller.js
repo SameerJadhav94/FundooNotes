@@ -24,6 +24,7 @@ class Controller {
       // Registration validation
       const registerValidation = validation.authRegister.validate(user);
       if (registerValidation.error) {
+        logger.error(registerValidation.error)
         return res.status(400).send({
           success: false,
           message: 'Wrong Input Validations',
@@ -33,11 +34,13 @@ class Controller {
 
       userService.registerUser(user, (error, data) => {
         if (error) {
+          logger.error("User already exist")
           return res.status(400).json({
             success: false,
             message: 'User already exist',
           });
         } else {
+          logger.info("User Registered")
           return res.status(200).json({
             success: true,
             message: "User Registered",
@@ -78,6 +81,7 @@ class Controller {
 
       userService.userLogin(userLoginInfo, (error, data) => {
         if (error) {
+          logger.error("Unable to login. Please enter correct info")
           return res.status(400).json({
             success: false,
             message: 'Unable to login. Please enter correct info',
@@ -85,7 +89,7 @@ class Controller {
           });
         }
         else {
-            logger.error("User logged in successfully")
+            logger.info("User logged in successfully")
             return res.status(200).json({
               success: true,
               message: 'User logged in successfully',
@@ -115,6 +119,7 @@ class Controller {
       }
       const emailValidation = validation.authForgotPassword.validate(userEmail)
       if (emailValidation.error) {
+        logger.error(emailValidation.error)
         return res.status(400).send({
           success: false,
           message: 'Wrong Input Validations',
@@ -129,6 +134,7 @@ class Controller {
           });
         }
         else{
+          logger.info("email sent successfully")
           return res.status(200).json({
             success: true,
             message: "email sent successfully",
@@ -137,6 +143,7 @@ class Controller {
         }
       })
     }catch (error) {
+      logger.error("Error While Sending Email")
       return res.status(500).json({
         success: false, message: "Error While Sending Email",
         data: null,
@@ -160,6 +167,7 @@ class Controller {
       }
       const passwordValidation = validation.authResetPassword.validate(userPassword)
       if (passwordValidation.error) {
+        logger.error(passwordValidation.error)
         return res.status(400).send({
           success: false,
           message: 'Wrong Input Validations',
@@ -167,12 +175,14 @@ class Controller {
       }
       userService.userResetPassword(userPassword, (error, data) => {
         if (error) {
+          logger.error("Please Insert Password Properly")
           return res.status(400).send({
             success: false,
             message: 'Please Insert Password Properly',
           })
         }
         else {
+          logger.info("Password Reset Successfully")
           return res.status(200).json({
             success: true,
             message: 'Password Reset Successfully',
@@ -182,6 +192,7 @@ class Controller {
       })     
     }
     catch (error) {
+      logger.error("Error While Resetting Password")
       return res.status(500).json({
         success: false, message: "Error While Resetting Password",
         data: null
