@@ -146,7 +146,48 @@
                     }
                 }
             }
-        }
+        },
+        "/createNote": {
+            "post": {
+                "tags": [
+                    "Create Note API"
+                ],
+                "description": "Create Note",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token for validation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "name": "create note",
+                        "in": "body",
+                        "description": "Note's body",
+                        "schema": {
+                            "$ref": "#/definitions/createNote"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Create note succesfully !!"
+                    },
+                    "400": {
+                        "description": "Please enter Valid Token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }    
     },
     "definitions": {
         "registerUser": {
@@ -195,6 +236,17 @@
                     "type": "string"
                 },
                 "code": {
+                    "type": "string"
+                }
+            }
+        },
+        "createNote": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
                     "type": "string"
                 }
             }

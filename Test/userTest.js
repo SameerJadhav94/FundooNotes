@@ -394,12 +394,16 @@ describe("Reset Password", function () {
 })
 //Test cases for Create note
 describe('Create note', function(){
-    it("should return status response 200 when create note is called", (done) =>{
+    it.only("should return status response 200 when create note is called", (done) =>{
         const tokenCheck = Data.testData.token.authToken
+        const fakeNote = {
+            title: faker.lorem.word(),
+            description: faker.lorem.word()
+        }
         chai.request(server)
         .post('/createNote')
         .set({authorization: tokenCheck})
-        .send({tokenCheck})
+        .send(fakeNote)
         .end((err, res) => {
             if (err) {
                 console.log("plz check your credential");
@@ -409,12 +413,16 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 200 when token gets validated", (done) =>{
+    it.only("should return status response 200 when token gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
+        const fakeNote = {
+            title: faker.lorem.word(),
+            description: faker.lorem.word()
+        }
         chai.request(server)
         .post('/createNote')
         .set({authorization: tokenCheck})
-        .send({tokenCheck})
+        .send(fakeNote)
         .end((err, res) => {
             if (err) {
                 console.log("plz check your credential");
@@ -424,7 +432,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 400 when token does not gets validated", (done) =>{
+    it.only("should return status response 400 when token does not gets validated", (done) =>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .post('/createNote')
@@ -439,13 +447,16 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 200 when note gets validated", (done) =>{
+    it.only("should return status response 200 when note gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
-        const noteCheck = Data.testData.note
+        const fakeNote = {
+            title: faker.lorem.word(),
+            description: faker.lorem.word()
+        }
         chai.request(server)
         .post('/createNote')
         .set({authorization: tokenCheck})
-        .send(noteCheck)
+        .send(fakeNote)
         .end((err, res) => {
             if (err) {
                 console.log("plz check your credential");
@@ -455,7 +466,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 400 when note title does not gets validated", (done) =>{
+    it.only("should return status response 400 when note title does not gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -471,7 +482,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 400 when note description does not gets validated", (done) =>{
+    it.only("should return status response 400 when note description does not gets validated", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -487,13 +498,16 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 200 when gets callback from service", (done) =>{
+    it.only("should return status response 200 when gets callback from service", (done) =>{
         const tokenCheck = Data.testData.token.authToken
-        const noteCheck = Data.testData.note
+        const fakeNote = {
+            title: faker.lorem.word(),
+            description: faker.lorem.word()
+        }
         chai.request(server)
         .post('/createNote')
         .set({authorization: tokenCheck})
-        .send(noteCheck)
+        .send(fakeNote)
         .end((err, res) => {
             if (err) {
                 console.log("plz check your credential");
@@ -503,7 +517,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 400 when get invalid callback from service", (done) =>{
+    it.only("should return status response 400 when get invalid callback from service", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -519,13 +533,16 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 201 when gets callback from model", (done) =>{
+    it.only("should return status response 201 when gets callback from model", (done) =>{
         const tokenCheck = Data.testData.token.authToken
-        const noteCheck = Data.testData.note
+        const fakeNote = {
+            title: faker.lorem.word(),
+            description: faker.lorem.word()
+        }
         chai.request(server)
         .post('/createNote')
         .set({authorization: tokenCheck})
-        .send(noteCheck)
+        .send(fakeNote)
         .end((err, res) => {
             if (err) {
                 console.log("plz check your credential");
@@ -535,7 +552,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 400 when get invalid callback from model", (done) =>{
+    it.only("should return status response 400 when get invalid callback from model", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -551,13 +568,16 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 201 when note gets created", (done) =>{
+    it.only("should return status response 201 when note gets created", (done) =>{
         const tokenCheck = Data.testData.token.authToken
-        const noteCheck = Data.testData.note
+        const fakeNote = {
+            title: faker.lorem.word(),
+            description: faker.lorem.word()
+        }
         chai.request(server)
         .post('/createNote')
         .set({authorization: tokenCheck})
-        .send(noteCheck)
+        .send(fakeNote)
         .end((err, res) => {
             if (err) {
                 console.log("plz check your credential");
@@ -567,7 +587,7 @@ describe('Create note', function(){
               return done();
         })
     })
-    it("should return status response 400 when note does not gets created", (done) =>{
+    it.only("should return status response 400 when note does not gets created", (done) =>{
         const tokenCheck = Data.testData.token.authToken
         const noteCheck = Data.testData.invalidNote
         chai.request(server)
@@ -586,7 +606,7 @@ describe('Create note', function(){
 })
 
 describe("Get Note",()=>{
-    it.only("should return status 200 when get Note API is called", (done =>{
+    it("should return status 200 when get Note API is called", (done =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get('/getNote')
@@ -598,7 +618,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 200 when token gets validated", (done =>{
+    it("should return status 200 when token gets validated", (done =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get('/getNote')
@@ -622,7 +642,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 200 if id gets authenticated, when getting callback from service", (done =>{
+    it("should return status 200 if id gets authenticated, when getting callback from service", (done =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get('/getNote')
@@ -633,7 +653,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 400 if id does not gets authenticated, when getting callback from service", (done =>{
+    it("should return status 400 if id does not gets authenticated, when getting callback from service", (done =>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .get('/getNote')
@@ -644,7 +664,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 200 if id gets authenticated, when getting callback from model", (done =>{
+    it("should return status 200 if id gets authenticated, when getting callback from model", (done =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get('/getNote')
@@ -655,7 +675,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 400 if id does not gets authenticated, when getting invalid callback from model", (done =>{
+    it("should return status 400 if id does not gets authenticated, when getting invalid callback from model", (done =>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .get('/getNote')
@@ -666,7 +686,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 200 if id gets checked and matched with the database", (done =>{
+    it("should return status 200 if id gets checked and matched with the database", (done =>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get('/getNote')
@@ -677,7 +697,7 @@ describe("Get Note",()=>{
         })
         
     }))
-    it.only("should return status 400 if id gets checked and does not matched with the database", (done =>{
+    it("should return status 400 if id gets checked and does not matched with the database", (done =>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .get('/getNote')
@@ -687,6 +707,5 @@ describe("Get Note",()=>{
             return done();
         })
         
-    }))
-    
+    }))   
 })

@@ -25,7 +25,8 @@ class NoteController{
                 }else{  
                     return res.status(201).send({
                         success: true,
-                        message: "Note Created Successfully"
+                        message: "Note Created Successfully",
+                        data: data
                     });
                 }
             })
@@ -62,7 +63,8 @@ class NoteController{
                 }else{
                     return res.status(200).send({
                         success: true,
-                        message: "Here is your note"
+                        message: "Here is your note",
+                        data: data
                     })
                 }
             })
