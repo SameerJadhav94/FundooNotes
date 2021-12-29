@@ -49,15 +49,23 @@ class NoteController{
             if (getNoteValidation.error) {
                 return res.status(400).send({
                     success: false,
-                    message: "Could not find note"
+                    message: "Validation error"
                 })
             }
-            else{
-                return res.status(200).send({
-                    success: true,
-                    message: "Here is your note"
-                })
-            }
+
+            userService.getNote(userId, (error, data)=>{
+                if (error) {
+                    return res.status(400).send({
+                        success: false,
+                        message: "Could not find note"
+                    })
+                }else{
+                    return res.status(200).send({
+                        success: true,
+                        message: "Here is your note"
+                    })
+                }
+            })
             
         }catch(error) {
             return res.status(500).send({
