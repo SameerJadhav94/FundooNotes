@@ -907,6 +907,18 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
+    it.only("should return status 400 when does not gets valid callback from model", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        const mynote = Data.testData.invalidNote
+        chai.request(server)
+        .put("/updateNoteById/:id")
+        .set({authorization: tokenCheck})
+        .send(mynote)
+        .end((err, res)=>{
+            res.should.have.status(400)
+            done();
+        })
+    })
 
     
 })
