@@ -808,7 +808,7 @@ describe("Update Note By Id", ()=>{
     it.only("should return status 200 when Update Note API is called", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .put("/updateNoteById/:id")
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
         .set({authorization: tokenCheck})
         .end((err, res)=>{
             res.should.have.status(200)
@@ -828,7 +828,7 @@ describe("Update Note By Id", ()=>{
     it.only("should return status 200 when token is authenticated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .put("/updateNoteById/:id")
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
         .set({authorization: tokenCheck})
         .end((err, res)=>{
             res.should.have.status(200)
@@ -839,7 +839,7 @@ describe("Update Note By Id", ()=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.note
         chai.request(server)
-        .put("/updateNoteById/:id")
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
         .set({authorization: tokenCheck})
         .send(mynote)
         .end((err, res)=>{
@@ -875,7 +875,7 @@ describe("Update Note By Id", ()=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.note
         chai.request(server)
-        .put("/updateNoteById/:id")
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
         .set({authorization: tokenCheck})
         .send(mynote)
         .end((err, res)=>{
@@ -899,7 +899,7 @@ describe("Update Note By Id", ()=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.note
         chai.request(server)
-        .put("/updateNoteById/:id")
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
         .set({authorization: tokenCheck})
         .send(mynote)
         .end((err, res)=>{
@@ -916,6 +916,21 @@ describe("Update Note By Id", ()=>{
         .send(mynote)
         .end((err, res)=>{
             res.should.have.status(400)
+            done();
+        })
+    })
+    it.only("should return status 200 when note gets updated in DB", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        const mynote = {
+            title: "Refactor",
+            description: "Updating Note"
+        }
+        chai.request(server)
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
+        .set({authorization: tokenCheck})
+        .send(mynote)
+        .end((err, res)=>{
+            res.should.have.status(200)
             done();
         })
     })

@@ -73,7 +73,14 @@ class NoteModel{
     }
 
     updateNoteModel = (updateNote, callBack) => {
-        callBack(null, updateNote)
+        Note.findByIdAndUpdate(updateNote.id, {title: updateNote.title, description: updateNote.description},{new:true},(err, data) => {
+            if (err) {
+                return callBack(err, null);
+            }
+            else{
+                return callBack(null, data)
+            }
+        })
     }
 }
  
