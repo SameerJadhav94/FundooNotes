@@ -1,6 +1,7 @@
 const validation = require('../utilities/validation');
 const userService = require('../service/service.js')
-const {logger} = require('../../logger/logger')
+const {logger} = require('../../logger/logger');
+const { tr } = require('faker/lib/locales');
 class NoteController{
     createNote = (req, res) => {
         try{
@@ -78,6 +79,20 @@ class NoteController{
             
         }catch(error) {
             logger.error("Internal Server Error")
+            return res.status(500).send({
+                success: false,
+                message: "Internal Server Error"
+            })
+        }
+    }
+
+    getNoteById = (req, res) => {
+        try {
+            return res.status(200).send({
+                success:true, 
+                message:"Here are your notes matching your request"
+            })
+        }catch(error) {
             return res.status(500).send({
                 success: false,
                 message: "Internal Server Error"

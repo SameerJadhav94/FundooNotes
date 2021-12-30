@@ -709,3 +709,14 @@ describe("Get Note",()=>{
         
     }))   
 })
+
+describe("Get Note By Id", ()=>{
+    it.only("should return status 200 when get node by id is called", (done)=>{
+        chai.request(server)
+        .get("/getNoteById")
+        .end((err, res) => {
+            res.should.have.status(200)
+            return done();
+        })
+    })
+})
