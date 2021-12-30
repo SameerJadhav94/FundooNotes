@@ -121,6 +121,20 @@ class NoteController{
             })
         }
     }
+
+    updateNoteById = (req, res) => {
+        try {
+            return res.status(200).send({
+                success: true,
+                message: "Note Updated Successfully"
+            })
+        }catch(error) {
+            return res.status(500).send({
+                success: false,
+                message: "Internal Server Error"
+            })
+        }
+    }
         
 }
 

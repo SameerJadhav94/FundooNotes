@@ -712,7 +712,7 @@ describe("Get Note",()=>{
 
 describe("Get Note By Id", ()=>{
     
-    it.only("should return status 200 when get node by id is called", (done)=>{
+    it("should return status 200 when get node by id is called", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -722,7 +722,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 200 when token gets authenticated", (done)=>{
+    it("should return status 200 when token gets authenticated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -732,7 +732,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 400 when id gets validated for unAuthenticated Token token", (done)=>{
+    it("should return status 400 when id gets validated for unAuthenticated Token token", (done)=>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -742,7 +742,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 200 when id gets validated for Authenticated  token", (done)=>{
+    it("should return status 200 when id gets validated for Authenticated  token", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -752,7 +752,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 200 when gets valid callback from service", (done)=>{
+    it("should return status 200 when gets valid callback from service", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -762,7 +762,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 400 when gets invalid callback from service", (done)=>{
+    it("should return status 400 when gets invalid callback from service", (done)=>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -772,7 +772,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 200 when gets valid callback from model", (done)=>{
+    it("should return status 200 when gets valid callback from model", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -782,7 +782,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 400 when gets invalid callback from model", (done)=>{
+    it("should return status 400 when gets invalid callback from model", (done)=>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .get("/getNoteById/61cc51114e7834bcfb612e15")
@@ -792,7 +792,7 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
-    it.only("should return status 200 when gets valid callback from model", (done)=>{
+    it("should return status 200 when gets valid callback from model", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .get("/getNoteById/61ccefce5990a8fbc4560c94")
@@ -800,6 +800,19 @@ describe("Get Note By Id", ()=>{
         .end((err, res) => {
             res.should.have.status(200)
             return done();
+        })
+    })
+})
+
+describe("Update Note By Id", ()=>{
+    it.only("should return status 200 when Update Note API is called", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .put("/updateNoteById/:id")
+        .set({authorization: tokenCheck})
+        .end((err, res)=>{
+            res.should.have.status(200)
+            done();
         })
     })
 })
