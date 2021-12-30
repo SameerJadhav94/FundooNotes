@@ -715,7 +715,7 @@ describe("Get Note By Id", ()=>{
     it.only("should return status 200 when get node by id is called", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .get("/getNoteById/:id")
+        .get("/getNoteById/61cc51114e7834bcfb612e15")
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
@@ -725,7 +725,7 @@ describe("Get Note By Id", ()=>{
     it.only("should return status 200 when token gets authenticated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .get("/getNoteById/:id")
+        .get("/getNoteById/61cc51114e7834bcfb612e15")
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
@@ -789,6 +789,16 @@ describe("Get Note By Id", ()=>{
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(400)
+            return done();
+        })
+    })
+    it.only("should return status 200 when gets valid callback from model", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .get("/getNoteById/61ccefce5990a8fbc4560c94")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(200)
             return done();
         })
     })

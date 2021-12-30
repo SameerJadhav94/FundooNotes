@@ -63,7 +63,13 @@ class NoteModel{
     }
 
     getNoteByIDModel = (getNoteById, callBack) => {
-        callBack(null, getNoteById)
+        Note.find({userId: getNoteById.userId, _id: getNoteById.noteId}, (err, data) => {
+            if (data) {
+                callBack(null, data)
+            }else{
+                callBack(err, null)
+            }
+        })
     }
 }
  
