@@ -72,9 +72,16 @@ class userService {
       }
     }) 
   }
-  
+
   getNoteByID = (getNoteByid, callback)=>{
-    callback(null, getNoteByid)
+    userNoteModel.getNoteByIDModel(getNoteByid, (err, data)=>{
+      if (data) {
+        callback(null, data)
+      }
+      else{
+        callback (err, null)
+      }
+    })
   }
 }
 
