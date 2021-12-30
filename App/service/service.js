@@ -72,5 +72,10 @@ class userService {
       }
     }) 
   }
+  
+  getNoteByID = (getNoteByid, callback)=>{
+    callback(null, getNoteByid)
+  }
 }
+
 module.exports = new userService();

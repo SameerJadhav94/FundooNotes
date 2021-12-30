@@ -99,10 +99,20 @@ class NoteController{
                     message: "Wrong input validation"
                 });
             }
-            return res.status(200).send({
-                success:true, 
-                message:"Here are your notes matching your request"
-            })
+            userService.getNoteByID(id, (error, data)=>{
+                if (error) {
+                    return res.status(400).send({
+                        success: false,
+                        message: "Could not find note"
+                    });
+                }
+                else{
+                    return res.status(200).send({
+                        success:true, 
+                        message:"Here are your notes matching your request"
+                    })
+                }
+            })   
         }catch(error) {
             return res.status(500).send({
                 success: false,
