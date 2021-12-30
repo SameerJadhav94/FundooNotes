@@ -839,7 +839,7 @@ describe("Update Note By Id", ()=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.note
         chai.request(server)
-        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
+        .put("/updateNoteById/:id")
         .set({authorization: tokenCheck})
         .send(mynote)
         .end((err, res)=>{
@@ -847,5 +847,18 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
+    it.only("should return status 400 when title and description does not gets validated", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        const mynote = Data.testData.invalidNote
+        chai.request(server)
+        .put("/updateNoteById/:id")
+        .set({authorization: tokenCheck})
+        .send(mynote)
+        .end((err, res)=>{
+            res.should.have.status(400)
+            done();
+        })
+    })
+
     
 })
