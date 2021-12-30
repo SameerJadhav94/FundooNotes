@@ -85,7 +85,13 @@ class userService {
   }
 
   updateNote = (updateNote, callback)=>{
-    callback(null, updateNote)
+    userNoteModel.updateNoteModel(updateNote, (err, data)=>{
+      if (err) {
+        callback(err, null)
+      }else{
+        callback(null, data)
+      }
+    })
   }
 }
 

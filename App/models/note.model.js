@@ -71,6 +71,10 @@ class NoteModel{
             }
         })
     }
+
+    updateNoteModel = (updateNote, callBack) => {
+        callBack(null, updateNote)
+    }
 }
  
 module.exports = {NoteModel: new NoteModel(), NoteDataBase: Note};
