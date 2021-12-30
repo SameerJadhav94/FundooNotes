@@ -805,7 +805,7 @@ describe("Get Note By Id", ()=>{
 })
 
 describe("Update Note By Id", ()=>{
-    it.only("should return status 200 when Update Note API is called", (done)=>{
+    it("should return status 200 when Update Note API is called", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .put("/updateNoteById/61ccefce5990a8fbc4560c95")
@@ -815,7 +815,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when token is not authenticated", (done)=>{
+    it("should return status 400 when token is not authenticated", (done)=>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .put("/updateNoteById/:id")
@@ -825,7 +825,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when token is authenticated", (done)=>{
+    it("should return status 200 when token is authenticated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .put("/updateNoteById/61ccefce5990a8fbc4560c95")
@@ -835,7 +835,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when title and description gets validated", (done)=>{
+    it("should return status 200 when title and description gets validated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.note
         chai.request(server)
@@ -847,7 +847,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when description does not gets validated", (done)=>{
+    it("should return status 400 when description does not gets validated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.invalidNote
         chai.request(server)
@@ -859,7 +859,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when title does not gets validated", (done)=>{
+    it("should return status 400 when title does not gets validated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.invalidNote
         chai.request(server)
@@ -871,7 +871,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when gets valid callback from service", (done)=>{
+    it("should return status 200 when gets valid callback from service", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.note
         chai.request(server)
@@ -883,7 +883,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when gets invalid callback from service", (done)=>{
+    it("should return status 400 when gets invalid callback from service", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.invalidNote
         chai.request(server)
@@ -895,7 +895,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when gets valid callback from model", (done)=>{
+    it("should return status 200 when gets valid callback from model", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.note
         chai.request(server)
@@ -907,7 +907,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when does not gets valid callback from model", (done)=>{
+    it("should return status 400 when does not gets valid callback from model", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = Data.testData.invalidNote
         chai.request(server)
@@ -919,7 +919,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when note gets updated in DB", (done)=>{
+    it("should return status 200 when note gets updated in DB", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = {
             title: "Refactor",
@@ -934,7 +934,7 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when given invalid input should not gets updated in DB", (done)=>{
+    it("should return status 400 when given invalid input should not gets updated in DB", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         const mynote = {
             title: "R",

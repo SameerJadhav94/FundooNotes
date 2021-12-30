@@ -267,7 +267,56 @@
                     }
                 }
             }
-        }    
+        } ,
+        "/updateNoteById/{id}": {
+            "put": {
+                "tags": [
+                    "Update Notes By Id"
+                ],
+                "description": "Update a note by using its id",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for validation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of note you want to update",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "note",
+                        "description": "Note body",
+                        "schema": {
+                            "$ref": "#/definitions/updateNoteById"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "update note succesfully !!"
+                    },
+                    "401": {
+                        "description": "Please enter Valid Token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }   
     },
     "definitions": {
         "registerUser": {
@@ -359,6 +408,21 @@
             "example": {
                 "title": "Write your title ",
                 "description": "Write your description "
+            }
+        },
+        "updateNoteById": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "title": "Write Title To Update",
+                "description": "Write Description To Update"
             }
         }
     }
