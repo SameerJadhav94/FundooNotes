@@ -815,13 +815,23 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when token is invalid", (done)=>{
+    it.only("should return status 400 when token is not authenticated", (done)=>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .put("/updateNoteById/:id")
         .set({authorization: tokenCheck})
         .end((err, res)=>{
             res.should.have.status(400)
+            done();
+        })
+    })
+    it.only("should return status 200 when token is authenticated", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .put("/updateNoteById/:id")
+        .set({authorization: tokenCheck})
+        .end((err, res)=>{
+            res.should.have.status(200)
             done();
         })
     })

@@ -2,6 +2,7 @@ const validation = require('../utilities/validation');
 const userService = require('../service/service.js')
 const {logger} = require('../../logger/logger');
 const { tr } = require('faker/lib/locales');
+const { updateNoteByIdValidation } = require('../utilities/validation');
 class NoteController{
     createNote = (req, res) => {
         try{
@@ -124,10 +125,25 @@ class NoteController{
 
     updateNoteById = (req, res) => {
         try {
-            return res.status(200).send({
-                success: true,
-                message: "Note Updated Successfully"
-            })
+            const update = {
+                id: req.params.id,
+                userId: req.user.tokenData.id,
+                title: req.body.title,
+                description: req.body.description
+            }
+            const updateNoteValidation = validation.updateNoteByIdValidation.validate(update);
+            if (updateNoteValidation.error) {
+                return res.status(404).send({
+                    success: false,
+                    message: "Wrong input validation"
+                })
+            }else {
+                return res.status(200).send({
+                    success: true,
+                    message: "Note Updated Successfully"
+                })
+            }
+            
         }catch(error) {
             return res.status(500).send({
                 success: false,

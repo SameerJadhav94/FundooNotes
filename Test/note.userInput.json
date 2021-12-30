@@ -40,8 +40,8 @@
             "unAuthToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC.iOiI2MWM1MjZkMDNhMmY4MWI3Y2ZhMzJhOWEiL"
         },
         "note":{
-            "title": "Test",
-            "description": "Test session"
+            "title": "Testing note",
+            "description": "updating note"
         },
         "invalidNote":{
             "title": "Test",
