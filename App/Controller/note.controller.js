@@ -133,7 +133,7 @@ class NoteController{
             }
             const updateNoteValidation = validation.updateNoteByIdValidation.validate(update);
             if (updateNoteValidation.error) {
-                return res.status(404).send({
+                return res.status(400).send({
                     success: false,
                     message: "Wrong input validation"
                 })

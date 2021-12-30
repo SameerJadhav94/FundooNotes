@@ -835,4 +835,17 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
+    it.only("should return status 200 when title and description gets validated", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        const mynote = Data.testData.note
+        chai.request(server)
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
+        .set({authorization: tokenCheck})
+        .send(mynote)
+        .end((err, res)=>{
+            res.should.have.status(200)
+            done();
+        })
+    })
+    
 })
