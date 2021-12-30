@@ -732,4 +732,14 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
+    it.only("should return status 400 when id gets validated for unAuthenticated Token token", (done)=>{
+        const tokenCheck = Data.testData.token.unAuthToken
+        chai.request(server)
+        .get("/getNoteById/61cc51114e7834bcfb612e15")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(400)
+            return done();
+        })
+    })
 })

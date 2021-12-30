@@ -88,6 +88,17 @@ class NoteController{
 
     getNoteById = (req, res) => {
         try {
+            const id = {
+                userId: req.user.tokenData.id,
+                noteId: req.params.id
+            };
+            const getNoteByIdValidation = validation.getNoteByIdValidation.validate(id)
+            if (getNoteByIdValidation.error) {
+                return res.status(400).send({
+                    success: false,
+                    message: "Wrong input validation"
+                });
+            }
             return res.status(200).send({
                 success:true, 
                 message:"Here are your notes matching your request"
