@@ -742,4 +742,14 @@ describe("Get Note By Id", ()=>{
             return done();
         })
     })
+    it.only("should return status 200 when id gets validated for Authenticated  token", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .get("/getNoteById/61cc51114e7834bcfb612e15")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(200)
+            return done();
+        })
+    })
 })
