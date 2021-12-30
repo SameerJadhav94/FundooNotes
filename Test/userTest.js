@@ -711,9 +711,22 @@ describe("Get Note",()=>{
 })
 
 describe("Get Note By Id", ()=>{
+    
     it.only("should return status 200 when get node by id is called", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .get("/getNoteById")
+        .get("/getNoteById/:id")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(200)
+            return done();
+        })
+    })
+    it.only("should return status 200 when token gets authenticated", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .get("/getNoteById/:id")
+        .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
             return done();

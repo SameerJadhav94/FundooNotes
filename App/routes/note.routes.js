@@ -17,5 +17,5 @@ module.exports = (app) => {
   //api for Get Note
   app.get('/getNote', helper.validateToken ,noteController.getNote);
   //api for Get Note
-  app.get('/getNoteById' ,noteController.getNoteById);
+  app.get('/getNoteById/:id', helper.validateToken,noteController.getNoteById);
 } 
