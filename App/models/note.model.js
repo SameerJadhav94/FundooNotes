@@ -61,6 +61,7 @@ class NoteModel{
             }
         })
     }
+
 }
  
 module.exports = {NoteModel: new NoteModel(), NoteDataBase: Note};
