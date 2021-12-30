@@ -83,6 +83,10 @@ class userService {
       }
     })
   }
+
+  updateNote = (updateNote, callback)=>{
+    callback(null, updateNote)
+  }
 }
 
 module.exports = new userService();

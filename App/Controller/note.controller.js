@@ -137,13 +137,21 @@ class NoteController{
                     success: false,
                     message: "Wrong input validation"
                 })
-            }else {
-                return res.status(200).send({
-                    success: true,
-                    message: "Note Updated Successfully"
-                })
             }
-            
+            userService.updateNote(update, (error, data)=>{
+                if (error) {
+                    return res.status(400).send({
+                        success: false,
+                        message: "Enter Properly"
+                    }) 
+                }else{
+                    return res.status(200).send({
+                        success: true,
+                        message: "Note Updated Successfully",
+                        data: data
+                    })
+                }
+            }) 
         }catch(error) {
             return res.status(500).send({
                 success: false,

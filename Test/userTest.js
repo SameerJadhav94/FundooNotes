@@ -871,6 +871,18 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
+    it.only("should return status 200 when gets valid callback from service", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        const mynote = Data.testData.note
+        chai.request(server)
+        .put("/updateNoteById/:id")
+        .set({authorization: tokenCheck})
+        .send(mynote)
+        .end((err, res)=>{
+            res.should.have.status(200)
+            done();
+        })
+    })
 
     
 })
