@@ -934,6 +934,21 @@ describe("Update Note By Id", ()=>{
             done();
         })
     })
+    it.only("should return status 400 when given invalid input should not gets updated in DB", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        const mynote = {
+            title: "R",
+            description: "Updating Note"
+        }
+        chai.request(server)
+        .put("/updateNoteById/61ccefce5990a8fbc4560c95")
+        .set({authorization: tokenCheck})
+        .send(mynote)
+        .end((err, res)=>{
+            res.should.have.status(400)
+            done();
+        })
+    })
 
     
 })
