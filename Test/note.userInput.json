@@ -44,8 +44,8 @@
             "description": "updating note"
         },
         "invalidNote":{
-            "title": "Test",
-            "description": ""
+            "title": "T",
+            "description": "Test Note"
         }
     }
 } 
