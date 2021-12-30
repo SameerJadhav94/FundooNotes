@@ -223,6 +223,50 @@
                     }
                 }
             }
+        },
+        "/getNoteById/{id}": {
+            "get": {
+                "tags": [
+                    "Get Notes By Id"
+                ],
+                "description": "Get a note by ID for specific person id",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for validation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Note id for retrieve note",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "schema": {
+                    "$ref": "#/definitions/getNoteById"
+                },
+                "responses": {
+                    "201": {
+                        "description": "get note succesfull !!"
+                    },
+                    "400": {
+                        "description": "Please enter Valid Token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }    
     },
     "definitions": {
@@ -300,6 +344,21 @@
             "example": {
                 "title": "Write a title ",
                 "description": "Write a description "
+            }
+        },
+        "getNoteById": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "title": "Write your title ",
+                "description": "Write your description "
             }
         }
     }

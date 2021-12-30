@@ -109,7 +109,8 @@ class NoteController{
                 else{
                     return res.status(200).send({
                         success:true, 
-                        message:"Here are your notes matching your request"
+                        message:"Here are your notes matching your request",
+                        data: data
                     })
                 }
             })   
