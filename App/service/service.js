@@ -93,6 +93,14 @@ class userService {
       }
     })
   }
+  deleteNote = async(noteId)=>{
+    if (noteId) {
+      return noteId
+    }
+    else{
+      return false
+    }
+  }
 }
 
 module.exports = new userService();

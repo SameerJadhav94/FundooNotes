@@ -159,7 +159,7 @@ class NoteController{
             })
         }
     }
-    deleteNoteById = (req, res) => {
+    deleteNoteById = async (req, res) => {
         try {
             const id = {
                 userId: req.user.tokenData.id,
@@ -172,10 +172,20 @@ class NoteController{
                     message: "Wrong input validation."
                 }) 
             }
-            return res.status(200).send({
-                success: true,
-                message: "Note Deleted Successfully."
-            })
+
+            const deleteNote = await userService.deleteNote(id)
+            if (!deleteNote) {
+                return res.status(400).send({
+                    success: false,
+                    message: "Note Does Not get deleted."
+                })
+            }
+            else{
+                return res.status(200).send({
+                    success: true,
+                    message: "Note Deleted Successfully."
+                })
+            }
         }catch(error){
             return res.status(500).send({
                 success: false,
