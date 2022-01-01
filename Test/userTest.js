@@ -954,7 +954,7 @@ describe("Delete Note By Id", ()=>{
     it.only("should return status 200 when delete note api is called", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .delete("/deleteNoteById/:id")
+        .delete("/deleteNoteById/61ce68fb3d2bc7aa00ba96ac")
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
@@ -968,6 +968,16 @@ describe("Delete Note By Id", ()=>{
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(400)
+            done();
+        })
+    })
+    it.only("should return status 200 when input gets validated", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .delete("/deleteNoteById/61ce68fb3d2bc7aa00ba96ac")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(200)
             done();
         })
     })

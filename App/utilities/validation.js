@@ -77,5 +77,10 @@ class Validation{
             title: Joi.string().min(2),
             description: Joi.string().min(1)
         })
+        deleteNoteById = 
+        Joi.object({
+            userId: Joi.string().required(),
+            noteId: Joi.string().required().min(24)
+        })
 }
 module.exports = new Validation();
