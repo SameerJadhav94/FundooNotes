@@ -954,7 +954,7 @@ describe("Delete Note By Id", ()=>{
     it.only("should return status 200 when delete note api is called", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .delete("/deleteNoteById/61ce68fb3d2bc7aa00ba96ac")
+        .delete("/deleteNoteById/61cc623494c51c0cb55ae079")
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
@@ -974,7 +974,7 @@ describe("Delete Note By Id", ()=>{
     it.only("should return status 200 when input gets validated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .delete("/deleteNoteById/61ce68fb3d2bc7aa00ba96ac")
+        .delete("/deleteNoteById/61cc623494c51c0cb55ae07f")
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
@@ -994,7 +994,7 @@ describe("Delete Note By Id", ()=>{
     it.only("should return status 200 when gets valid response from service", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .delete("/deleteNoteById/61ce68fb3d2bc7aa00ba96ac")
+        .delete("/deleteNoteById/61cc623494c51c0cb55ae082")
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
@@ -1014,7 +1014,7 @@ describe("Delete Note By Id", ()=>{
     it.only("should return status 200 when gets valid response from model", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
-        .delete("/deleteNoteById/61ce68fb3d2bc7aa00ba96ac")
+        .delete("/deleteNoteById/61cc623494c51c0cb55ae085")
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(200)
@@ -1028,6 +1028,16 @@ describe("Delete Note By Id", ()=>{
         .set({authorization: tokenCheck})
         .end((err, res) => {
             res.should.have.status(400)
+            done();
+        })
+    })
+    it.only("should return status 200 when note gets deleted successfully from the DB", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .delete("/deleteNoteById/61cc623494c51c0cb55ae088")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(200)
             done();
         })
     })

@@ -84,11 +84,12 @@ class NoteModel{
     }
 
     deleteNoteModel = async(deleteNote) => {
-        if (deleteNote) {
-            return deleteNote
+        const delNote = await Note.findOneAndDelete({$and: [{userId: deleteNote.userId, _id: deleteNote.noteId}]})
+        if (!delNote) {
+            return false
         }
         else {
-            return false
+            return delNote
         }
     }
 }
