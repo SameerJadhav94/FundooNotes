@@ -159,6 +159,15 @@ class NoteController{
             })
         }
     }
+    deleteNoteById = (req, res) => {
+        const id = {
+            _id: req.params.id
+        }
+        return res.status(200).send({
+            success: true,
+            message: "Note Deleted Successfully."
+        })
+    }
         
 }
 

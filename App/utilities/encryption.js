@@ -25,14 +25,14 @@ class helperClass {
         const token = myToken[1];
         try {
             if (token) {
-                jwt.verify(token, process.env.SECRET_KEY, (error, decrypt) =>{
+                jwt.verify(token, process.env.SECRET_KEY, (error, decoded) =>{
                     if (error) {
                         return res.status(400).send(
                             {message: "Send Correct Token",
                              success: false
                             })
                     }else {
-                        req.user = decrypt;
+                        req.user = decoded;
                         next();
                     }
                 })
