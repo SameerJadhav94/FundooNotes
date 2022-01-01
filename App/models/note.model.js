@@ -82,6 +82,15 @@ class NoteModel{
             }
         })
     }
+
+    deleteNoteModel = async(deleteNote) => {
+        if (deleteNote) {
+            return deleteNote
+        }
+        else {
+            return false
+        }
+    }
 }
  
 module.exports = {NoteModel: new NoteModel(), NoteDataBase: Note};

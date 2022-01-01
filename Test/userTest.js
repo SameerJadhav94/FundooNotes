@@ -1011,4 +1011,14 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
+    it.only("should return status 200 when gets valid response from model", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .delete("/deleteNoteById/61ce68fb3d2bc7aa00ba96ac")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(200)
+            done();
+        })
+    })
 })

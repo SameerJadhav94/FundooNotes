@@ -94,11 +94,12 @@ class userService {
     })
   }
   deleteNote = async(noteId)=>{
-    if (noteId) {
-      return noteId
+    const delNote = await userNoteModel.deleteNoteModel(noteId)
+    if (!delNote) {
+      return false
     }
     else{
-      return false
+      return delNote
     }
   }
 }
