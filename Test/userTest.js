@@ -1041,4 +1041,14 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
+    it.only("should return status 400 when note does not gets deleted from the DB", (done)=>{
+        const tokenCheck = Data.testData.token.authToken
+        chai.request(server)
+        .delete("/deleteNoteById/61cbeaf9cbbae822ef133e9d")
+        .set({authorization: tokenCheck})
+        .end((err, res) => {
+            res.should.have.status(400)
+            done();
+        })
+    })
 })
