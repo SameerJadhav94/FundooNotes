@@ -23,5 +23,13 @@ const labelSchema = mongoose.Schema({
 const labelDir = mongoose.model('Label', labelSchema);
 
 class LabelModel{
-
+    addLabelModel = async (addLabel) =>{
+        if (addLabel) {
+            return addLabel;
+        }
+        else {
+            return false;
+        }
+    }
 }
+module.exports = new LabelModel();

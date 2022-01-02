@@ -1034,4 +1034,15 @@ describe('Add Label', () => {
         return done();
       });
   });
+  it.only('Should Return Response 200 When Gets Valid Response From Model', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .post('/addLabel/61d135f786d86f57e66b92aa')
+      .set({ authorization: tokenCheck })
+      .send({label: faker.lorem.word()})
+      .end((err, res) => {
+        res.should.have.status(200);
+        return done();
+      });
+  });
 });

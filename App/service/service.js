@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 const userModel = require('../models/model').UserModel;
 const userNoteModel = require('../models/note.model').NoteModel;
+const userLabelModel = require('../models/label.model')
 const encryption = require('../utilities/encryption');
 const nodemailer = require('./nodeMailer');
 const { logger } = require('../../logger/logger');
@@ -118,7 +119,7 @@ class UserService {
   };
 
   addLabel = async (label) => {
-    const addLabel = await userNoteModel.addLabelModel(label);
+    const addLabel = await userLabelModel.addLabelModel(label);
     if (!addLabel) {
       return false;
     }
