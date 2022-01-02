@@ -316,7 +316,48 @@
                     }
                 }
             }
-        }   
+        },
+        "/deleteNoteById/{id}": {
+            "delete": {
+                "tags": [
+                    "Delete a Specific Note For The User"
+                ],
+                "description": "Delete Note ",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for vaidation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Please enter the id of the note",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Note Deleted Successfully!!"
+                    },
+                    "401": {
+                        "description": "Something's wrong..., Please enter valid credentials"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }    
     },
     "definitions": {
         "registerUser": {
