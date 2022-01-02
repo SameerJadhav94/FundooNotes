@@ -1,126 +1,121 @@
-const userModel = require('../models/model.js').UserModel
-const userNoteModel = require('../models/note.model').NoteModel
-const encryption = require('../utilities/encryption')
-const nodemailer = require('./nodeMailer')
-const {logger} = require('../../logger/logger');
-class userService {
+/* eslint-disable class-methods-use-this */
+const userModel = require('../models/model').UserModel;
+const userNoteModel = require('../models/note.model').NoteModel;
+const encryption = require('../utilities/encryption');
+const nodemailer = require('./nodeMailer');
+const { logger } = require('../../logger/logger');
+
+class UserService {
   registerUser = (user, callback) => {
     userModel.registerUser(user, (err, data) => {
       if (err) {
-        logger.error("Error Registering User: " + err)
+        logger.error(`Error Registering User: ${err}`);
         callback(err, null);
       } else {
-        logger.info("User registered")
+        logger.info('User registered');
         callback(null, data);
       }
     });
-  }
+  };
+
   userLogin = (InfoLogin, callback) => {
     userModel.loginModel(InfoLogin, (error, data) => {
       if (data) {
         const passwordResult = encryption.comparePassword(InfoLogin.password, data.password);
         if (!passwordResult) {
-          logger.error("Error logging in")
-          return callback("Error ocurred", null);
-        }
-        else {
-          const token = encryption.token(data)
-          logger.info("Login successfully")
-          return callback(null, token);
+          logger.error('Error logging in');
+          return callback('Error ocurred', null);
         }
 
-      } else {
-        logger.error("Error ocurred")
-        return callback(error, null);
+        const token = encryption.token(data);
+        logger.info('Login successfully');
+        return callback(null, token);
       }
+      logger.error('Error ocurred');
+      return callback(error, null);
     });
-  }
-  userForgotPassword = (infoCheck, callback)=>{
+  };
+
+  userForgotPassword = (infoCheck, callback) => {
     userModel.forgotPasswordModel(infoCheck, (err, data) => {
       if (err) {
-        logger.error("Could not send Email")
-        callback(err, null)
+        logger.error('Could not send Email');
+        callback(err, null);
+      } else {
+        logger.info('Email sent successfully');
+        callback(null, nodemailer.sendEmail(data));
       }
-      else{
-        logger.info("Email sent successfully")
-        callback(null, nodemailer.sendEmail(data))
-      }
-    })
-  }
+    });
+  };
 
-  userResetPassword = (passwordInfo, callback)=>{
-    userModel.resetPasswordModel(passwordInfo, (err, data) =>{
+  userResetPassword = (passwordInfo, callback) => {
+    userModel.resetPasswordModel(passwordInfo, (err, data) => {
       if (err) {
-        logger.error("Error resetting password")
-        callback(err, null)
+        logger.error('Error resetting password');
+        callback(err, null);
+      } else {
+        logger.info('Password reseted');
+        callback(null, data);
       }
-      else{
-        logger.info("Password reseted")
-        callback(null, data)
-      }
-    })
-  }
-  createNote = (checkNote)=>{
-    return new Promise((resolve, reject)=>{
-      let result = userNoteModel.createNoteModel(checkNote)
-      result.then((data)=>{
-        logger.info("Note create")
-        resolve(data)
-      }).catch((error)=>{
-        logger.error("Error creating note")
-        reject(error)
-      })
-    })
-  }  
+    });
+  };
 
-  getNote = (checkId)=>{
-    return new Promise((resolve, reject)=>{
-      let result = userNoteModel.getNoteModel(checkId)
-      result.then((data)=>{
-        logger.info("Your Note")
-        resolve(data)
-      }).catch((error)=>{
-        logger.error("Cannot fetch notes")
-        reject(error)
-      })
-    }) 
-  }
+  createNote = (checkNote) => new Promise((resolve, reject) => {
+    const result = userNoteModel.createNoteModel(checkNote);
+    result.then((data) => {
+      logger.info('Note create');
+      resolve(data);
+    }).catch((error) => {
+      logger.error('Error creating note');
+      reject(error);
+    });
+  });
 
-  getNoteByID = (getNoteByid, callback)=>{
-    userNoteModel.getNoteByIDModel(getNoteByid, (err, data)=>{
+  getNote = (checkId) => new Promise((resolve, reject) => {
+    const result = userNoteModel.getNoteModel(checkId);
+    result.then((data) => {
+      logger.info('Your Note');
+      resolve(data);
+    }).catch((error) => {
+      logger.error('Cannot fetch notes');
+      reject(error);
+    });
+  });
+
+  getNoteByID = (getNoteByid, callback) => {
+    userNoteModel.getNoteByIDModel(getNoteByid, (err, data) => {
       if (data) {
-        logger.info("Your Note")
-        callback(null, data)
+        logger.info('Your Note');
+        callback(null, data);
+      } else {
+        logger.error('Cannot fetch note');
+        callback(err, null);
       }
-      else{
-        logger.error("Cannot fetch note")
-        callback (err, null)
-      }
-    })
-  }
+    });
+  };
 
-  updateNote = (updateNote, callback)=>{
-    userNoteModel.updateNoteModel(updateNote, (err, data)=>{
+  updateNote = (updateNote, callback) => {
+    userNoteModel.updateNoteModel(updateNote, (err, data) => {
       if (err) {
-        logger.error("Error updating note")
-        callback(err, null)
-      }else{
-        logger.info("Note updated")
-        callback(null, data)
+        logger.error('Error updating note');
+        callback(err, null);
+      } else {
+        logger.info('Note updated');
+        callback(null, data);
       }
-    })
-  }
-  deleteNote = async(noteId)=>{
-    const delNote = await userNoteModel.deleteNoteModel(noteId)
+    });
+  };
+
+  deleteNote = async (noteId) => {
+    const delNote = await userNoteModel.deleteNoteModel(noteId);
     if (!delNote) {
-      logger.error("Error deleting note")
-      return false
+      logger.error('Error deleting note');
+      return false;
     }
-    else{
-      logger.info("Note deleted successfully")
-      return delNote
-    }
-  }
+
+    logger.info('Note deleted successfully');
+    return delNote;
+  };
 }
 
-module.exports = new userService();
+module.exports = new UserService();

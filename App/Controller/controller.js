@@ -1,201 +1,197 @@
-const userService = require('../service/service.js')
+/* eslint-disable consistent-return */
+/* eslint-disable class-methods-use-this */
+const userService = require('../service/service');
 const validation = require('../utilities/validation');
-const {logger} = require('../../logger/logger')
-const mongoose = require('mongoose');
-
+const { logger } = require('../../logger/logger');
 
 class Controller {
   /**
    * @description: Code for adding user in to the database
-   * @param {*} req 
-   * @param {*} res 
-   * @returns 
+   * @param {*} req
+   * @param {*} res
+   * @returns
    */
   register = (req, res) => {
     try {
-      // let password  = encryption.hashedPassword(req.body.password);
       const user = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
 
       };
       // Registration validation
       const registerValidation = validation.authRegister.validate(user);
       if (registerValidation.error) {
-        logger.error(registerValidation.error)
+        logger.error(registerValidation.error);
         return res.status(400).send({
           success: false,
           message: 'Wrong Input Validations',
-          data: registerValidation
-        })
+          data: registerValidation,
+        });
       }
 
       userService.registerUser(user, (error, data) => {
         if (error) {
-          logger.error("User already exist")
+          logger.error('User already exist');
           return res.status(400).json({
             success: false,
             message: 'User already exist',
           });
-        } else {
-          logger.info("User Registered")
-          return res.status(200).json({
-            success: true,
-            message: "User Registered",
-            data: data,
-          });
         }
+        logger.info('User Registered');
+        return res.status(200).json({
+          success: true,
+          message: 'User Registered',
+          data,
+        });
       });
     } catch (error) {
       return res.status(500).json({
-        success: false, message: "Error While Registering",
+        success: false,
+        message: 'Error While Registering',
         data: null,
       });
     }
-  }
+  };
 
   /**
      * @description: Code for Login
-     * @param {*} req 
-     * @param {*} res 
-     * @returns 
+     * @param {*} req
+     * @param {*} res
+     * @returns
      */
   login = (req, res) => {
     try {
       const userLoginInfo = {
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
       };
 
-      //Login Validations
+      // Login Validations
       const loginValidation = validation.authLogin.validate(userLoginInfo);
       if (loginValidation.error) {
-        logger.error(loginValidation.error)
+        logger.error(loginValidation.error);
         res.status(400).send({
           success: false,
-          message: loginValidation.error.message
+          message: loginValidation.error.message,
         });
-      };
+      }
 
       userService.userLogin(userLoginInfo, (error, data) => {
         if (error) {
-          logger.error("Unable to login. Please enter correct info")
+          logger.error('Unable to login. Please enter correct info');
           return res.status(400).json({
             success: false,
             message: 'Unable to login. Please enter correct info',
-            error: error
+            error,
           });
         }
-        else {
-            logger.info("User logged in successfully")
-            return res.status(200).json({
-              success: true,
-              message: 'User logged in successfully',
-              data: data
-            });
-        }
-      })
-    }
-    catch (error) {
+
+        logger.info('User logged in successfully');
+        return res.status(200).json({
+          success: true,
+          message: 'User logged in successfully',
+          data,
+        });
+      });
+    } catch (error) {
       return res.status(500).json({
         success: false,
-        message: 'Error while Login', error,
+        message: 'Error while Login',
+        error,
       });
     }
   };
 
   /**
    * @description: Code for Forgot Password
-   * @param {*} req 
-   * @param {*} res 
-   * @returns 
+   * @param {*} req
+   * @param {*} res
+   * @returns
    */
   forgotPassword = (req, res) => {
-    try{
+    try {
       const userEmail = {
         email: req.body.email,
-      }
-      const emailValidation = validation.authForgotPassword.validate(userEmail)
+      };
+      const emailValidation = validation.authForgotPassword.validate(userEmail);
       if (emailValidation.error) {
-        logger.error(emailValidation.error)
+        logger.error(emailValidation.error);
         return res.status(400).send({
           success: false,
           message: 'Wrong Input Validations',
-        })
+        });
       }
-  
-      userService.userForgotPassword(userEmail, (error, data)=>{
+
+      userService.userForgotPassword(userEmail, (error, data) => {
         if (error) {
           return res.status(400).json({
             success: false,
             message: 'Failed',
           });
         }
-        else{
-          logger.info("email sent successfully")
-          return res.status(200).json({
-            success: true,
-            message: "email sent successfully",
-            data: data
-          });
-        }
-      })
-    }catch (error) {
-      logger.error("Error While Sending Email")
+
+        logger.info('email sent successfully');
+        return res.status(200).json({
+          success: true,
+          message: 'email sent successfully',
+          data,
+        });
+      });
+    } catch (error) {
+      logger.error('Error While Sending Email');
       return res.status(500).json({
-        success: false, message: "Error While Sending Email",
+        success: false,
+        message: 'Error While Sending Email',
         data: null,
       });
     }
-        
-  }
+  };
 
   /**
    * @description: Code for Reset Password
-   * @param {*} req 
-   * @param {*} res 
-   * @returns 
+   * @param {*} req
+   * @param {*} res
+   * @returns
    */
-  resetPassword(req, res) { 
+  resetPassword(req, res) {
     try {
       const userPassword = {
         email: req.body.email,
         password: req.body.password,
-        code: req.body.code
-      }
-      const passwordValidation = validation.authResetPassword.validate(userPassword)
+        code: req.body.code,
+      };
+      const passwordValidation = validation.authResetPassword.validate(userPassword);
       if (passwordValidation.error) {
-        logger.error(passwordValidation.error)
+        logger.error(passwordValidation.error);
         return res.status(400).send({
           success: false,
           message: 'Wrong Input Validations',
-        })
+        });
       }
       userService.userResetPassword(userPassword, (error, data) => {
         if (error) {
-          logger.error("Please Insert Password Properly")
+          logger.error('Please Insert Password Properly');
           return res.status(400).send({
             success: false,
             message: 'Please Insert Password Properly',
-          })
+          });
         }
-        else {
-          logger.info("Password Reset Successfully")
-          return res.status(200).json({
-            success: true,
-            message: 'Password Reset Successfully',
-            data: data
-          })
-        }
-      })     
-    }
-    catch (error) {
-      logger.error("Error While Resetting Password")
+
+        logger.info('Password Reset Successfully');
+        return res.status(200).json({
+          success: true,
+          message: 'Password Reset Successfully',
+          data,
+        });
+      });
+    } catch (error) {
+      logger.error('Error While Resetting Password');
       return res.status(500).json({
-        success: false, message: "Error While Resetting Password",
-        data: null
+        success: false,
+        message: 'Error While Resetting Password',
+        data: null,
       });
     }
   }

@@ -6,29 +6,29 @@ const swaggerDocs = require('./swagger/swagger.json');
 // create express app
 const app = express();
 
-//Specifying path for .env
+// Specifying path for .env
 dotenv.config({ path: './.env' });
 
 require('./config/database.config');
 
-const PORT = process.env.PORT;
+const { PORT } = process.env;
 
-app.use(express.json())
+app.use(express.json());
 
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // define a route
 app.get('/', (req, res) => {
-    res.json({ "message": "Welcome to Fundonotes application. " });
+  res.json({ message: 'Welcome to Fundonotes application. ' });
 });
 
 // Require note.routes
-require('./app/routes/note.routes.js')(app);
+require('./App/routes/note.routes')(app);
 
 // listen for requests
 app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+  // eslint-disable-next-line no-console
+  console.log(`Server is listening on port ${PORT}`);
 });
 
 module.exports = app;
