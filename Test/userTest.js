@@ -1023,4 +1023,15 @@ describe('Add Label', () => {
         return done();
       });
   });
+  it.only('Should Return Response 400 When Does Not Gets Valid Response From Service', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .post('/addLabel/61d135f786d86f57e66b92aa')
+      .set({ authorization: tokenCheck })
+      .send({label: 'A'})
+      .end((err, res) => {
+        res.should.have.status(400);
+        return done();
+      });
+  });
 });
