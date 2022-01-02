@@ -10,19 +10,19 @@ class LabelController {
       }
       const validateLabel = validation.labelValidation.validate(label);
       if (validateLabel.error) {
-          res.status(400).send({ 
+          return res.status(400).send({ 
               success: false,
               message: 'Wrong label validation'
           })
       }
-        res.status(200).send({
-            success: true,
-            message: 'Label added successfully',
+        return res.status(200).send({
+                success: true,
+                message: 'Label added successfully',
         });
   }catch(error){
-      res.status(500).send({
-          success: false,
-          message: 'Internal server error',
+      return res.status(500).send({
+            success: false,
+            message: 'Internal server error',
       })
   }; 
   };
