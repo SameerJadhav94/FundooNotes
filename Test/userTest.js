@@ -969,10 +969,24 @@ describe('Delete Note By Id', () => {
 });
 describe('Add Label', () => {
   it.only('Should Return Response 200 When Add Label API Is Called', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel')
+      .set({ authorization: tokenCheck })
+      .send({})
       .end((err, res) => {
         res.should.have.status(200);
+        return done();
+      });
+  });
+  it.only('Should Return Response 400 When Token Not Gets Authenticated', (done) => {
+    const tokenCheck = Data.testData.token.unAuthToken;
+    chai.request(server)
+      .post('/addLabel')
+      .set({ authorization: tokenCheck })
+      .send({})
+      .end((err, res) => {
+        res.should.have.status(400);
         return done();
       });
   });
