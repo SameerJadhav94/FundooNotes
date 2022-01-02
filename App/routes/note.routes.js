@@ -1,5 +1,6 @@
 const controller = require('../Controller/controller');
 const noteController = require('../Controller/note.controller');
+const labelController = require('../Controller/label.controller');
 const helper = require('../utilities/encryption');
 
 module.exports = (app) => {
@@ -22,4 +23,7 @@ module.exports = (app) => {
   app.put('/updateNoteById/:id', helper.validateToken, noteController.updateNoteById);
   // api for Delete Note By Id
   app.delete('/deleteNoteById/:id', helper.validateToken, noteController.deleteNoteById);
+
+  // api for add label
+  app.post('/addLabel', labelController.addLabel);
 };

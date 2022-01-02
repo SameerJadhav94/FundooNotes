@@ -967,3 +967,13 @@ describe('Delete Note By Id', () => {
       });
   });
 });
+describe('Add Label', () => {
+  it.only('Should Return Response 200 When Add Label API Is Called', (done) => {
+    chai.request(server)
+      .post('/addLabel')
+      .end((err, res) => {
+        res.should.have.status(200);
+        return done();
+      });
+  });
+});
