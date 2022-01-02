@@ -118,11 +118,12 @@ class UserService {
   };
 
   addLabel = async (label) => {
-    if (!label) {
+    const addLabel = await userNoteModel.addLabelModel(label);
+    if (!addLabel) {
       return false;
     }
     else{
-      return label;
+      return addLabel;
     }
   }
 }
