@@ -971,9 +971,9 @@ describe('Add Label', () => {
   it.only('Should Return Response 200 When Add Label API Is Called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .post('/addLabel')
+      .post('/addLabel/61d135f786d86f57e66b92aa')
       .set({ authorization: tokenCheck })
-      .send({})
+      .send({label: faker.lorem.word()})
       .end((err, res) => {
         res.should.have.status(200);
         return done();
@@ -982,11 +982,22 @@ describe('Add Label', () => {
   it.only('Should Return Response 400 When Token Not Gets Authenticated', (done) => {
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
-      .post('/addLabel')
+      .post('/addLabel/61d135f786d86f57e66b92aa')
       .set({ authorization: tokenCheck })
       .send({})
       .end((err, res) => {
         res.should.have.status(400);
+        return done();
+      });
+  });
+  it.only('Should Return Response 200 When Label gets Validated', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .post('/addLabel/61d135f786d86f57e66b92aa')
+      .set({ authorization: tokenCheck })
+      .send({label: faker.lorem.word()})
+      .end((err, res) => {
+        res.should.have.status(200);
         return done();
       });
   });

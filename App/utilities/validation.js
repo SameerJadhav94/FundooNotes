@@ -81,5 +81,11 @@ class Validation {
     userId: Joi.string().required(),
     noteId: Joi.string().required().min(24),
   });
+
+  labelValidation = Joi.object({
+    userId: Joi.string().required(),
+    noteId: Joi.string().required().min(24),
+    label: Joi.string().required().min(2)
+  })
 }
 module.exports = new Validation();
