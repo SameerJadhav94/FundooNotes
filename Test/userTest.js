@@ -951,7 +951,7 @@ describe("Update Note By Id", ()=>{
     })  
 })
 describe("Delete Note By Id", ()=>{
-    it.only("should return status 200 when delete note api is called", (done)=>{
+    it("should return status 200 when delete note api is called", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61cc623494c51c0cb55ae079")
@@ -961,7 +961,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when token does not get authenticated", (done)=>{
+    it("should return status 400 when token does not get authenticated", (done)=>{
         const tokenCheck = Data.testData.token.unAuthToken
         chai.request(server)
         .delete("/deleteNoteById/:id")
@@ -971,7 +971,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when input gets validated", (done)=>{
+    it("should return status 200 when input gets validated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61cc623494c51c0cb55ae07f")
@@ -981,7 +981,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when input does not gets validated", (done)=>{
+    it("should return status 400 when input does not gets validated", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61ce68fb3d2bc7aa00")
@@ -991,7 +991,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when gets valid response from service", (done)=>{
+    it("should return status 200 when gets valid response from service", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61cc623494c51c0cb55ae082")
@@ -1001,7 +1001,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when does not gets valid response from service", (done)=>{
+    it("should return status 400 when does not gets valid response from service", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61ce68fb3d2bc7aa00")
@@ -1011,7 +1011,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when gets valid response from model", (done)=>{
+    it("should return status 200 when gets valid response from model", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61cc623494c51c0cb55ae085")
@@ -1021,7 +1021,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when does not gets valid response from model", (done)=>{
+    it("should return status 400 when does not gets valid response from model", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61ce68fb3d2bc7aa00")
@@ -1031,7 +1031,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 200 when note gets deleted successfully from the DB", (done)=>{
+    it("should return status 200 when note gets deleted successfully from the DB", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61cc623494c51c0cb55ae088")
@@ -1041,7 +1041,7 @@ describe("Delete Note By Id", ()=>{
             done();
         })
     })
-    it.only("should return status 400 when note does not gets deleted from the DB", (done)=>{
+    it("should return status 400 when note does not gets deleted from the DB", (done)=>{
         const tokenCheck = Data.testData.token.authToken
         chai.request(server)
         .delete("/deleteNoteById/61cbeaf9cbbae822ef133e9d")

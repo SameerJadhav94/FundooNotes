@@ -22,43 +22,30 @@ const noteSchema = mongoose.Schema({
 const Note = mongoose.model('FundooNote', noteSchema);
 
 class NoteModel{
-    createNoteModel = (noteModel, callBack) => {
-        model.findById({_id: noteModel.userId}, (error, data)=>{
-            if (error) {
-                return callBack(error, null);
-            }
-            else if (!data){
-                return callBack("Could not find id", null)
-            }
-            else{
-                const fundooNote = new Note();
+    createNoteModel = (noteModel) => {
+        return new Promise((resolve, reject) => {
+            const fundooNote = new Note();
                 fundooNote.userId = noteModel.userId,
                 fundooNote.title = noteModel.title,
                 fundooNote.description = noteModel.description
-
-                fundooNote.save((err, data) =>{
-                    if(err){
-                        return callBack(err, null)
-                    }
-                    else{
-                        return callBack(null, data)
-                    }
-                })
-            }
-        })       
+            model.findById({_id: noteModel.userId})
+            .then((data)=>{
+                resolve(fundooNote.save(data))
+            }).catch((error) => {
+                reject(error)
+            })
+        })      
     }
 
-    getNoteModel = (getNote, callBack) => {
-        Note.find({userId: getNote.id}, (err, data) => {
-            if (data) {
-                callBack(null, data)
-            }
-            else if (!data){
-                callBack("Entered Id is Wrong", null)
-            }
-            else {
-                callBack(err, null)
-            }
+    getNoteModel = (getNote) => {
+        return new Promise((resolve, reject) => {
+            Note.find({userId: getNote.id})
+            .then((data)=>{
+                resolve(data)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
         })
     }
 

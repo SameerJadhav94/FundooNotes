@@ -60,29 +60,29 @@ class userService {
       }
     })
   }
-  createNote = (checkNote, callback)=>{
-    userNoteModel.createNoteModel(checkNote, (err, data) =>{
-      if (err) {
-        logger.error("Error creating note")
-        callback(err, null)
-      }
-      else{
+  createNote = (checkNote)=>{
+    return new Promise((resolve, reject)=>{
+      let result = userNoteModel.createNoteModel(checkNote)
+      result.then((data)=>{
         logger.info("Note create")
-        callback(null, data)
-      }
+        resolve(data)
+      }).catch((error)=>{
+        logger.error("Error creating note")
+        reject(error)
+      })
     })
-  }
+  }  
 
-  getNote = (checkId, callback)=>{
-    userNoteModel.getNoteModel(checkId, (err, data) =>{
-      if (data) {
+  getNote = (checkId)=>{
+    return new Promise((resolve, reject)=>{
+      let result = userNoteModel.getNoteModel(checkId)
+      result.then((data)=>{
         logger.info("Your Note")
-        callback(null, data)
-      }
-      else {
+        resolve(data)
+      }).catch((error)=>{
         logger.error("Cannot fetch notes")
-        callback(err, null)
-      }
+        reject(error)
+      })
     }) 
   }
 

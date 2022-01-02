@@ -20,23 +20,22 @@ class NoteController{
                     data: noteValidator
                 })
             }
-            userService.createNote(note, (error, data) => {
-                if (error) {
-                    logger.error("Please Give Input Properly")
-                    return res.status(400).send({
-                        success: false,
-                        message: "Please Give Input Properly"
-                    });
-                }else{  
-                    logger.info("Note Created Successfully")
+            const create = userService.createNote(note) 
+            create.then((data) => {
+                logger.info("Note Created Successfully")
                     return res.status(201).send({
                         success: true,
                         message: "Note Created Successfully",
                         data: data
                     });
-                }
+            }).catch((error)=>{
+                logger.error("Please Give Input Properly")
+                    return res.status(400).send({
+                        success: false,
+                        message: "Please Give Input Properly",
+                        data: error
+                    });
             })
-              
         }catch(error) {
             return res.status(500).send({
                 success: false,
@@ -61,23 +60,22 @@ class NoteController{
                 })
             }
 
-            userService.getNote(id, (error, data)=>{
-                if (error) {
-                    logger.error("Could not find note")
-                    return res.status(400).send({
-                        success: false,
-                        message: "Could not find note"
-                    })
-                }else{
-                    logger.info("Here is your note")
+            const get = userService.getNote(id)
+            get.then((data)=>{
+                logger.info("Here is your note")
                     return res.status(200).send({
                         success: true,
                         message: "Here is your note",
                         data: data
                     })
-                }
-            })
-            
+            }).catch((error)=>{
+                logger.error("Could not find note")
+                    return res.status(400).send({
+                        success: false,
+                        message: "Could not find note",
+                        data: error
+                    })
+            })    
         }catch(error) {
             logger.error("Internal Server Error")
             return res.status(500).send({
