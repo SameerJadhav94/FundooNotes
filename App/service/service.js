@@ -116,6 +116,15 @@ class UserService {
     logger.info('Note deleted successfully');
     return delNote;
   };
+
+  addLabel = async (label) => {
+    if (!label) {
+      return false;
+    }
+    else{
+      return label;
+    }
+  }
 }
 
 module.exports = new UserService();
