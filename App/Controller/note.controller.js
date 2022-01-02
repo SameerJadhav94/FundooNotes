@@ -95,6 +95,7 @@ class NoteController{
             };
             const getNoteByIdValidation = validation.getNoteByIdValidation.validate(id)
             if (getNoteByIdValidation.error) {
+                logger.error(getNoteByIdValidation.error)
                 return res.status(400).send({
                     success: false,
                     message: "Wrong input validation"
@@ -102,12 +103,14 @@ class NoteController{
             }
             userService.getNoteByID(id, (error, data)=>{
                 if (error) {
+                    logger.error("Could not find note")
                     return res.status(400).send({
                         success: false,
                         message: "Could not find note"
                     });
                 }
                 else{
+                    logger.info("Here are your notes matching your request")
                     return res.status(200).send({
                         success:true, 
                         message:"Here are your notes matching your request",
@@ -116,6 +119,7 @@ class NoteController{
                 }
             })   
         }catch(error) {
+            logger.error("Internal Server Error")
             return res.status(500).send({
                 success: false,
                 message: "Internal Server Error"
@@ -133,6 +137,7 @@ class NoteController{
             }
             const updateNoteValidation = validation.updateNoteByIdValidation.validate(update);
             if (updateNoteValidation.error) {
+                logger.error(updateNoteValidation.error)
                 return res.status(400).send({
                     success: false,
                     message: "Wrong input validation"
@@ -140,11 +145,13 @@ class NoteController{
             }
             userService.updateNote(update, (error, data)=>{
                 if (error) {
+                    logger.error("Enter Properly")
                     return res.status(400).send({
                         success: false,
                         message: "Enter Properly"
                     }) 
                 }else{
+                    logger.info("Note Updated Successfully")
                     return res.status(200).send({
                         success: true,
                         message: "Note Updated Successfully",
@@ -153,6 +160,7 @@ class NoteController{
                 }
             }) 
         }catch(error) {
+            logger.error("Internal Server Error")
             return res.status(500).send({
                 success: false,
                 message: "Internal Server Error"
@@ -167,6 +175,7 @@ class NoteController{
             }
             const deleteNoteByIdValidation = validation.deleteNoteById.validate(id);
             if (deleteNoteByIdValidation.error){
+                logger.error(deleteNoteByIdValidation.error)
                 return res.status(400).send({
                     success: false,
                     message: "Wrong input validation."
@@ -175,18 +184,21 @@ class NoteController{
 
             const deleteNote = await userService.deleteNote(id)
             if (!deleteNote) {
+                logger.error("Note Does Not Get Deleted.")
                 return res.status(400).send({
                     success: false,
-                    message: "Note Does Not get deleted."
+                    message: "Note Does Not Get Deleted."
                 })
             }
             else{
+                logger.info("Note Deleted Successfully.")
                 return res.status(200).send({
                     success: true,
                     message: "Note Deleted Successfully."
                 })
             }
         }catch(error){
+            logger.error("Internal Server Error")
             return res.status(500).send({
                 success: false,
                 message: "Internal Server Error"
