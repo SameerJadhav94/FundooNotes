@@ -53,5 +53,13 @@ class LabelModel {
             }
         }
     }
+    getLabelModel = async (getLabel) => {
+        if (!getLabel) {
+            return false;
+        }
+        else{
+            return getLabel;
+        }
+    }
 }
 module.exports = new LabelModel();

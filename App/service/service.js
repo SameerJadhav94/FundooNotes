@@ -131,6 +131,7 @@ class UserService {
   }
 
   getLabelService = async (label) => {
+    const getLabel = await userLabelModel.getLabelModel(label);
     if (label) {
       return label
     }
