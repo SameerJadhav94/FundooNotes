@@ -45,7 +45,7 @@ class LabelModel {
                 }
             }
             else{
-                return labelExist;
+                return false;
             }
         }
     }

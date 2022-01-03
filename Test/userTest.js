@@ -1067,4 +1067,15 @@ describe('Add Label', () => {
         return done();
       });
   });
+  it.only('Should Return Response 400 When Label Does Not Get Created', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .post('/addLabel/61d135f786d86f57e66b92aa')
+      .set({ authorization: tokenCheck })
+      .send({label: "libero"})
+      .end((err, res) => {
+        res.should.have.status(400);
+        return done();
+      });
+  });
 });

@@ -20,7 +20,7 @@ class LabelController {
             if (!success) {
                 return res.status(400).send({
                     success: false,
-                    message: 'Enter Label Properly'
+                    message: 'Label Already Exists'
                 })
             }
             else {
