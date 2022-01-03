@@ -129,6 +129,15 @@ class UserService {
       return addLabel;
     }
   }
+
+  getLabelService = async (label) => {
+    if (label) {
+      return label
+    }
+    else{
+      return false;
+    }
+  }
 }
 
 module.exports = new UserService();

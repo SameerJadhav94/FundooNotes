@@ -52,10 +52,19 @@ class LabelController {
                 message: "Wrong Input Validation"
             })
         }
-        return res.status(200).send({
-            success: true,
-            message: 'Here are your labels'
-        })
+        const getLabel = await userService.getLabelService(id);
+        if (!getLabel) {
+            return res.status(400).send({
+                success: false,
+                message: "Could Not Fetch Labels."
+            })
+        }
+        else{
+            return res.status(200).send({
+                success: false,
+                message: "Here are your labels..."
+            })
+        }
     }
 }
 
