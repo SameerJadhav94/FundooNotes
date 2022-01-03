@@ -357,7 +357,57 @@
                     }
                 }
             }
-        }    
+        } ,
+        "/addLabel/{id}": {
+            "post": {
+                "tags": [
+                    "Add Label for the note"
+                ],
+                "description": "Add Label",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token for validation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Note Id",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "addlabel",
+                        "description": "Label To Add",
+                        "schema": {
+                            "$ref": "#/definitions/AddLabel"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "label added"
+                    },
+                    "500": {
+                        "description": "Failed to add label"
+                    },
+                    "400": {
+                        "description": "Invalid Token"
+                    }
+                }
+            }  
+        }     
     },
     "definitions": {
         "registerUser": {
@@ -464,6 +514,14 @@
             "example": {
                 "title": "Write Title To Update",
                 "description": "Write Description To Update"
+            }
+        },
+        "AddLabel": {
+            "type": "object",
+            "properties": {
+                "label": {
+                    "type": "string"
+                }
             }
         }
     }

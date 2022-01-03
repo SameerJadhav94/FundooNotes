@@ -968,7 +968,7 @@ describe('Delete Note By Id', () => {
   });
 });
 describe('Add Label', () => {
-  it.only('Should Return Response 200 When Add Label API Is Called', (done) => {
+  it('Should Return Response 200 When Add Label API Is Called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d11891b0b8d418f77db61a')
@@ -979,7 +979,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 400 When Token Not Gets Authenticated', (done) => {
+  it('Should Return Response 400 When Token Not Gets Authenticated', (done) => {
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -990,7 +990,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 200 When Label gets Validated', (done) => {
+  it('Should Return Response 200 When Label gets Validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1001,7 +1001,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 400 When Label Does Not Gets Validated', (done) => {
+  it('Should Return Response 400 When Label Does Not Gets Validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1012,7 +1012,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 200 When Gets Valid Response From Service', (done) => {
+  it('Should Return Response 200 When Gets Valid Response From Service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1023,7 +1023,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 400 When Does Not Gets Valid Response From Service', (done) => {
+  it('Should Return Response 400 When Does Not Gets Valid Response From Service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1034,7 +1034,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 200 When Gets Valid Response From Model', (done) => {
+  it('Should Return Response 200 When Gets Valid Response From Model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1045,7 +1045,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 400 When Does Not Gets Valid Response From Model', (done) => {
+  it('Should Return Response 400 When Does Not Gets Valid Response From Model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1056,7 +1056,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 200 When Label Gets Saved Into DB', (done) => {
+  it('Should Return Response 200 When Label Gets Saved Into DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1067,7 +1067,7 @@ describe('Add Label', () => {
         return done();
       });
   });
-  it.only('Should Return Response 400 When Label Does Not Get Created', (done) => {
+  it('Should Return Response 400 When Label Does Not Get Created', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .post('/addLabel/61d135f786d86f57e66b92aa')
@@ -1079,3 +1079,14 @@ describe('Add Label', () => {
       });
   });
 });
+
+describe('Get Label', () => {
+  it.only("Should return Response 200 when Get Label API is called", (done) =>{
+    chai.request(server)
+    .get('/getLabel')
+    .end((err, res) => {
+      res.should.have.status(200);
+      done();
+    })
+  })
+})

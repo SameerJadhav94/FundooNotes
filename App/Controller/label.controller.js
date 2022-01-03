@@ -41,6 +41,13 @@ class LabelController {
             })
         };
     };
+
+    getLabel = async (req, res) => {
+        return res.status(200).send({
+            success: true,
+            message: 'Here are your labels'
+        })
+    }
 }
 
 module.exports = new LabelController();
