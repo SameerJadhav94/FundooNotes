@@ -1101,7 +1101,7 @@ describe('Get Label', () => {
       done();
     })
   })
-  it.only("Should return Response 400 when token does not get authenticated", (done) =>{
+  it.only("Should return Response 200 when token  gets authenticated", (done) =>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
