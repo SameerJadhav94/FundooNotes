@@ -132,11 +132,13 @@ class UserService {
 
   getLabelService = async (label) => {
     const getLabel = await userLabelModel.getLabelModel(label);
-    if (getLabel) {
-      return getLabel;
+    if (!getLabel) {
+      logger.error('Error getting label')
+      return false;
     }
     else{
-      return false;
+      logger.info('Get Labels Successfully')
+      return getLabel;
     }
   }
 }

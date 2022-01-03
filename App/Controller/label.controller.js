@@ -43,29 +43,41 @@ class LabelController {
     };
 
     getLabel = async (req, res) => {
-        const id = {id: req.user.tokenData.id};
+        try {
+            const id = { id: req.user.tokenData.id };
 
-        const getLabelValidator = validation.getLabelValidation.validate(id);
-        if (getLabelValidator.error) {
-            return res.status(400).send({
+            const getLabelValidator = validation.getLabelValidation.validate(id);
+            if (getLabelValidator.error) {
+                logger.error(getLabelValidator.error)
+                return res.status(400).send({
+                    success: false,
+                    message: 'Wrong Input Validation'
+                })
+            }
+            const getLabel = await userService.getLabelService(id);
+            if (!getLabel) {
+                logger.error('Could Not Fetch Labels')
+                return res.status(400).send({
+                    success: false,
+                    message: 'Could Not Fetch Labels.'
+                })
+            }
+            else {
+                logger.info('Here are your labels')
+                return res.status(200).send({
+                    success: true,
+                    message: "Here are your labels...",
+                    data: getLabel
+                })
+            }
+        } catch {
+            logger.error('Internal server error')
+            return res.status(500).send({
                 success: false,
-                message: "Wrong Input Validation"
+                message: 'Internal server error',
             })
         }
-        const getLabel = await userService.getLabelService(id);
-        if (!getLabel) {
-            return res.status(400).send({
-                success: false,
-                message: "Could Not Fetch Labels."
-            })
-        }
-        else{
-            return res.status(200).send({
-                success: true,
-                message: "Here are your labels...",
-                data: getLabel
-            })
-        }
+
     }
 }
 
