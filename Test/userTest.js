@@ -1141,4 +1141,14 @@ describe('Get Label', () => {
       done();
     })
   })
+  it.only("Should return Response 200 when gets labels for note", (done) =>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .get('/getLabel')
+    .set({ authorization: tokenCheck })
+    .end((err, res) => {
+      res.should.have.status(200);
+      done();
+    })
+  })
 })

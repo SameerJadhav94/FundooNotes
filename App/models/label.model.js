@@ -54,11 +54,12 @@ class LabelModel {
         }
     }
     getLabelModel = async (getLabel) => {
-        if (!getLabel) {
+        const label = await labelDir.find({userId: getLabel.id});
+        if (!label){
             return false;
         }
         else{
-            return getLabel;
+            return label;
         }
     }
 }

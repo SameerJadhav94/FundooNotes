@@ -61,8 +61,9 @@ class LabelController {
         }
         else{
             return res.status(200).send({
-                success: false,
-                message: "Here are your labels..."
+                success: true,
+                message: "Here are your labels...",
+                data: getLabel
             })
         }
     }
