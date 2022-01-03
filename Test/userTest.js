@@ -1082,10 +1082,22 @@ describe('Add Label', () => {
 
 describe('Get Label', () => {
   it.only("Should return Response 200 when Get Label API is called", (done) =>{
+    const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
+    .set({ authorization: tokenCheck })
     .end((err, res) => {
       res.should.have.status(200);
+      done();
+    })
+  })
+  it.only("Should return Response 400 when token does not get authenticated", (done) =>{
+    const tokenCheck = Data.testData.token.unAuthToken;
+    chai.request(server)
+    .get('/getLabel')
+    .set({ authorization: tokenCheck })
+    .end((err, res) => {
+      res.should.have.status(400);
       done();
     })
   })
