@@ -121,9 +121,11 @@ class UserService {
   addLabel = async (label) => {
     const addLabel = await userLabelModel.addLabelModel(label);
     if (!addLabel) {
+      logger.error('Error adding label');
       return false;
     }
     else{
+      logger.info('Label Added Successfully')
       return addLabel;
     }
   }

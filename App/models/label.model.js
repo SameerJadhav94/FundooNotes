@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const note = require('./note.model').NoteDataBase
-const model = require('./model').userDB;
+const { logger } = require('../../logger/logger');
 
 const labelSchema = mongoose.Schema({
     userId: [{
@@ -31,6 +31,7 @@ class LabelModel {
         
         const noteExist = await note.findById({_id: addLabel.noteId});
         if (!noteExist) {
+            logger.error('Note Not Exist')
             return false;
         }    
         else{
@@ -38,13 +39,16 @@ class LabelModel {
             if (!labelExist) {
                 const saveLabel = await labels.save();
                 if (!saveLabel) {
+                    logger.error('Could not save label')
                     return false;
                 }
                 else{
+                    logger.info('Label Saved')
                     return saveLabel;
                 }
             }
             else{
+                logger.error('Label Already Exist')
                 return false;
             }
         }
