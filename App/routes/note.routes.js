@@ -28,4 +28,6 @@ module.exports = (app) => {
   app.post('/addLabel/:id',helper.validateToken, labelController.addLabel);
   // api for get label
   app.get('/getLabel',helper.validateToken, labelController.getLabel);
+  // api for get label
+  app.get('/getLabelById/:id', labelController.getLabelById);
 };

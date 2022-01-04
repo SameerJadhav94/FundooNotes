@@ -79,6 +79,12 @@ class LabelController {
         }
 
     }
+    getLabelById = async (req, res) => {
+        return res.status(200).send({
+            success: true,
+            message: 'Your Label...'
+        })
+    }
 }
 
 module.exports = new LabelController();

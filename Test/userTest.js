@@ -1081,7 +1081,7 @@ describe('Add Label', () => {
 });
 
 describe('Get Label', () => {
-  it.only("Should return Response 200 when Get Label API is called", (done) =>{
+  it("Should return Response 200 when Get Label API is called", (done) =>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
@@ -1091,7 +1091,7 @@ describe('Get Label', () => {
       done();
     })
   })
-  it.only("Should return Response 400 when token does not get authenticated", (done) =>{
+  it("Should return Response 400 when token does not get authenticated", (done) =>{
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
     .get('/getLabel')
@@ -1101,7 +1101,7 @@ describe('Get Label', () => {
       done();
     })
   })
-  it.only("Should return Response 200 when token  gets authenticated", (done) =>{
+  it("Should return Response 200 when token  gets authenticated", (done) =>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
@@ -1111,7 +1111,7 @@ describe('Get Label', () => {
       done();
     })
   })
-  it.only("Should return Response 200 when id gets validated", (done) =>{
+  it("Should return Response 200 when id gets validated", (done) =>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
@@ -1121,7 +1121,7 @@ describe('Get Label', () => {
       done();
     })
   })
-  it.only("Should return Response 200 when gets valid response from service", (done) =>{
+  it("Should return Response 200 when gets valid response from service", (done) =>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
@@ -1131,7 +1131,7 @@ describe('Get Label', () => {
       done();
     })
   })
-  it.only("Should return Response 200 when gets valid response from model", (done) =>{
+  it("Should return Response 200 when gets valid response from model", (done) =>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
@@ -1141,11 +1141,21 @@ describe('Get Label', () => {
       done();
     })
   })
-  it.only("Should return Response 200 when gets labels for note", (done) =>{
+  it("Should return Response 200 when gets labels for note", (done) =>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabel')
     .set({ authorization: tokenCheck })
+    .end((err, res) => {
+      res.should.have.status(200);
+      done();
+    })
+  })
+})
+describe('Get label by id', () => {
+  it.only('should return Response 200 when Get Label By Id API is called',(done)=>{
+    chai.request(server)
+    .get('/getLabelById/:id')
     .end((err, res) => {
       res.should.have.status(200);
       done();
