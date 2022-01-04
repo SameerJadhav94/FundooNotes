@@ -129,6 +129,13 @@ class LabelController {
                 label: req.body.label
 
             }
+            const updateLabelValidator = validation.updateLabelByIdValidations.validate(id);
+            if (!updateLabelValidator.error) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Wrong Input Validation'
+                })
+            }
             return res.status(200).send({
                 success: true,
                 message: 'Label Updated Successfully'

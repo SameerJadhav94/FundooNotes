@@ -96,5 +96,11 @@ class Validation {
     userId: Joi.string().required(),
     id: Joi.string().required().min(24)
   })
+
+  updateLabelByIdValidations = Joi.object({
+    id: Joi.string().required().min(24),
+    userId: Joi.string().required(),
+    label: Joi.string().required().min(2)
+  })
 }
 module.exports = new Validation();
