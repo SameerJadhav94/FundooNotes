@@ -1213,4 +1213,14 @@ describe('Get label by id', () => {
         done();
       })
   })
+  it.only('should return Response 400 when Does Not Gets Valid Response From Service', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .get('/getLabelById/61d2fd9d808c61d67b9')
+      .set({ authorization: tokenCheck })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      })
+  })
 })
