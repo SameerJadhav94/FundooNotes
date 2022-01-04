@@ -1285,4 +1285,14 @@ describe('Update Label', () => {
       done();
     })
   })
+  it.only('should return Response 200 when Token Gets Authenticated', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .put('/updateLabelById/:id')
+    .set({ authorization: tokenCheck })
+    .end((err, res)=>{
+      res.should.have.status(200);
+      done();
+    })
+  })
 })
