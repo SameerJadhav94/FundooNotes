@@ -5,6 +5,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 chai.should();
 const faker = require('faker');
+const { en } = require('faker/lib/locales');
 
 const { it } = require('mocha');
 const server = require('../server');
@@ -1265,7 +1266,7 @@ describe('Get label by id', () => {
   })
 })
 describe('Update Label', () => {
-  it.only('should return Response 200 when Update Lable API is called', (done)=>{
+  it('should return Response 200 when Update Lable API is called', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2f7db354d13f0d8cfa86e')
@@ -1276,7 +1277,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 400 when Token Does Not Gets Authenticated', (done)=>{
+  it('should return Response 400 when Token Does Not Gets Authenticated', (done)=>{
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
     .put('/updateLabelById/61d2efaa759970901e200099')
@@ -1286,7 +1287,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 200 when Token Gets Authenticated', (done)=>{
+  it('should return Response 200 when Token Gets Authenticated', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2f7db354d13f0d8cfa872')
@@ -1297,7 +1298,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 200 when label gets validated', (done)=>{
+  it('should return Response 200 when label gets validated', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2efaa759970901e200099')
@@ -1308,7 +1309,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 400 when label does not validate', (done)=>{
+  it('should return Response 400 when label does not validate', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2efaa759970901e200099')
@@ -1319,7 +1320,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 400 when id does not validate', (done)=>{
+  it('should return Response 400 when id does not validate', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2efaa759970901e2')
@@ -1330,7 +1331,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 200 when gets valid response from service', (done)=>{
+  it('should return Response 200 when gets valid response from service', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2f7db354d13f0d8cfa876')
@@ -1341,7 +1342,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 400 when does not gets valid response from service', (done)=>{
+  it('should return Response 400 when does not gets valid response from service', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2efaa759970901e200099')
@@ -1352,7 +1353,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 200 when gets valid response from model', (done)=>{
+  it('should return Response 200 when gets valid response from model', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2f7db354d13f0d8cfa87a')
@@ -1363,7 +1364,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 400 when does not gets valid response from model', (done)=>{
+  it('should return Response 400 when does not gets valid response from model', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2efaa759970901e200099')
@@ -1374,7 +1375,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 200 when gets label gets updated in DB', (done)=>{
+  it('should return Response 200 when gets label gets updated in DB', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d32efd91b190fdf7ad1dbd')
@@ -1385,7 +1386,7 @@ describe('Update Label', () => {
       done();
     })
   })
-  it.only('should return Response 400 when does not updated in DB', (done)=>{
+  it('should return Response 400 when does not updated in DB', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .put('/updateLabelById/61d2f7931ffce36e733eaa72')
@@ -1393,6 +1394,16 @@ describe('Update Label', () => {
     .send({label: "Updated label"})
     .end((err, res)=>{
       res.should.have.status(400);
+      done();
+    })
+  })
+})
+describe('Delete Note By Id', () =>{
+  it.only('should return response 200 when delete label API is called', (done)=>{
+    chai.request(server)
+    .delete('/deleteLabelById/:id')
+    .end((err, res)=>{
+      res.should.have.status(200);
       done();
     })
   })

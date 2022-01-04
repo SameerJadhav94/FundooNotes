@@ -164,6 +164,13 @@ class LabelController {
         }
 
     }
+
+    deleteLabelById = (req, res) => {
+        return res.status(200).send({
+            success: true,
+            message: 'Label Deleted Successfully'
+        })
+    }
 }
 
 module.exports = new LabelController();
