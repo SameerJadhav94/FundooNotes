@@ -267,7 +267,7 @@
                     }
                 }
             }
-        } ,
+        },
         "/updateNoteById/{id}": {
             "put": {
                 "tags": [
@@ -357,7 +357,7 @@
                     }
                 }
             }
-        } ,
+        },
         "/addLabel/{id}": {
             "post": {
                 "tags": [
@@ -406,7 +406,7 @@
                         "description": "Invalid Token"
                     }
                 }
-            }  
+            }
         },
         "/getLabel": {
             "get": {
@@ -479,7 +479,57 @@
                     }
                 }
             }
-        }     
+        },
+        "/updateLabelById/{id}": {
+            "put": {
+                "tags": [
+                    "Update Label"
+                ],
+                "description": "Updates Label",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token for validation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Label id",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "label",
+                        "description": "Label to be updated",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateLabel"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "label updated"
+                    },
+                    "500": {
+                        "description": "Failed to update label"
+                    },
+                    "400": {
+                        "description": "Invalid Token"
+                    }
+                }
+            }
+        }
     },
     "definitions": {
         "registerUser": {
@@ -595,6 +645,14 @@
                     "type": "string"
                 }
             }
+        },
+        "UpdateLabel": {
+            "type": "object",
+            "properties": {
+                "label": {
+                    "type": "string"
+                }
+            }
         }
     }
-} 
+}
