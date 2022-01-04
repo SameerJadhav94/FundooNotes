@@ -122,10 +122,24 @@ class LabelController {
 
     }
     updateLabelById = (req, res) => {
-        return res.status(200).send({
-            success: true,
-            message: 'Label Updated Successfully'
-        })
+        try {
+            const id = {
+                id: req.params.id,
+                userId: req.user.tokenData.id,
+                label: req.body.label
+
+            }
+            return res.status(200).send({
+                success: true,
+                message: 'Label Updated Successfully'
+            })
+        }catch{
+            return res.status(500).send({
+                success: false,
+                message: 'Internal server error',
+            })
+        }
+        
     }
 }
 
