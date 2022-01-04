@@ -1419,4 +1419,14 @@ describe('Delete Note By Id', () =>{
       done();
     })
   })
+  it.only('should return response 400 when token does not authenticate', (done)=>{
+    const tokenCheck = Data.testData.token.unAuthToken;
+    chai.request(server)
+    .delete('/deleteLabelById/:id')
+    .set({ authorization: tokenCheck })
+    .end((err, res)=>{
+      res.should.have.status(400);
+      done();
+    })
+  })
 })
