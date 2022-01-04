@@ -163,7 +163,15 @@ class UserService {
       logger.error('Error Updating Label')
       reject(error)
     })
-  })
+  });
+  deleteLabelByIdService = (deleteLabel, callback) => {
+    if (!deleteLabel) {
+      return callback(error, null);     
+    }
+    else{
+      return callback(null, deleteLabel);
+    }
+  }
 }
 
 module.exports = new UserService();

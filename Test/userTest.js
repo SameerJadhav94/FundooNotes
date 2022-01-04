@@ -1450,4 +1450,14 @@ describe('Delete Note By Id', () =>{
       done();
     })
   })
+  it.only('should return response 200 when gets valid callback from service', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .delete('/deleteLabelById/61d32efd91b190fdf7ad1dbd')
+    .set({ authorization: tokenCheck })
+    .end((err, res)=>{
+      res.should.have.status(200);
+      done();
+    })
+  })
 })

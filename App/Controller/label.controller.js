@@ -179,10 +179,21 @@ class LabelController {
                     message: 'Wrong Input Validation.'
                 })
             }
-            return res.status(200).send({
-                success: true,
-                message: 'Label Deleted Successfully'
+            userService.deleteLabelByIdService(id, (error, data) => {
+                if (error) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'Could Not Delete Label',
+                        data: error
+                    })
+                }
+                return res.status(200).send({
+                    success: true,
+                    message: 'Label Deleted Successfully',
+                    data: data
+                })
             })
+
         } catch {
             return res.status(500).send({
                 success: false,
