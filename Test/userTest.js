@@ -1154,10 +1154,22 @@ describe('Get Label', () => {
 })
 describe('Get label by id', () => {
   it.only('should return Response 200 when Get Label By Id API is called',(done)=>{
+    const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .get('/getLabelById/:id')
+    .set({ authorization: tokenCheck })
     .end((err, res) => {
       res.should.have.status(200);
+      done();
+    })
+  })
+  it.only('should return Response 400 when Token Does Not Gets Authenticated.',(done)=>{
+    const tokenCheck = Data.testData.token.unAuthToken;
+    chai.request(server)
+    .get('/getLabelById/:id')
+    .set({ authorization: tokenCheck })
+    .end((err, res) => {
+      res.should.have.status(400);
       done();
     })
   })

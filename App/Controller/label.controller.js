@@ -80,10 +80,19 @@ class LabelController {
 
     }
     getLabelById = async (req, res) => {
-        return res.status(200).send({
-            success: true,
-            message: 'Your Label...'
-        })
+        try {
+            return res.status(200).send({
+                success: true,
+                message: 'Your Label...'
+            })
+        }catch{
+            logger.error('Internal server error')
+            return res.status(500).send({
+                success: false,
+                message: 'Internal server error',
+            })
+        }
+        
     }
 }
 
