@@ -145,9 +145,11 @@ class UserService {
   getLabelByIdService = async (labelId) => {
     const getLabelById = await userLabelModel.getLabelByIdModel(labelId);
     if (!getLabelById) {
+      logger.error('Error getting label from id')
       return false;
     }
     else{
+      logger.info('Fetched Label By Id Successfully')
       return getLabelById
     }
   }

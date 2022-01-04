@@ -68,9 +68,11 @@ class LabelModel {
     getLabelByIdModel = async (labelId) => {
         const label = await labelDir.find({userId: labelId.userId, _id: labelId.id});
         if (!label) {
+            logger.error('Label Not Exist')
             return false;
         }
         else{
+            logger.info('Fetched Label Successfully')
             return label;
         }
     }

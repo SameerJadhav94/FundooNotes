@@ -89,6 +89,7 @@ class LabelController {
 
             const getLabelByIdValidator = validation.getLabelByIdValidation.validate(id);
             if (getLabelByIdValidator.error) {
+                logger.error(getLabelByIdValidator.error)
                 return res.status(400).send({
                     success: false,
                     message: 'Wrong Input Validation'
@@ -97,12 +98,14 @@ class LabelController {
 
             const getLabelById = await userService.getLabelByIdService(id)
             if (!getLabelById) {
+                logger.error('Could Not Fetch Label')
                 return res.status(400).send({
                     success: false,
                     message: 'Could Not Fetch Label.'
                 })
             }
             else{
+                logger.info('Your Label')
                 return res.status(200).send({
                     success: true,
                     message: 'Your Label...',
