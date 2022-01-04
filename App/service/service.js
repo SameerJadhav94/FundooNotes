@@ -165,12 +165,14 @@ class UserService {
     })
   });
   deleteLabelByIdService = (deleteLabel, callback) => {
-    if (!deleteLabel) {
-      return callback(error, null);     
-    }
-    else{
-      return callback(null, deleteLabel);
-    }
+    userLabelModel.deleteLabelByIdModel(deleteLabel, (err, data)=>{
+      if (err) {
+        return callback(err, null)
+      }
+      else{
+        return callback(null, data)
+      }
+    })
   }
 }
 

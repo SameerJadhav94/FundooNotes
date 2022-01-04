@@ -86,5 +86,14 @@ class LabelModel {
             reject(error)
         })
     })
+
+    deleteLabelByIdModel = (labelId, callback) => {
+        if (!labelId) {
+            callback(err, null);
+        }
+        else {
+            callback(null, labelId)
+        }
+    }
 }
 module.exports = new LabelModel();
