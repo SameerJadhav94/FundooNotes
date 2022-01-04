@@ -131,6 +131,7 @@ class LabelController {
             }
             const updateLabelValidator = validation.updateLabelByIdValidations.validate(id);
             if (updateLabelValidator.error) {
+                logger.error(updateLabelValidator.error)
                 return res.status(400).send({
                     success: false,
                     message: 'Wrong Input Validation'
@@ -139,12 +140,14 @@ class LabelController {
 
             const updateLabel = userService.updateLabelByIdService(id);
             updateLabel.then((data) => {
+                logger.info('Label Updated Successfully')
                 return res.status(200).send({
                     success: true,
                     message: 'Label Updated Successfully',
                     data: data
                 })
             }).catch(error => {
+                logger.error('Could Not Update Label')
                 return res.status(400).send({
                     success: false,
                     message: 'Could Not Update Label',
@@ -153,6 +156,7 @@ class LabelController {
             })
 
         } catch {
+            logger.error('Internal server error')
             return res.status(500).send({
                 success: false,
                 message: 'Internal server error',

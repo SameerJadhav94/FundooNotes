@@ -157,8 +157,10 @@ class UserService {
   updateLabelByIdService = (labelId) => new Promise((resolve, reject) => {
     const updateLable = userLabelModel.updateLabelByIdModel(labelId)
     updateLable.then((label) =>{
+      logger.info('Label Updated Successfully')
       resolve(label)
     }).catch((error) =>{
+      logger.error('Error Updating Label')
       reject(error)
     })
   })

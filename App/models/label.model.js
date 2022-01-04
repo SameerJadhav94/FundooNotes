@@ -79,8 +79,10 @@ class LabelModel {
 
     updateLabelByIdModel = (id) => new Promise((resolve, reject) => {
         labelDir.findByIdAndUpdate(id.id, { label: id.label }, { new: true }).then((data) => {
+            logger.info('Success')
             resolve(data)
         }).catch((error) => {
+            logger.error('Error')
             reject(error)
         })
     })
