@@ -66,11 +66,12 @@ class LabelModel {
     }
 
     getLabelByIdModel = async (labelId) => {
-        if (!labelId) {
+        const label = await labelDir.find({userId: labelId.userId, _id: labelId.noteId});
+        if (!label) {
             return false;
         }
         else{
-            return labelId;
+            return label;
         }
     }
 }
