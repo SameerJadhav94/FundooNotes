@@ -529,6 +529,47 @@
                     }
                 }
             }
+        },
+        "/deleteLabelById/{id}": {
+            "delete": {
+                "tags": [
+                    "Delete Label"
+                ],
+                "description": "To delete label by using its id ",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token for validation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Write Id Of Label You Want To Delete",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Note Deleted Successfully..."
+                    },
+                    "401": {
+                        "description": "Enter valid token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
