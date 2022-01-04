@@ -101,7 +101,7 @@ class LabelController {
                 logger.error('Could Not Fetch Label')
                 return res.status(400).send({
                     success: false,
-                    message: 'Could Not Fetch Label.'
+                    message: 'Could Not Fetch Label.',
                 })
             }
             else{
