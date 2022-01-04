@@ -88,9 +88,9 @@ class LabelModel {
     })
 
     deleteLabelByIdModel = (labelId, callback) => {
-        labelDir.findOneAndDelete({ _id: labelId.id }, (err, data) => {
-            if (err) {
-                return callback(err, null)
+        labelDir.findOneAndDelete({ $and: [{ _id: labelId.id }, { userId: labelId.userId }] }, (error, data) => {
+            if (error) {
+                return callback(error, null)
             }
             else {
                 return callback(null, data)

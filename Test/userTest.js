@@ -1493,10 +1493,20 @@ describe('Delete Note By Id', () =>{
   it.only('should return response 200 when label gets deleted from DB', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .delete('/deleteLabelById/61d2f7db354d13f0d8cfa87a')
+    .delete('/deleteLabelById/61d2f7cf1bcc117e84046b75')
     .set({ authorization: tokenCheck })
     .end((err, res)=>{
       res.should.have.status(200);
+      done();
+    })
+  })  
+  it.only('should return response 400 when label does not get deleted from DB', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .delete('/deleteLabelById/61d32efd91b190fdf7ad1db')
+    .set({ authorization: tokenCheck })
+    .end((err, res)=>{
+      res.should.have.status(400);
       done();
     })
   })  

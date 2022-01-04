@@ -184,7 +184,7 @@ class LabelController {
                     return res.status(400).send({
                         success: false,
                         message: 'Could Not Delete Label',
-                        data: error
+                        error
                     })
                 }
                 return res.status(200).send({
