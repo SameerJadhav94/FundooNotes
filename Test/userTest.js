@@ -1440,4 +1440,14 @@ describe('Delete Note By Id', () =>{
       done();
     })
   })
+  it.only('should return response 400 when id does not validate', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .delete('/deleteLabelById/61d32efd91b190fdf7ad1db')
+    .set({ authorization: tokenCheck })
+    .end((err, res)=>{
+      res.should.have.status(400);
+      done();
+    })
+  })
 })

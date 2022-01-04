@@ -183,13 +183,13 @@ class LabelController {
                 success: true,
                 message: 'Label Deleted Successfully'
             })
-        }catch{
+        } catch {
             return res.status(500).send({
                 success: false,
                 message: 'Internal server error',
             })
         }
-        
+
     }
 }
 
