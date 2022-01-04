@@ -1153,7 +1153,7 @@ describe('Get Label', () => {
   })
 })
 describe('Get label by id', () => {
-  it.only('should return Response 200 when Get Label By Id API is called', (done) => {
+  it('should return Response 200 when Get Label By Id API is called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c587b')
@@ -1163,7 +1163,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 400 when Token Does Not Gets Authenticated.', (done) => {
+  it('should return Response 400 when Token Does Not Gets Authenticated.', (done) => {
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c587b')
@@ -1173,7 +1173,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 200 when Token Gets Authenticated', (done) => {
+  it('should return Response 200 when Token Gets Authenticated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c587b')
@@ -1183,7 +1183,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 200 when Id Gets Validated', (done) => {
+  it('should return Response 200 when Id Gets Validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c587b')
@@ -1193,7 +1193,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 400 when Id Does Not Gets Validated', (done) => {
+  it('should return Response 400 when Id Does Not Gets Validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9')
@@ -1203,7 +1203,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 200 when Gets Valid Response From Service', (done) => {
+  it('should return Response 200 when Gets Valid Response From Service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c587b')
@@ -1213,7 +1213,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 400 when Does Not Gets Valid Response From Service', (done) => {
+  it('should return Response 400 when Does Not Gets Valid Response From Service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9')
@@ -1223,7 +1223,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 200 when Gets Valid Response From Model', (done) => {
+  it('should return Response 200 when Gets Valid Response From Model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c587b')
@@ -1233,7 +1233,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 400 when Does Not Gets Valid Response From Model', (done) => {
+  it('should return Response 400 when Does Not Gets Valid Response From Model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9')
@@ -1243,7 +1243,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 200 When Label Is Fetched From DB', (done) => {
+  it('should return Response 200 When Label Is Fetched From DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c587b')
@@ -1253,7 +1253,7 @@ describe('Get label by id', () => {
         done();
       })
   })
-  it.only('should return Response 400 when Label Did Not Be Fetched From DB', (done) => {
+  it('should return Response 400 when Label Did Not Be Fetched From DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getLabelById/61d2fd9d808c61d67b9c')
@@ -1262,5 +1262,15 @@ describe('Get label by id', () => {
         res.should.have.status(400);
         done();
       })
+  })
+})
+describe('Update Label', () => {
+  it.only('should return Response 200 when Update Lable API is called', (done)=>{
+    chai.request(server)
+    .put('/updateLabelById/:id')
+    .end((err, res)=>{
+      res.should.have.status(200);
+      done();
+    })
   })
 })

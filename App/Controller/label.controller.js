@@ -82,7 +82,7 @@ class LabelController {
     }
     getLabelById = async (req, res) => {
         try {
-            const id = { 
+            const id = {
                 userId: req.user.tokenData.id,
                 id: req.params.id
             }
@@ -104,22 +104,28 @@ class LabelController {
                     message: 'Could Not Fetch Label.',
                 })
             }
-            else{
+            else {
                 logger.info('Your Label')
                 return res.status(200).send({
                     success: true,
                     message: 'Your Label...',
                     data: getLabelById
                 })
-            }   
-        }catch{
+            }
+        } catch {
             logger.error('Internal server error')
             return res.status(500).send({
                 success: false,
                 message: 'Internal server error',
             })
         }
-        
+
+    }
+    updateLabelById = (req, res) => {
+        return res.status(200).send({
+            success: true,
+            message: 'Label Updated Successfully'
+        })
     }
 }
 

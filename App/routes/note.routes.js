@@ -30,4 +30,6 @@ module.exports = (app) => {
   app.get('/getLabel',helper.validateToken, labelController.getLabel);
   // api for get label
   app.get('/getLabelById/:id',helper.validateToken, labelController.getLabelById);
+  // api for Update Note By Id
+  app.put('/updateLabelById/:id', labelController.updateLabelById);
 };
