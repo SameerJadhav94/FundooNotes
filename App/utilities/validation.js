@@ -102,5 +102,10 @@ class Validation {
     userId: Joi.string().required(),
     label: Joi.string().min(2).required()
   })
+
+  deleteLabelByIdValidations = Joi.object({
+    id: Joi.string().required().min(24), 
+    userId: Joi.string().required(),
+  })
 }
 module.exports = new Validation();

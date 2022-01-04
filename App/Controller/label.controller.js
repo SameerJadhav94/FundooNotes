@@ -166,10 +166,30 @@ class LabelController {
     }
 
     deleteLabelById = (req, res) => {
-        return res.status(200).send({
-            success: true,
-            message: 'Label Deleted Successfully'
-        })
+        try {
+            const id = {
+                id: req.params.id,
+                userId: req.user.tokenData.id
+            }
+
+            const deleteLabelByIdValidator = validation.deleteLabelByIdValidations.validate(id);
+            if (deleteLabelByIdValidator.error) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Wrong Input Validation.'
+                })
+            }
+            return res.status(200).send({
+                success: true,
+                message: 'Label Deleted Successfully'
+            })
+        }catch{
+            return res.status(500).send({
+                success: false,
+                message: 'Internal server error',
+            })
+        }
+        
     }
 }
 

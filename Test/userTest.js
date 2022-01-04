@@ -1398,11 +1398,12 @@ describe('Update Label', () => {
     })
   })
 })
+
 describe('Delete Note By Id', () =>{
   it.only('should return response 200 when delete label API is called', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .delete('/deleteLabelById/:id')
+    .delete('/deleteLabelById/61d32efd91b190fdf7ad1dbd')
     .set({ authorization: tokenCheck })
     .end((err, res)=>{
       res.should.have.status(200);
@@ -1412,7 +1413,7 @@ describe('Delete Note By Id', () =>{
   it.only('should return response 200 when token gets authenticated', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .delete('/deleteLabelById/:id')
+    .delete('/deleteLabelById/61d32efd91b190fdf7ad1dbd')
     .set({ authorization: tokenCheck })
     .end((err, res)=>{
       res.should.have.status(200);
@@ -1422,10 +1423,20 @@ describe('Delete Note By Id', () =>{
   it.only('should return response 400 when token does not authenticate', (done)=>{
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
-    .delete('/deleteLabelById/:id')
+    .delete('/deleteLabelById/61d32efd91b190fdf7ad1dbd')
     .set({ authorization: tokenCheck })
     .end((err, res)=>{
       res.should.have.status(400);
+      done();
+    })
+  })
+  it.only('should return response 200 when id gets validated', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .delete('/deleteLabelById/61d32efd91b190fdf7ad1dbd')
+    .set({ authorization: tokenCheck })
+    .end((err, res)=>{
+      res.should.have.status(200);
       done();
     })
   })
