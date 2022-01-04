@@ -143,11 +143,12 @@ class UserService {
   }
 
   getLabelByIdService = async (labelId) => {
-    if (!labelId) {
+    const getLabelById = await userLabelModel.getLabelByIdModel(labelId);
+    if (!getLabelById) {
       return false;
     }
     else{
-      return labelId
+      return getLabelById
     }
   }
 }

@@ -64,5 +64,14 @@ class LabelModel {
             return label;
         }
     }
+
+    getLabelByIdModel = async (labelId) => {
+        if (!labelId) {
+            return false;
+        }
+        else{
+            return labelId;
+        }
+    }
 }
 module.exports = new LabelModel();
