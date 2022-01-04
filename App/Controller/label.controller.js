@@ -81,6 +81,18 @@ class LabelController {
     }
     getLabelById = async (req, res) => {
         try {
+            const id = { 
+                userId: req.user.tokenData.id,
+                labelId: req.params.id
+            }
+
+            const getLabelByIdValidator = validation.getLabelByIdValidation.validate(id);
+            if (getLabelByIdValidator.error) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Wrong Input Validation'
+                })
+            }
             return res.status(200).send({
                 success: true,
                 message: 'Your Label...'
