@@ -84,7 +84,7 @@ class LabelController {
         try {
             const id = { 
                 userId: req.user.tokenData.id,
-                labelId: req.params.id
+                id: req.params.id
             }
 
             const getLabelByIdValidator = validation.getLabelByIdValidation.validate(id);

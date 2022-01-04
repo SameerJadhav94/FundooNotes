@@ -94,7 +94,7 @@ class Validation {
 
   getLabelByIdValidation = Joi.object({
     userId: Joi.string().required(),
-    labelId: Joi.string().required().min(24)
+    id: Joi.string().required().min(24)
   })
 }
 module.exports = new Validation();

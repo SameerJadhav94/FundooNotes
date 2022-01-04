@@ -1253,4 +1253,14 @@ describe('Get label by id', () => {
         done();
       })
   })
+  it.only('should return Response 400 when Label Did Not Be Fetched From DB', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .get('/getLabelById/61d2fd9d808c61d67b9c')
+      .set({ authorization: tokenCheck })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      })
+  })
 })
