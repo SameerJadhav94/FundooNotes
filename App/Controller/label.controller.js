@@ -174,6 +174,7 @@ class LabelController {
 
             const deleteLabelByIdValidator = validation.deleteLabelByIdValidations.validate(id);
             if (deleteLabelByIdValidator.error) {
+                logger.error(deleteLabelByIdValidator.error)
                 return res.status(400).send({
                     success: false,
                     message: 'Wrong Input Validation.'
@@ -181,20 +182,25 @@ class LabelController {
             }
             userService.deleteLabelByIdService(id, (error, data) => {
                 if (error) {
+                    logger.error('Could Not Delete Label')
                     return res.status(400).send({
                         success: false,
                         message: 'Could Not Delete Label',
                         error
                     })
                 }
-                return res.status(200).send({
-                    success: true,
-                    message: 'Label Deleted Successfully',
-                    data: data
-                })
+                else {
+                    logger.info('Label Deleted Successfully')
+                    return res.status(200).send({
+                        success: true,
+                        message: 'Label Deleted Successfully',
+                        data: data
+                    })
+                }
             })
 
         } catch {
+            logger.error('Internal server error')
             return res.status(500).send({
                 success: false,
                 message: 'Internal server error',

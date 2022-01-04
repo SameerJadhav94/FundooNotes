@@ -167,9 +167,11 @@ class UserService {
   deleteLabelByIdService = (deleteLabel, callback) => {
     userLabelModel.deleteLabelByIdModel(deleteLabel, (err, data)=>{
       if (err) {
+        logger.error('Error deleting label')
         return callback(err, null)
       }
       else{
+        logger.info('successfully deleted label')
         return callback(null, data)
       }
     })
