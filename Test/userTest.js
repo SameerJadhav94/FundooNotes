@@ -1400,8 +1400,20 @@ describe('Update Label', () => {
 })
 describe('Delete Note By Id', () =>{
   it.only('should return response 200 when delete label API is called', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
     .delete('/deleteLabelById/:id')
+    .set({ authorization: tokenCheck })
+    .end((err, res)=>{
+      res.should.have.status(200);
+      done();
+    })
+  })
+  it.only('should return response 200 when token gets authenticated', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .delete('/deleteLabelById/:id')
+    .set({ authorization: tokenCheck })
     .end((err, res)=>{
       res.should.have.status(200);
       done();
