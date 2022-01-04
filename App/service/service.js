@@ -155,12 +155,12 @@ class UserService {
   }
 
   updateLabelByIdService = (labelId) => new Promise((resolve, reject) => {
-    if (!labelId) {
+    const updateLable = userLabelModel.updateLabelByIdModel(labelId)
+    updateLable.then((label) =>{
+      resolve(label)
+    }).catch((error) =>{
       reject(error)
-    }
-    else{
-      resolve(labelId);
-    }
+    })
   })
 }
 

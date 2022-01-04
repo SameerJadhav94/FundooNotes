@@ -1352,4 +1352,15 @@ describe('Update Label', () => {
       done();
     })
   })
+  it.only('should return Response 200 when gets valid response from model', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .put('/updateLabelById/61d2efaa759970901e200099')
+    .set({ authorization: tokenCheck })
+    .send({ label: faker.lorem.word()})
+    .end((err, res)=>{
+      res.should.have.status(200);
+      done();
+    })
+  })
 })

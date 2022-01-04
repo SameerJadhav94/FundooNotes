@@ -76,5 +76,14 @@ class LabelModel {
             return label;
         }
     }
+
+    updateLabelByIdModel = (id) => new Promise((resolve, reject) => {
+        if (!id) {
+            reject(error)
+        }
+        else{
+            resolve(id)
+        }
+    })
 }
 module.exports = new LabelModel();
