@@ -136,17 +136,29 @@ class LabelController {
                     message: 'Wrong Input Validation'
                 })
             }
-            return res.status(200).send({
-                success: true,
-                message: 'Label Updated Successfully'
+
+            const updateLabel = userService.updateLabelByIdService(id);
+            updateLabel.then((data) => {
+                return res.status(200).send({
+                    success: true,
+                    message: 'Label Updated Successfully',
+                    data: data
+                })
+            }).catch(error => {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Could Not Update Label',
+                    data: error
+                })
             })
-        }catch{
+
+        } catch {
             return res.status(500).send({
                 success: false,
                 message: 'Internal server error',
             })
         }
-        
+
     }
 }
 

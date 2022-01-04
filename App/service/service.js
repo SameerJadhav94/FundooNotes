@@ -153,6 +153,15 @@ class UserService {
       return getLabelById
     }
   }
+
+  updateLabelByIdService = (labelId) => new Promise((resolve, reject) => {
+    if (!labelId) {
+      reject(error)
+    }
+    else{
+      resolve(labelId);
+    }
+  })
 }
 
 module.exports = new UserService();
