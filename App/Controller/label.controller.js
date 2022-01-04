@@ -130,7 +130,7 @@ class LabelController {
 
             }
             const updateLabelValidator = validation.updateLabelByIdValidations.validate(id);
-            if (!updateLabelValidator.error) {
+            if (updateLabelValidator.error) {
                 return res.status(400).send({
                     success: false,
                     message: 'Wrong Input Validation'

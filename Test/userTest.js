@@ -1268,7 +1268,7 @@ describe('Update Label', () => {
   it.only('should return Response 200 when Update Lable API is called', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/:id')
+    .put('/updateLabelById/61d2efaa759970901e200099')
     .set({ authorization: tokenCheck })
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
@@ -1279,7 +1279,7 @@ describe('Update Label', () => {
   it.only('should return Response 400 when Token Does Not Gets Authenticated', (done)=>{
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
-    .put('/updateLabelById/:id')
+    .put('/updateLabelById/61d2efaa759970901e200099')
     .set({ authorization: tokenCheck })
     .end((err, res)=>{
       res.should.have.status(400);
@@ -1289,7 +1289,7 @@ describe('Update Label', () => {
   it.only('should return Response 200 when Token Gets Authenticated', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/:id')
+    .put('/updateLabelById/61d2efaa759970901e200099')
     .set({ authorization: tokenCheck })
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
@@ -1300,11 +1300,22 @@ describe('Update Label', () => {
   it.only('should return Response 200 when label gets validated', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/:id')
+    .put('/updateLabelById/61d2efaa759970901e200099')
     .set({ authorization: tokenCheck })
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
       res.should.have.status(200);
+      done();
+    })
+  })
+  it.only('should return Response 400 when label does not validate', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .put('/updateLabelById/61d2efaa759970901e200099')
+    .set({ authorization: tokenCheck })
+    .send({label: "A"})
+    .end((err, res)=>{
+      res.should.have.status(400);
       done();
     })
   })
