@@ -1322,9 +1322,9 @@ describe('Update Label', () => {
   it.only('should return Response 400 when id does not validate', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/61d2efaa759970901e20009')
+    .put('/updateLabelById/61d2efaa759970901e2')
     .set({ authorization: tokenCheck })
-    .send({label: "A"})
+    .send({label: faker.lorem.word()})
     .end((err, res)=>{
       res.should.have.status(400);
       done();
@@ -1338,6 +1338,17 @@ describe('Update Label', () => {
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
       res.should.have.status(200);
+      done();
+    })
+  })
+  it.only('should return Response 400 when does not gets valid response from service', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .put('/updateLabelById/61d2efaa759970901e200099')
+    .set({ authorization: tokenCheck })
+    .send({label: "A"})
+    .end((err, res)=>{
+      res.should.have.status(400);
       done();
     })
   })
