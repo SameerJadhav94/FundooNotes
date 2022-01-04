@@ -141,6 +141,15 @@ class UserService {
       return getLabel;
     }
   }
+
+  getLabelByIdService = async (labelId) => {
+    if (!labelId) {
+      return false;
+    }
+    else{
+      return labelId
+    }
+  }
 }
 
 module.exports = new UserService();

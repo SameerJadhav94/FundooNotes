@@ -31,6 +31,7 @@ class LabelController {
                 return res.status(200).send({
                     success: true,
                     message: 'Label added successfully',
+                    data: success
                 });
             }
         } catch (error) {
@@ -93,10 +94,21 @@ class LabelController {
                     message: 'Wrong Input Validation'
                 })
             }
-            return res.status(200).send({
-                success: true,
-                message: 'Your Label...'
-            })
+
+            const getLabelById = await userService.getLabelByIdService(id)
+            if (!getLabelById) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Could Not Fetch Label.'
+                })
+            }
+            else{
+                return res.status(200).send({
+                    success: true,
+                    message: 'Your Label...',
+                    data: getLabelById
+                })
+            }   
         }catch{
             logger.error('Internal server error')
             return res.status(500).send({
