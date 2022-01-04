@@ -1268,7 +1268,7 @@ describe('Update Label', () => {
   it.only('should return Response 200 when Update Lable API is called', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/61d2efaa759970901e200099')
+    .put('/updateLabelById/61d2f7db354d13f0d8cfa86e')
     .set({ authorization: tokenCheck })
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
@@ -1289,7 +1289,7 @@ describe('Update Label', () => {
   it.only('should return Response 200 when Token Gets Authenticated', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/61d2efaa759970901e200099')
+    .put('/updateLabelById/61d2f7db354d13f0d8cfa872')
     .set({ authorization: tokenCheck })
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
@@ -1333,7 +1333,7 @@ describe('Update Label', () => {
   it.only('should return Response 200 when gets valid response from service', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/61d2efaa759970901e200099')
+    .put('/updateLabelById/61d2f7db354d13f0d8cfa876')
     .set({ authorization: tokenCheck })
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
@@ -1355,7 +1355,7 @@ describe('Update Label', () => {
   it.only('should return Response 200 when gets valid response from model', (done)=>{
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-    .put('/updateLabelById/61d2efaa759970901e200099')
+    .put('/updateLabelById/61d2f7db354d13f0d8cfa87a')
     .set({ authorization: tokenCheck })
     .send({ label: faker.lorem.word()})
     .end((err, res)=>{
@@ -1369,6 +1369,28 @@ describe('Update Label', () => {
     .put('/updateLabelById/61d2efaa759970901e200099')
     .set({ authorization: tokenCheck })
     .send({label: "A"})
+    .end((err, res)=>{
+      res.should.have.status(400);
+      done();
+    })
+  })
+  it.only('should return Response 200 when gets label gets updated in DB', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .put('/updateLabelById/61d32efd91b190fdf7ad1dbd')
+    .set({ authorization: tokenCheck })
+    .send({ label: 'Updated label'})
+    .end((err, res)=>{
+      res.should.have.status(200);
+      done();
+    })
+  })
+  it.only('should return Response 400 when does not updated in DB', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .put('/updateLabelById/61d2f7931ffce36e733eaa72')
+    .set({ authorization: tokenCheck })
+    .send({label: "Updated label"})
     .end((err, res)=>{
       res.should.have.status(400);
       done();
