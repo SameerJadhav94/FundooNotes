@@ -88,12 +88,14 @@ class LabelModel {
     })
 
     deleteLabelByIdModel = (labelId, callback) => {
-        if (!labelId) {
-            callback(err, null);
-        }
-        else {
-            callback(null, labelId)
-        }
+        labelDir.findOneAndDelete({ _id: labelId.id }, (err, data) => {
+            if (err) {
+                return callback(err, null)
+            }
+            else {
+                return callback(null, data)
+            }
+        })
     }
 }
 module.exports = new LabelModel();
