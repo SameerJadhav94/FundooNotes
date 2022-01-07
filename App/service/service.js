@@ -124,7 +124,7 @@ class UserService {
       logger.error('Error deleting note');
       return false;
     }
-    logger.info('Note deleted successfully');
+    logger.info('Note deleted successfully and Cleared Cache successfully');
     redisServer.clearCache(noteId.noteId)
     return delNote;
   };
@@ -189,7 +189,7 @@ class UserService {
         return callback(err, null)
       }
       else {
-        logger.info('successfully deleted label')
+        logger.info('successfully deleted label and cleared cache.')
         redisServer.clearCache(labelId.id)
         return callback(null, data)
       }
