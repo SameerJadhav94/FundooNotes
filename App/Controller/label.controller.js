@@ -82,12 +82,12 @@ class LabelController {
     }
     getLabelById = async (req, res) => {
         try {
-            const id = {
+            const requestData = {
                 userId: req.user.tokenData.id,
                 id: req.params.id
             }
 
-            const getLabelByIdValidator = validation.getLabelByIdValidation.validate(id);
+            const getLabelByIdValidator = validation.getLabelByIdValidation.validate(requestData);
             if (getLabelByIdValidator.error) {
                 logger.error(getLabelByIdValidator.error)
                 return res.status(400).send({
@@ -96,7 +96,7 @@ class LabelController {
                 })
             }
 
-            const getLabelById = await userService.getLabelByIdService(id)
+            const getLabelById = await userService.getLabelByIdService(requestData.id, requestData.userId)
             if (!getLabelById) {
                 logger.error('Could Not Fetch Label')
                 return res.status(400).send({
@@ -112,11 +112,13 @@ class LabelController {
                     data: getLabelById
                 })
             }
-        } catch {
+        } catch(error) {
+            console.log(error);
             logger.error('Internal server error')
             return res.status(500).send({
                 success: false,
                 message: 'Internal server error',
+                error
             })
         }
 

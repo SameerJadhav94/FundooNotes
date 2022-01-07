@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 const mongoose = require('mongoose');
 const model = require('./model').userDB;
+const { logger } = require('../../logger/logger');
 
 const noteSchema = mongoose.Schema({
   userId: {
@@ -30,8 +31,8 @@ class NoteModel {
     const fundooNote = new Note();
     // eslint-disable-next-line no-sequences
     fundooNote.userId = noteModel.userId,
-    fundooNote.title = noteModel.title,
-    fundooNote.description = noteModel.description;
+      fundooNote.title = noteModel.title,
+      fundooNote.description = noteModel.description;
     model.findById({ _id: noteModel.userId })
       .then((data) => {
         resolve(fundooNote.save(data));
@@ -51,15 +52,16 @@ class NoteModel {
       });
   });
 
-  getNoteByIDModel = (getNoteById, callBack) => {
-    Note.find({ userId: getNoteById.userId, _id: getNoteById.noteId }, (err, data) => {
-      if (data) {
-        callBack(null, data);
-      } else {
-        callBack(err, null);
-      }
-    });
-  };
+  getNoteByIDModel = async (noteId, userId) => {
+    const note = await Note.findOne({ userId, _id: noteId });
+    if (!note) {
+      logger.error("Note Does Not Exist")
+      return false;
+    } else {
+      logger.info("Note Fetched SuccessFully.")
+      return note
+    }
+  }
 
   updateNoteModel = (updateNote, callBack) => {
     Note.findByIdAndUpdate(updateNote.id, { title: updateNote.title, description: updateNote.description }, { new: true }, (err, data) => {

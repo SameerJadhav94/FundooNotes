@@ -19,11 +19,11 @@ class HelperClass {
 
   validateToken = (req, res, next) => {
     const header = req.headers.authorization;
-    const myToken = header.split(' ');
-    const token = myToken[1];
+    const elements = header.split(' ');
+    const token = elements[1];
     try {
       if (token) {
-        jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {
+        jwt.verify(token, process.env.SECRET_KEY, (error, decipher) => {
           if (error) {
             return res.status(400).send(
               {
@@ -32,7 +32,7 @@ class HelperClass {
               },
             );
           }
-          req.user = decoded;
+          req.user = decipher;
           next();
         });
       } else {

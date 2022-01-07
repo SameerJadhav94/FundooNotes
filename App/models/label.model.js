@@ -25,8 +25,8 @@ const labelDir = mongoose.model('Label', labelSchema);
 class LabelModel {
     addLabelModel = async (addLabel) => {
         const labels = new labelDir()
-        labels.userId = addLabel.userId,
-            labels.noteId = addLabel.noteId,
+        labels.userId = [addLabel.userId],
+            labels.noteId = [addLabel.noteId],
             labels.label = addLabel.label
 
         const noteExist = await note.findById({ _id: addLabel.noteId });
@@ -65,8 +65,8 @@ class LabelModel {
         }
     }
 
-    getLabelByIdModel = async (labelId) => {
-        const label = await labelDir.find({ userId: labelId.userId, _id: labelId.id });
+    getLabelByIdModel = async (labelId, userId) => {
+        const label = await labelDir.findOne({ userId, _id: labelId});
         if (!label) {
             logger.error('Label Not Exist')
             return false;

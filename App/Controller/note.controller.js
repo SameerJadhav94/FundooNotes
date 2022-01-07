@@ -85,13 +85,13 @@ class NoteController {
     }
   };
 
-  getNoteById = (req, res) => {
+  getNoteById = async (req, res) => {
     try {
-      const id = {
+      const requestData = {
         userId: req.user.tokenData.id,
         noteId: req.params.id,
       };
-      const getNoteByIdValidation = validation.getNoteByIdValidation.validate(id);
+      const getNoteByIdValidation = validation.getNoteByIdValidation.validate(requestData);
       if (getNoteByIdValidation.error) {
         logger.error(getNoteByIdValidation.error);
         return res.status(400).send({
@@ -99,8 +99,8 @@ class NoteController {
           message: 'Wrong input validation',
         });
       }
-      userService.getNoteByID(id, (error, data) => {
-        if (error) {
+      const getNoteById = await userService.getNoteByID(requestData.noteId, requestData.userId);
+        if (!getNoteById) {
           logger.error('Could not find note');
           return res.status(400).send({
             success: false,
@@ -112,9 +112,9 @@ class NoteController {
         return res.status(200).send({
           success: true,
           message: 'Here are your notes matching your request',
-          data,
+          data: getNoteById,
         });
-      });
+      
     } catch (error) {
       logger.error('Internal Server Error');
       return res.status(500).send({

@@ -5,6 +5,8 @@ const userLabelModel = require('../models/label.model')
 const encryption = require('../utilities/encryption');
 const nodemailer = require('./nodeMailer');
 const { logger } = require('../../logger/logger');
+const redisServer = require('../utilities/redis.utilities')
+const util = require('util');
 
 class UserService {
   registerUser = (user, callback) => {
@@ -83,16 +85,24 @@ class UserService {
     });
   });
 
-  getNoteByID = (getNoteByid, callback) => {
-    userNoteModel.getNoteByIDModel(getNoteByid, (err, data) => {
-      if (data) {
-        logger.info('Your Note');
-        callback(null, data);
-      } else {
-        logger.error('Cannot fetch note');
-        callback(err, null);
-      }
-    });
+  getNoteByID = async (noteId, userId) => {
+    const note = await redisServer.getData(noteId)
+    if (note) {
+      logger.info('Note Returned From cache')
+      return note;
+    }
+    const noteFromDB = await userNoteModel.getNoteByIDModel(noteId, userId);
+    if (!noteFromDB) {
+      logger.error('Cannot fetch note');
+      return false;
+    }
+
+    else {
+      console.log(noteFromDB)
+      logger.info('Fetched Note Successfully From DB and setting it to cache.', noteId);
+      await redisServer.setData(noteId, 120, JSON.stringify(noteFromDB));
+      return noteFromDB;
+    }
   };
 
   updateNote = (updateNote, callback) => {
@@ -102,6 +112,7 @@ class UserService {
         callback(err, null);
       } else {
         logger.info('Note updated');
+        redisServer.clearCache(updateNote.id);
         callback(null, data);
       }
     });
@@ -113,8 +124,8 @@ class UserService {
       logger.error('Error deleting note');
       return false;
     }
-
     logger.info('Note deleted successfully');
+    redisServer.clearCache(noteId.noteId)
     return delNote;
   };
 
@@ -124,7 +135,7 @@ class UserService {
       logger.error('Error adding label');
       return false;
     }
-    else{
+    else {
       logger.info('Label Added Successfully')
       return addLabel;
     }
@@ -136,42 +147,50 @@ class UserService {
       logger.error('Error getting label')
       return false;
     }
-    else{
+    else {
       logger.info('Get Labels Successfully')
       return getLabel;
     }
   }
 
-  getLabelByIdService = async (labelId) => {
-    const getLabelById = await userLabelModel.getLabelByIdModel(labelId);
-    if (!getLabelById) {
+  getLabelByIdService = async (labelId, userId) => {
+    const label = await redisServer.getData(labelId);
+    if (label) {
+      logger.info('returning from cache for', labelId, label);
+      return label;
+    }
+    const labelFromDB = await userLabelModel.getLabelByIdModel(labelId, userId);
+    if (!labelFromDB) {
       logger.error('Error getting label from id')
       return false;
     }
-    else{
-      logger.info('Fetched Label By Id Successfully')
-      return getLabelById
+    else {
+      logger.info('Fetched Label By Id Successfully and setting it to cache', labelId);
+      await redisServer.setData(labelId, 120, JSON.stringify(labelFromDB));
+      return labelFromDB;
     }
   }
 
   updateLabelByIdService = (labelId) => new Promise((resolve, reject) => {
-    const updateLable = userLabelModel.updateLabelByIdModel(labelId)
-    updateLable.then((label) =>{
+    const updatedLable = userLabelModel.updateLabelByIdModel(labelId)
+    updatedLable.then((label) => {
       logger.info('Label Updated Successfully')
-      resolve(label)
-    }).catch((error) =>{
+      redisServer.clearCache(labelId.id).then(resolve(label));     
+    }).catch((error) => {
       logger.error('Error Updating Label')
       reject(error)
     })
   });
-  deleteLabelByIdService = (deleteLabel, callback) => {
-    userLabelModel.deleteLabelByIdModel(deleteLabel, (err, data)=>{
+
+  deleteLabelByIdService = (labelId, callback) => {
+    userLabelModel.deleteLabelByIdModel(labelId, (err, data) => {
       if (err) {
         logger.error('Error deleting label')
         return callback(err, null)
       }
-      else{
+      else {
         logger.info('successfully deleted label')
+        redisServer.clearCache(labelId.id)
         return callback(null, data)
       }
     })

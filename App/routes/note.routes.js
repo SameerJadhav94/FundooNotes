@@ -25,13 +25,13 @@ module.exports = (app) => {
   app.delete('/deleteNoteById/:id', helper.validateToken, noteController.deleteNoteById);
 
   // api for add label
-  app.post('/addLabel/:id',helper.validateToken, labelController.addLabel);
+  app.post('/addLabel/:id', helper.validateToken, labelController.addLabel);
   // api for get label
-  app.get('/getLabel',helper.validateToken, labelController.getLabel);
+  app.get('/getLabel', helper.validateToken, labelController.getLabel);
   // api for get label
-  app.get('/getLabelById/:id',helper.validateToken, labelController.getLabelById);
+  app.get('/getLabelById/:id', helper.validateToken, labelController.getLabelById);
   // api for Update Label By Id
-  app.put('/updateLabelById/:id',helper.validateToken, labelController.updateLabelById);
+  app.put('/updateLabelById/:id', helper.validateToken, labelController.updateLabelById);
   // api for Delete Label By Id
-  app.delete('/deleteLabelById/:id',helper.validateToken, labelController.deleteLabelById);
+  app.delete('/deleteLabelById/:id', helper.validateToken, labelController.deleteLabelById);
 };
