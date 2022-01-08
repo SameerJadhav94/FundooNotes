@@ -1594,4 +1594,14 @@ describe('Redis Testing', () => {
         done();
       })
   })
+  it('should return Response 200 when gets label from DB.', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .get('/getLabelById/61d8c8ad782a2a6fb72887d0')
+      .set({ authorization: tokenCheck })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
 })  
