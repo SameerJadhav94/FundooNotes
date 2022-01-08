@@ -1514,7 +1514,17 @@ describe('Delete Label By Id', () =>{
 });
 
 describe('Redis Testing', () => {
-  it.only('should return status 200 when get note from database', (done) => {
+  it('should return status 200 when get note from database', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .get('/getNoteById/61cc552d91cf0b22b7a84e44')
+      .set({ authorization: tokenCheck })
+      .end((err, res) => {
+        res.should.have.status(200);
+        return done();
+      });
+  });
+  it('should return status 200 when get note from redis', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
       .get('/getNoteById/61cc552d91cf0b22b7a84e44')
