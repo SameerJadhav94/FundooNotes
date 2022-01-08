@@ -1584,4 +1584,14 @@ describe('Redis Testing', () => {
         return done();
       });
   });
+  it('should return Response 400 when gets wrong input.', (done) => {
+    const tokenCheck = Data.testData.token.unAuthToken;
+    chai.request(server)
+      .get('/getLabelById/61d2fd9d808c61d67b9c587b')
+      .set({ authorization: tokenCheck })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      })
+  })
 })  
