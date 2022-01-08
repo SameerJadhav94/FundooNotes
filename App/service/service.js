@@ -124,7 +124,7 @@ class UserService {
       logger.error('Error deleting note');
       return false;
     }
-    logger.info('Note deleted successfully and Cleared Cache successfully');
+    logger.info('Note deleted successfully, Cleared Cache successfully');
     redisServer.clearCache(noteId.noteId)
     return delNote;
   };
@@ -156,7 +156,7 @@ class UserService {
   getLabelByIdService = async (labelId, userId) => {
     const label = await redisServer.getData(labelId);
     if (label) {
-      logger.info('returning from cache for', labelId, label);
+      logger.info('Returning from cache for', labelId, label);
       return label;
     }
     const labelFromDB = await userLabelModel.getLabelByIdModel(labelId, userId);
@@ -189,7 +189,7 @@ class UserService {
         return callback(err, null)
       }
       else {
-        logger.info('successfully deleted label and cleared cache.')
+        logger.info('Successfully deleted label and cleared cache.')
         redisServer.clearCache(labelId.id)
         return callback(null, data)
       }

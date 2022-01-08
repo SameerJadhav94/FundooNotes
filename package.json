@@ -26,6 +26,7 @@
     "redis-server": "^1.2.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0",
+    "testcontainers": "^8.2.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

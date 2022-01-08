@@ -5,10 +5,11 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 chai.should();
 const faker = require('faker');
-const { en } = require('faker/lib/locales');
+const { en, de } = require('faker/lib/locales');
 
 const { it } = require('mocha');
 const server = require('../server');
+const redisServer = require('../App/utilities/redis.utilities')
 
 const Data = require('./note.userInput.json');
 
@@ -1508,6 +1509,19 @@ describe('Delete Label By Id', () =>{
     .end((err, res)=>{
       res.should.have.status(400);
       done();
-    })
-  })  
-})
+    });
+  });
+});
+
+describe('Redis Testing', () => {
+  it.only('should return status 200 when get note from database', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .get('/getNoteById/61cc552d91cf0b22b7a84e44')
+      .set({ authorization: tokenCheck })
+      .end((err, res) => {
+        res.should.have.status(200);
+        return done();
+      });
+  });
+})  
