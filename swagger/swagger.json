@@ -147,7 +147,7 @@
                 }
             }
         },
-        "/createNote": {
+        "/note": {
             "post": {
                 "tags": [
                     "Create Note API"
@@ -186,9 +186,7 @@
                         "description": "Internal server error"
                     }
                 }
-            }
-        },
-        "/getNote": {
+            },
             "get": {
                 "tags": [
                     "Get Notes for User"
@@ -224,7 +222,7 @@
                 }
             }
         },
-        "/getNoteById/{id}": {
+        "/note/{id}": {
             "get": {
                 "tags": [
                     "Get Notes By Id"
@@ -266,9 +264,7 @@
                         "description": "Internal server error"
                     }
                 }
-            }
-        },
-        "/updateNoteById/{id}": {
+            },
             "put": {
                 "tags": [
                     "Update Notes By Id"
@@ -315,9 +311,7 @@
                         "description": "Internal server error"
                     }
                 }
-            }
-        },
-        "/deleteNoteById/{id}": {
+            },
             "delete": {
                 "tags": [
                     "Delete a Specific Note For The User"
@@ -358,7 +352,7 @@
                 }
             }
         },
-        "/addLabel/{id}": {
+        "/label/{id}": {
             "post": {
                 "tags": [
                     "Add Label for the note"
@@ -406,39 +400,7 @@
                         "description": "Invalid Token"
                     }
                 }
-            }
-        },
-        "/getLabel": {
-            "get": {
-                "tags": [
-                    "Get All Labels"
-                ],
-                "description": "Gets All Labels",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "Token for validation",
-                        "schema": {
-                            "type": "string",
-                            "required": true
-                        }
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "labels retrieved"
-                    },
-                    "500": {
-                        "description": "Couldnt retrieve labels"
-                    }
-                }
-            }
-        },
-        "/getLabelById/{id}": {
+            },
             "get": {
                 "tags": [
                     "Get Label By Id"
@@ -478,9 +440,7 @@
                         "description": "Invalid Token"
                     }
                 }
-            }
-        },
-        "/updateLabelById/{id}": {
+            },
             "put": {
                 "tags": [
                     "Update Label"
@@ -528,9 +488,7 @@
                         "description": "Invalid Token"
                     }
                 }
-            }
-        },
-        "/deleteLabelById/{id}": {
+            },
             "delete": {
                 "tags": [
                     "Delete Label"
@@ -567,6 +525,36 @@
                     },
                     "500": {
                         "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/label": {
+            "get": {
+                "tags": [
+                    "Get All Labels"
+                ],
+                "description": "Gets All Labels",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Token for validation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "labels retrieved"
+                    },
+                    "500": {
+                        "description": "Couldnt retrieve labels"
                     }
                 }
             }

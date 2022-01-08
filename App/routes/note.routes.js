@@ -14,24 +14,24 @@ module.exports = (app) => {
   app.patch('/resetPassword', controller.resetPassword);
 
   // api for Create Note
-  app.post('/createNote', helper.validateToken, noteController.createNote);
+  app.post('/note', helper.validateToken, noteController.createNote);
   // api for Get Note
-  app.get('/getNote', helper.validateToken, noteController.getNote);
+  app.get('/note', helper.validateToken, noteController.getNote);
   // api for Get Note By Id
-  app.get('/getNoteById/:id', helper.validateToken, noteController.getNoteById);
+  app.get('/note/:id', helper.validateToken, noteController.getNoteById);
   // api for Update Note By Id
-  app.put('/updateNoteById/:id', helper.validateToken, noteController.updateNoteById);
+  app.put('/note/:id', helper.validateToken, noteController.updateNoteById);
   // api for Delete Note By Id
-  app.delete('/deleteNoteById/:id', helper.validateToken, noteController.deleteNoteById);
+  app.delete('/note/:id', helper.validateToken, noteController.deleteNoteById);
 
   // api for add label
-  app.post('/addLabel/:id', helper.validateToken, labelController.addLabel);
+  app.post('/label/:id', helper.validateToken, labelController.addLabel);
   // api for get label
-  app.get('/getLabel', helper.validateToken, labelController.getLabel);
+  app.get('/label', helper.validateToken, labelController.getLabel);
   // api for get label
-  app.get('/getLabelById/:id', helper.validateToken, labelController.getLabelById);
+  app.get('/label/:id', helper.validateToken, labelController.getLabelById);
   // api for Update Label By Id
-  app.put('/updateLabelById/:id', helper.validateToken, labelController.updateLabelById);
+  app.put('/label/:id', helper.validateToken, labelController.updateLabelById);
   // api for Delete Label By Id
-  app.delete('/deleteLabelById/:id', helper.validateToken, labelController.deleteLabelById);
+  app.delete('/label/:id', helper.validateToken, labelController.deleteLabelById);
 };

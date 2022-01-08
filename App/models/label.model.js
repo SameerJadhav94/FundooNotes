@@ -1,3 +1,7 @@
+/* eslint-disable no-sequences */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable new-cap */
+/* eslint-disable class-methods-use-this */
 const mongoose = require('mongoose');
 const note = require('./note.model').NoteDataBase;
 const { logger } = require('../../logger/logger');
