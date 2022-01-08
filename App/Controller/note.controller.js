@@ -100,21 +100,20 @@ class NoteController {
         });
       }
       const getNoteById = await userService.getNoteByID(requestData.noteId, requestData.userId);
-        if (!getNoteById) {
-          logger.error('Could not find note');
-          return res.status(400).send({
-            success: false,
-            message: 'Could not find note',
-          });
-        }
-
-        logger.info('Here are your notes matching your request');
-        return res.status(200).send({
-          success: true,
-          message: 'Here are your notes matching your request',
-          data: getNoteById,
+      if (!getNoteById) {
+        logger.error('Could not find note');
+        return res.status(400).send({
+          success: false,
+          message: 'Could not find note',
         });
-      
+      }
+
+      logger.info('Here are your notes matching your request');
+      return res.status(200).send({
+        success: true,
+        message: 'Here are your notes matching your request',
+        data: getNoteById,
+      });
     } catch (error) {
       logger.error('Internal Server Error');
       return res.status(500).send({

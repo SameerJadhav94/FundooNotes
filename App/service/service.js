@@ -1,12 +1,12 @@
 /* eslint-disable class-methods-use-this */
 const userModel = require('../models/model').UserModel;
 const userNoteModel = require('../models/note.model').NoteModel;
-const userLabelModel = require('../models/label.model')
+const userLabelModel = require('../models/label.model');
 const encryption = require('../utilities/encryption');
 const nodemailer = require('./nodeMailer');
 const { logger } = require('../../logger/logger');
-const redisServer = require('../utilities/redis.utilities')
-const util = require('util');
+const redisServer = require('../utilities/redis.utilities');
+// eslint-disable-next-line no-unused-vars
 
 class UserService {
   registerUser = (user, callback) => {
@@ -86,9 +86,9 @@ class UserService {
   });
 
   getNoteByID = async (noteId, userId) => {
-    const note = await redisServer.getData(noteId)
+    const note = await redisServer.getData(noteId);
     if (note) {
-      logger.info('Note Returned From cache')
+      logger.info('Note Returned From cache');
       return note;
     }
     const noteFromDB = await userNoteModel.getNoteByIDModel(noteId, userId);
@@ -96,13 +96,9 @@ class UserService {
       logger.error('Cannot fetch note');
       return false;
     }
-
-    else {
-      console.log(noteFromDB)
-      logger.info('Fetched Note Successfully From DB and setting it to cache.', noteId);
-      await redisServer.setData(noteId, 120, JSON.stringify(noteFromDB));
-      return noteFromDB;
-    }
+    logger.info('Fetched Note Successfully From DB and setting it to cache.', noteId);
+    await redisServer.setData(noteId, 120, JSON.stringify(noteFromDB));
+    return noteFromDB;
   };
 
   updateNote = (updateNote, callback) => {
@@ -125,7 +121,7 @@ class UserService {
       return false;
     }
     logger.info('Note deleted successfully, Cleared Cache successfully');
-    redisServer.clearCache(noteId.noteId)
+    redisServer.clearCache(noteId.noteId);
     return delNote;
   };
 
@@ -135,23 +131,21 @@ class UserService {
       logger.error('Error adding label');
       return false;
     }
-    else {
-      logger.info('Label Added Successfully')
-      return addLabel;
-    }
-  }
+
+    logger.info('Label Added Successfully');
+    return addLabel;
+  };
 
   getLabelService = async (label) => {
     const getLabel = await userLabelModel.getLabelModel(label);
     if (!getLabel) {
-      logger.error('Error getting label')
+      logger.error('Error getting label');
       return false;
     }
-    else {
-      logger.info('Get Labels Successfully')
-      return getLabel;
-    }
-  }
+
+    logger.info('Get Labels Successfully');
+    return getLabel;
+  };
 
   getLabelByIdService = async (labelId, userId) => {
     const label = await redisServer.getData(labelId);
@@ -161,40 +155,38 @@ class UserService {
     }
     const labelFromDB = await userLabelModel.getLabelByIdModel(labelId, userId);
     if (!labelFromDB) {
-      logger.error('Error getting label from id')
+      logger.error('Error getting label from id');
       return false;
     }
-    else {
-      logger.info('Fetched Label By Id Successfully and setting it to cache', labelId);
-      await redisServer.setData(labelId, 120, JSON.stringify(labelFromDB));
-      return labelFromDB;
-    }
-  }
+
+    logger.info('Fetched Label By Id Successfully and setting it to cache', labelId);
+    await redisServer.setData(labelId, 120, JSON.stringify(labelFromDB));
+    return labelFromDB;
+  };
 
   updateLabelByIdService = (labelId) => new Promise((resolve, reject) => {
-    const updatedLable = userLabelModel.updateLabelByIdModel(labelId)
+    const updatedLable = userLabelModel.updateLabelByIdModel(labelId);
     updatedLable.then((label) => {
-      logger.info('Label Updated Successfully')
-      redisServer.clearCache(labelId.id).then(resolve(label));     
+      logger.info('Label Updated Successfully');
+      redisServer.clearCache(labelId.id).then(resolve(label));
     }).catch((error) => {
-      logger.error('Error Updating Label')
-      reject(error)
-    })
+      logger.error('Error Updating Label');
+      reject(error);
+    });
   });
 
   deleteLabelByIdService = (labelId, callback) => {
     userLabelModel.deleteLabelByIdModel(labelId, (err, data) => {
       if (err) {
-        logger.error('Error deleting label')
-        return callback(err, null)
+        logger.error('Error deleting label');
+        return callback(err, null);
       }
-      else {
-        logger.info('Successfully deleted label and cleared cache.')
-        redisServer.clearCache(labelId.id)
-        return callback(null, data)
-      }
-    })
-  }
+
+      logger.info('Successfully deleted label and cleared cache.');
+      redisServer.clearCache(labelId.id);
+      return callback(null, data);
+    });
+  };
 }
 
 module.exports = new UserService();

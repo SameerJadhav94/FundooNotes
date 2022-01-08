@@ -1,17 +1,16 @@
-const redis = require("redis");
+const redis = require('redis');
 
 let client;
 class Redis {
   constructor() {
     this.connectServer();
-    
   }
 
   connectServer = async () => {
-    client = redis.createClient(6379, "localhost")
+    client = redis.createClient(6379, 'localhost');
 
-    client.on("connect", function () {
-      console.log("Redis Connection Established...");
+    client.on('connect', () => {
+      console.log('Redis Connection Established...');
     });
     client.on('error', (err) => console.log('Redis Client Error', err));
     await client.connect();
