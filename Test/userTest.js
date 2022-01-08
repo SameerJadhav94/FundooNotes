@@ -1559,4 +1559,19 @@ describe('Redis Testing', () => {
         done();
       });
   });
+  it('should return status 200 when chache get cleared', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    const mynote = {
+      title: 'Refactor',
+      description: 'Updating Note',
+    };
+    chai.request(server)
+      .put('/updateNoteById/61ccefce5990a8fbc4560c95')
+      .set({ authorization: tokenCheck })
+      .send(mynote)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
 })  
