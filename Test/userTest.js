@@ -1614,4 +1614,15 @@ describe('Redis Testing', () => {
         done();
       });
   });
+  it('should return Response 200 when gets label gets updated in DB and Cleared Cache', (done)=>{
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+    .put('/updateLabelById/61d8c8ad782a2a6fb72887d0')
+    .set({ authorization: tokenCheck })
+    .send({ label: faker.lorem.word(16)})
+    .end((err, res)=>{
+      res.should.have.status(200);
+      done();
+    })
+  })
 })  
