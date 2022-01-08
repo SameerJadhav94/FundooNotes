@@ -1625,4 +1625,14 @@ describe('Redis Testing', () => {
       done();
     })
   })
+  it('should return status 200 when get label data from DB', (done) => {
+    const tokenCheck = Data.testData.token.authToken;
+    chai.request(server)
+      .get('/getNoteById/61cc552d91cf0b22b7a84e44')
+      .set({ authorization: tokenCheck })
+      .end((err, res) => {
+        res.should.have.status(200);
+        return done();
+      });
+  });
 })  
