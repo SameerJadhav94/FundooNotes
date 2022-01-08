@@ -1544,4 +1544,19 @@ describe('Redis Testing', () => {
         return done();
       });
   });
+  it('should return status 400 when chache not get cleared', (done) => {
+    const tokenCheck = Data.testData.token.unAuthToken;
+    const mynote = {
+      title: 'Refactor',
+      description: 'Updating Note',
+    };
+    chai.request(server)
+      .put('/updateNoteById/61ccefce5990a8fbc4560c95')
+      .set({ authorization: tokenCheck })
+      .send(mynote)
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
 })  
