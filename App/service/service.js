@@ -1,4 +1,7 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-shadow */
 /* eslint-disable class-methods-use-this */
+const jsonWebToken = require('jsonwebtoken');
 const userModel = require('../models/model').UserModel;
 const userNoteModel = require('../models/note.model').NoteModel;
 const userLabelModel = require('../models/label.model');
@@ -6,17 +9,28 @@ const encryption = require('../utilities/encryption');
 const nodemailer = require('./nodeMailer');
 const { logger } = require('../../logger/logger');
 const redisServer = require('../utilities/redis.utilities');
+const rabbitMQ = require('../utilities/rabbitmq');
+
 // eslint-disable-next-line no-unused-vars
 
 class UserService {
   registerUser = (user, callback) => {
     userModel.registerUser(user, (err, data) => {
       if (err) {
-        logger.error(`Error Registering User: ${err}`);
         callback(err, null);
       } else {
-        logger.info('User registered');
-        callback(null, data);
+        // Send Welcome Mail to User on his Mail
+        encryption.sendWelcomeMail(user);
+        const secretkey = process.env.SECRET_KEY;
+        encryption.jwtTokenVerifyMail(data, secretkey, (err, token) => {
+          if (token) {
+            rabbitMQ.sender(data, data.email);
+            nodemailer.verifyMail(token, data);
+            return callback(null, token);
+          }
+          return callback(err, null);
+        });
+        return callback(null, data);
       }
     });
   };
@@ -186,6 +200,23 @@ class UserService {
       redisServer.clearCache(labelId.id);
       return callback(null, data);
     });
+  };
+
+  verifyUser = (requestData, callback) => {
+    const decode = jsonWebToken.verify(requestData.token, process.env.SECRET_KEY);
+    if (decode) {
+      rabbitMQ.receiver(decode.email).then((val) => {
+        userModel.verifyUser(JSON.parse(val), (error, data) => {
+          if (data) {
+            return callback(null, data);
+          }
+          return callback(error, null);
+        });
+      })
+        .catch((error) => {
+          logger.error(error);
+        });
+    }
   };
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
 const userService = require('../service/service');
@@ -43,7 +44,12 @@ class Controller {
         return res.status(200).json({
           success: true,
           message: 'User Registered',
-          data,
+          data: {
+            verified: data.verified,
+            firstname: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+          },
         });
       });
     } catch (error) {
@@ -195,5 +201,31 @@ class Controller {
       });
     }
   }
+
+  verifyUser = (req, res) => {
+    try {
+      const requestData = {
+        token: req.params.token,
+      };
+      userService.verifyUser(requestData, (error, data) => {
+        if (error) {
+          return res.status(404).json({
+            success: false,
+            message: 'Error While Verifying',
+          });
+        }
+        return res.status(200).json({
+          success: true,
+          message: `${data.firstName} your Email Is Successfully Verified!!!, Now u can login to your account.`,
+        });
+      });
+    } catch {
+      return res.status(500).json({
+        success: false,
+        message: 'Internal Server Error',
+        data: null,
+      });
+    }
+  };
 }
 module.exports = new Controller();

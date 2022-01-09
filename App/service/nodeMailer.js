@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable new-cap */
 /* eslint-disable no-plusplus */
 const nodeMailer = require('nodemailer');
@@ -52,5 +53,35 @@ exports.sendEmail = (messageMail) => {
     }
 
     return result.response;
+  });
+};
+exports.verifyMail = (token, data) => {
+  const link = `http://localhost:${process.env.PORT}/verify/${token}`;
+  // create reusable transporter object using the default SMTP transport
+  const transporter = nodeMailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+    },
+  });
+
+  const info = {
+    from: '"Fundoo Notes" <no-reply@fundoonotes.com>',
+    to: data.email,
+    subject: 'Email Verification For Fundoo Account',
+    html: `<b><h2> Hello  ${data.firstName}, </h2><br><h1> Please click on the button below to verify your email address.:</h1>
+    <br> <button href="${link}" 
+    style ="background-color: #F08080; border: none;color: white;padding: 10px; text-align: center; border-radius: 14px;text-decoration: none;
+  display: inline-block; font-size: 16px;margin: 4px 2px;cursor: pointer;" ><a href="${link}"  style = "text-decoration: none;"  
+  onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#00F'">Verify Email </a></button></b>`,
+  };
+
+  // send mail with defined transporter object
+  transporter.sendMail(info, (err, info) => {
+    if (err) {
+      return false;
+    }
+    return info.response;
   });
 };

@@ -1,9 +1,11 @@
+/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable func-names */
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const otp = require('./oneTimePassword');
+const { logger } = require('../../logger/logger');
 
 const salt = bcrypt.genSaltSync(12);
 
@@ -26,9 +28,14 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    googleLogin: { type: Boolean },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
-    timestamps: true,
+    timestamps: false,
   },
 );
 
@@ -62,11 +69,17 @@ class UserModel {
     // To find a user email in the database
     User.findOne({ email: loginData.email }, (error, data) => {
       if (error) {
+        logger.error('Error while loging in');
         return callBack(error, null);
-      } if (!data) {
-        return callBack('Invalid Credential', null);
+      } if (data.verified === false) {
+        logger.error('Invalid user');
+        return callBack('Invalid user', null);
       }
-      return callBack(null, data);
+      if (data.verified === true) {
+        logger.info('User verified');
+        return callBack(null, data);
+      }
+      return callBack(error, null);
     });
   };
 
@@ -103,6 +116,17 @@ class UserModel {
       } else {
         return callBack('Credential does not match', null);
       }
+    });
+  };
+
+  verifyUser = (data, callback) => {
+    User.findOneAndUpdate({ email: data.email }, { verified: true }, (error, data) => {
+      if (error) {
+        logger.error('data not found in database');
+        return callback(error, null);
+      }
+      logger.info('data found in database');
+      return callback(null, data);
     });
   };
 }

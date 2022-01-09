@@ -15,5 +15,6 @@ module.exports = {
   rules: {
     'max-len': ['error', { code: 145 }],
     treatUndefinedAsUnspecified: 0,
+    'linebreak-style': ['error', 'windows'],
   },
 };
