@@ -22,12 +22,12 @@
             "password": "1D5f6fg54s"
         },
         "correctLogin":{
-            "email": "newuserfour@gmail.com",
-            "password": "Newuser4123"
+            "email": "userone@gmail.com",
+            "password": "Userregister123"
         },
         "incorrectLogin":{
-            "email": "sameer@gmail.com",
-            "password": "1D5f6fg54s"
+            "email": "sameer@gmail",
+            "password": "sam132"
         },
         "improper":{
             "firstName": "sameer",
@@ -36,7 +36,7 @@
             "password": "sameer546@"
         },
         "token": {
-            "authToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbkRhdGEiOnsiaWQiOiI2MWRhNmU1OWYzNjIxMmYxNTMxZTkyNGUiLCJmaXJzdE5hbWUiOiJTYW0iLCJsYXN0TmFtZSI6IkphZGhhdiIsInBhc3N3b3JkIjoiJDJiJDEyJFN3eFJJWjh1RnZFNUJseS5rcFptd3V6L3p5eHA1MlZvSDhpRDhVRzJEcjBjb0JrTGg4dGZtIiwiZW1haWwiOiJzYW1lZXJqYWRoYXYwOTk0QGdtYWlsLmNvbSJ9LCJpYXQiOjE2NDE3MDUxMDksImV4cCI6MTY0MTg4NTEwOX0.0QjaUZtKVQye4Gs4ApsScjsN08gh1G1OHXWAfCjCxzc",
+            "authToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbkRhdGEiOnsiaWQiOiI2MWRhNzBhYTI4OTE5OGZjZWRjMWJmZjkiLCJmaXJzdE5hbWUiOiJTYW0iLCJsYXN0TmFtZSI6IkphZGhhdiIsInBhc3N3b3JkIjoiJDJiJDEyJHFnZE13MzJGM3RwbjVCaGNaRDJYRmVGblFLcUMycTNIYzhCWm9PNFQ5QXJBa2cuYWZ1U2JtIiwiZW1haWwiOiJzYW1lZXJqYWRoYXYwOTk0QGdtYWlsLmNvbSJ9LCJpYXQiOjE2NDE3MzQ4MDQsImV4cCI6MTY0Mzg5NDgwNH0.iMBDeK9Bc3x8nbBWHPC-VTsEtlONoX6FYr1CPqc2v2E",
             "unAuthToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC.iOiI2MWM1MjZkMDNhMmY4MWI3Y2ZhMzJhOWEiL"
         },
         "note":{

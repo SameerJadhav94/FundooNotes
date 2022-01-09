@@ -78,7 +78,7 @@ class Controller {
       const loginValidation = validation.authLogin.validate(userLoginInfo);
       if (loginValidation.error) {
         logger.error(loginValidation.error);
-        res.status(400).send({
+        return res.status(400).send({
           success: false,
           message: loginValidation.error.message,
         });
@@ -216,7 +216,7 @@ class Controller {
         }
         return res.status(200).json({
           success: true,
-          message: `${data.firstName} your Email Is Successfully Verified!!!, Now u can login to your account.`,
+          message: `${data.firstName} your Email Is Successfully Verified!!!, Now you can login to your account.`,
         });
       });
     } catch {

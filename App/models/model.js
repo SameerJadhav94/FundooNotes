@@ -1,3 +1,7 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-lonely-if */
+/* eslint-disable padded-blocks */
+/* eslint-disable no-else-return */
 /* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
@@ -71,15 +75,17 @@ class UserModel {
       if (error) {
         logger.error('Error while loging in');
         return callBack(error, null);
-      } if (data.verified === false) {
-        logger.error('Invalid user');
-        return callBack('Invalid user', null);
+      } else if (data.verified == false) {
+        logger.error('Invalid User');
+        return callBack('Invalid Credential', null);
+      } else {
+        if (data.verified == true) {
+          logger.info('data found in database');
+          return callBack(null, data);
+        } else {
+          return callBack(error, null);
+        }
       }
-      if (data.verified === true) {
-        logger.info('User verified');
-        return callBack(null, data);
-      }
-      return callBack(error, null);
     });
   };
 

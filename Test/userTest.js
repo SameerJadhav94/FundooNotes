@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -15,8 +16,8 @@ const Data = require('./note.userInput.json');
 describe('registration API', () => {
   it('given registration details if proper then save in DB', (done) => {
     const fakeUserDetails = {
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
+      firstName: 'Registration',
+      lastName: 'Testing',
       email: faker.internet.email(),
       password: 'Password123',
     };
@@ -114,9 +115,6 @@ describe('Login', () => {
       .post('/login')
       .send(userDetails)
       .end((err, res) => {
-        if (err) {
-          return done();
-        }
         res.should.have.status(400);
         return done();
       });
@@ -127,7 +125,7 @@ describe('forgot password', () => {
   it('should give status 200 when forgot password is called', (done) => {
     chai.request(server)
       .post('/forgotPassword')
-      .send({ email: 'sameer0994@gmail.com' })
+      .send({ email: 'sameerjadhav0994@gmail.com' })
       .end((err, res) => {
         if (err) {
           return done();
@@ -151,7 +149,7 @@ describe('forgot password', () => {
   it('should validate the email when given given proper input', (done) => {
     chai.request(server)
       .post('/forgotPassword')
-      .send({ email: 'sameer0994@gmail.com' })
+      .send({ email: 'sameerjadhav0994@gmail.com' })
       .end((err, res) => {
         if (err) {
           return done();
@@ -163,7 +161,7 @@ describe('forgot password', () => {
   it('should give status 200 when returning a valid email callback from service', (done) => {
     chai.request(server)
       .post('/forgotPassword')
-      .send({ email: 'sameer0994@gmail.com' })
+      .send({ email: 'sameerjadhav0994@gmail.com' })
       .end((err, res) => {
         if (err) {
           return done();
@@ -187,7 +185,7 @@ describe('forgot password', () => {
   it('should give status 200 when returning a valid email callback from model', (done) => {
     chai.request(server)
       .post('/forgotPassword')
-      .send({ email: 'sameer0994@gmail.com' })
+      .send({ email: 'sameerjadhav0994@gmail.com' })
       .end((err, res) => {
         if (err) {
           return done();
@@ -199,7 +197,7 @@ describe('forgot password', () => {
   it('should give status 200 when checking if the email exist in the database', (done) => {
     chai.request(server)
       .post('/forgotPassword')
-      .send({ email: 'sameer0994@gmail.com' })
+      .send({ email: 'sameerjadhav0994@gmail.com' })
       .end((err, res) => {
         if (err) {
           return done();
@@ -223,7 +221,7 @@ describe('forgot password', () => {
   it('should give status 200 when email has been sent', (done) => {
     chai.request(server)
       .post('/forgotPassword')
-      .send({ email: 'sameer0994@gmail.com' })
+      .send({ email: 'sameerjadhav0994@gmail.com' })
       .end((err, res) => {
         if (err) {
           return done();
@@ -265,7 +263,7 @@ describe('Reset Password', () => {
       .send({
         email: 'sameerjadhav0994@gmail.com',
         password: 'Sameerjadhav123',
-        code: 'MIIcE',
+        code: 'eNJqP',
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -278,7 +276,7 @@ describe('Reset Password', () => {
       .send({
         email: 'sameerjadhav0994@gmail.com',
         password: 'sameer1994',
-        code: 'MIIcE',
+        code: 'eNJqP',
       })
       .end((err, res) => {
         res.should.have.status(400);
@@ -291,7 +289,7 @@ describe('Reset Password', () => {
       .send({
         email: 'sameerjadhav0994@gmail.com',
         password: 'Sameer1994',
-        code: 'MIIcE',
+        code: 'eNJqP',
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -304,7 +302,7 @@ describe('Reset Password', () => {
       .send({
         email: 'sameerjadhav0994@gmail.com',
         password: 'Sameer1994',
-        code: 'MIIcE',
+        code: 'eNJqP',
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -330,7 +328,7 @@ describe('Reset Password', () => {
       .send({
         email: 'sameerjadhav0994@gmail.com',
         password: 'Sameer1994',
-        code: 'MIIcE',
+        code: 'eNJqP',
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -343,7 +341,7 @@ describe('Reset Password', () => {
       .send({
         email: 'sameerjadhav0994@gmail.com',
         password: 'Sameer1994',
-        code: 'MIIcE',
+        code: 'eNJqP',
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -630,7 +628,7 @@ describe('Get Note By Id', () => {
   it('should return status 200 when get node by id is called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61d915a9d9a603d6e3d0842e')
+      .get('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -640,7 +638,7 @@ describe('Get Note By Id', () => {
   it('should return status 200 when token gets authenticated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61d915a9d9a603d6e3d0842e')
+      .get('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -660,7 +658,7 @@ describe('Get Note By Id', () => {
   it('should return status 200 when id gets validated for Authenticated  token', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61d915a9d9a603d6e3d0842e')
+      .get('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -670,7 +668,7 @@ describe('Get Note By Id', () => {
   it('should return status 200 when gets valid callback from service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61d915a9d9a603d6e3d0842e')
+      .get('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -690,7 +688,7 @@ describe('Get Note By Id', () => {
   it('should return status 200 when gets valid callback from model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61d915a9d9a603d6e3d0842e')
+      .get('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -710,7 +708,7 @@ describe('Get Note By Id', () => {
   it('should return status 200 when gets valid callback from model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61d915a9d9a603d6e3d0842e')
+      .get('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -723,7 +721,7 @@ describe('Update Note By Id', () => {
   it('should return status 200 when Update Note API is called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -743,7 +741,7 @@ describe('Update Note By Id', () => {
   it('should return status 200 when token is authenticated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -754,7 +752,7 @@ describe('Update Note By Id', () => {
     const tokenCheck = Data.testData.token.authToken;
     const mynote = Data.testData.note;
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send(mynote)
       .end((err, res) => {
@@ -790,7 +788,7 @@ describe('Update Note By Id', () => {
     const tokenCheck = Data.testData.token.authToken;
     const mynote = Data.testData.note;
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send(mynote)
       .end((err, res) => {
@@ -814,7 +812,7 @@ describe('Update Note By Id', () => {
     const tokenCheck = Data.testData.token.authToken;
     const mynote = Data.testData.note;
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send(mynote)
       .end((err, res) => {
@@ -841,7 +839,7 @@ describe('Update Note By Id', () => {
       description: faker.name.firstName(),
     };
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send(mynote)
       .end((err, res) => {
@@ -869,7 +867,7 @@ describe('Delete Note By Id', () => {
   it('should return status 200 when delete note api is called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/note/61d9a1aa4867c93416126cf8')
+      .delete('/note/61db258dca5f3f5653a820af')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -889,7 +887,7 @@ describe('Delete Note By Id', () => {
   it('should return status 200 when input gets validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/note/61d9a1aa4867c93416126cf5')
+      .delete('/note/61db258dca5f3f5653a820ac')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -909,7 +907,7 @@ describe('Delete Note By Id', () => {
   it('should return status 200 when gets valid response from service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/note/61d9a1aa4867c93416126cf2')
+      .delete('/note/61db258dca5f3f5653a820a9')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -929,7 +927,7 @@ describe('Delete Note By Id', () => {
   it('should return status 200 when gets valid response from model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/note/61d9a1aa4867c93416126cef')
+      .delete('/note/61db258dca5f3f5653a820a6')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -949,7 +947,7 @@ describe('Delete Note By Id', () => {
   it('should return status 200 when note gets deleted successfully from the DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/note/61d9a1aa4867c93416126cec')
+      .delete('/note/61db258dca5f3f5653a820a3')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -971,7 +969,7 @@ describe('Add Label', () => {
   it('Should Return Response 200 When Add Label API Is Called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .post('/label/61d831a83cea396d77ef0b16')
+      .post('/label/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -982,7 +980,7 @@ describe('Add Label', () => {
   it('Should Return Response 400 When Token Not Gets Authenticated', (done) => {
     const tokenCheck = Data.testData.token.unAuthToken;
     chai.request(server)
-      .post('/label/61d135f786d86f57e66b92aa')
+      .post('/label/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send({})
       .end((err, res) => {
@@ -993,7 +991,7 @@ describe('Add Label', () => {
   it('Should Return Response 200 When Label gets Validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .post('/label/61d135f786d86f57e66b92aa')
+      .post('/label/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1015,7 +1013,7 @@ describe('Add Label', () => {
   it('Should Return Response 200 When Gets Valid Response From Service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .post('/label/61d135f786d86f57e66b92aa')
+      .post('/label/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1037,7 +1035,7 @@ describe('Add Label', () => {
   it('Should Return Response 200 When Gets Valid Response From Model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .post('/label/61d135f786d86f57e66b92aa')
+      .post('/label/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1059,7 +1057,7 @@ describe('Add Label', () => {
   it('Should Return Response 200 When Label Gets Saved Into DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .post('/label/61d4f02330034e5808aae135')
+      .post('/label/61daf6ddcaf52f323c22d4d7')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1156,7 +1154,7 @@ describe('Get label by id', () => {
   it('should return Response 200 when Get Label By Id API is called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d2fd9d808c61d67b9c587b')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1176,7 +1174,7 @@ describe('Get label by id', () => {
   it('should return Response 200 when Token Gets Authenticated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d2fd9d808c61d67b9c587b')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1186,7 +1184,7 @@ describe('Get label by id', () => {
   it('should return Response 200 when Id Gets Validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d2fd9d808c61d67b9c587b')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1206,7 +1204,7 @@ describe('Get label by id', () => {
   it('should return Response 200 when Gets Valid Response From Service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d2fd9d808c61d67b9c587b')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1226,7 +1224,7 @@ describe('Get label by id', () => {
   it('should return Response 200 when Gets Valid Response From Model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d2fd9d808c61d67b9c587b')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1246,7 +1244,7 @@ describe('Get label by id', () => {
   it('should return Response 200 When Label Is Fetched From DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d2fd9d808c61d67b9c587b')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1268,7 +1266,7 @@ describe('Update Label', () => {
   it('should return Response 200 when Update Lable API is called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/label/61d2f7db354d13f0d8cfa86e')
+      .put('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1289,7 +1287,7 @@ describe('Update Label', () => {
   it('should return Response 200 when Token Gets Authenticated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/label/61d2f7db354d13f0d8cfa872')
+      .put('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1300,7 +1298,7 @@ describe('Update Label', () => {
   it('should return Response 200 when label gets validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/label/61d2efaa759970901e200099')
+      .put('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1333,7 +1331,7 @@ describe('Update Label', () => {
   it('should return Response 200 when gets valid response from service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/label/61d2f7db354d13f0d8cfa876')
+      .put('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1355,7 +1353,7 @@ describe('Update Label', () => {
   it('should return Response 200 when gets valid response from model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/label/61d831a93cea396d77ef0b43')
+      .put('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1377,7 +1375,7 @@ describe('Update Label', () => {
   it('should return Response 200 when gets label gets updated in DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/label/61d32efd91b190fdf7ad1dbd')
+      .put('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1402,7 +1400,7 @@ describe('Delete Label By Id', () => {
   it('should return response 200 when delete label API is called', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/label/61d2f7b62c53f0784dbb9102')
+      .delete('/label/61daf798caf52f323c22d4e9')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1412,7 +1410,7 @@ describe('Delete Label By Id', () => {
   it('should return response 200 when token gets authenticated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/label/61d2f7cf1bcc117e84046b71')
+      .delete('/label/61daf7accaf52f323c22d4ed')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1432,7 +1430,7 @@ describe('Delete Label By Id', () => {
   it('should return response 200 when id gets validated', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/label/61d4e8cb1ec635a81ba2616d')
+      .delete('/label/61daf7b1caf52f323c22d4f1')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1452,7 +1450,7 @@ describe('Delete Label By Id', () => {
   it('should return response 200 when gets valid callback from service', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/label/61d4e8cb1ec635a81ba26171')
+      .delete('/label/61daf7b6caf52f323c22d4f5')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1472,7 +1470,7 @@ describe('Delete Label By Id', () => {
   it('should return response 200 when gets valid callback from model', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/label/61d4e8cb1ec635a81ba26175')
+      .delete('/label/61daf7bacaf52f323c22d4f9')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1492,7 +1490,7 @@ describe('Delete Label By Id', () => {
   it('should return response 200 when label gets deleted from DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .delete('/label/61d4e8cb1ec635a81ba26179')
+      .delete('/label/61daf7bfcaf52f323c22d4fd')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1515,7 +1513,7 @@ describe('Redis Testing', () => {
   it('should return status 200 when get note from database', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61cc552d91cf0b22b7a84e44')
+      .get('/note/61dafe0b134dfaf2edaf0d49')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1525,7 +1523,7 @@ describe('Redis Testing', () => {
   it('should return status 200 when get note from redis', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61cc552d91cf0b22b7a84e44')
+      .get('/note/61dafe0b134dfaf2edaf0d49')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1549,7 +1547,7 @@ describe('Redis Testing', () => {
       description: 'Updating Note',
     };
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61dafe0b134dfaf2edaf0d49')
       .set({ authorization: tokenCheck })
       .send(mynote)
       .end((err, res) => {
@@ -1564,7 +1562,7 @@ describe('Redis Testing', () => {
       description: 'Updating Notes',
     };
     chai.request(server)
-      .put('/note/61ccefce5990a8fbc4560c95')
+      .put('/note/61dafe0b134dfaf2edaf0d49')
       .set({ authorization: tokenCheck })
       .send(mynote)
       .end((err, res) => {
@@ -1575,7 +1573,7 @@ describe('Redis Testing', () => {
   it('should return status 200 when get note from database after clearing cache', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/note/61cc552d91cf0b22b7a84e44')
+      .get('/note/61dafe0b134dfaf2edaf0d49')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1595,7 +1593,7 @@ describe('Redis Testing', () => {
   it('should return Response 200 when gets label from DB.', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d8c8ad782a2a6fb72887d0')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1605,7 +1603,7 @@ describe('Redis Testing', () => {
   it('should return Response 200 when gets label from redis.', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d8c8ad782a2a6fb72887d0')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
@@ -1615,7 +1613,7 @@ describe('Redis Testing', () => {
   it('should return Response 200 when gets label gets updated in DB and Cleared Cache', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .put('/label/61d8c8ad782a2a6fb72887d0')
+      .put('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .send({ label: faker.name.firstName() })
       .end((err, res) => {
@@ -1626,10 +1624,60 @@ describe('Redis Testing', () => {
   it('should return status 200 when get label data from DB', (done) => {
     const tokenCheck = Data.testData.token.authToken;
     chai.request(server)
-      .get('/label/61d8c8ad782a2a6fb72887d0')
+      .get('/label/61daf7c3caf52f323c22d501')
       .set({ authorization: tokenCheck })
       .end((err, res) => {
         res.should.have.status(200);
+        return done();
+      });
+  });
+});
+describe('Verify User Using RabbitMQ', () => {
+  it('given registration details if proper then save in DB', (done) => {
+    const fakeUserDetails = {
+      firstName: 'Rabbitmq',
+      lastName: 'Emailverification',
+      email: faker.internet.email(),
+      password: 'Password123',
+    };
+
+    chai.request(server)
+      .post('/register')
+      .send(fakeUserDetails)
+      .end((err, res) => {
+        if (err) {
+          done();
+        }
+        res.should.have.status(200);
+        done();
+      });
+  });
+  it('given Login details if true and email gets verified should log in ', (done) => {
+    const userDetails = Data.testData.correctLogin;
+
+    chai.request(server)
+      .post('/login')
+      .send(userDetails)
+      .end((err, res) => {
+        if (err) {
+          return done();
+        }
+        res.should.have.status(200);
+        return done();
+      });
+  });
+  it('given Login details if true but email does not gets verified should not login ', (done) => {
+    chai.request(server)
+      .post('/login')
+      .send({
+        email: 'usertwo@gmail.com',
+        password: 'Userregister2123',
+      })
+      .end((err, res) => {
+        if (err) {
+          return done();
+        }
+        res.should.have.status(400);
         return done();
       });
   });

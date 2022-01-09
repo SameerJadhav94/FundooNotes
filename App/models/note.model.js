@@ -67,7 +67,6 @@ class NoteModel {
       if (err) {
         return callBack(err, null);
       }
-
       return callBack(null, data);
     });
   };
