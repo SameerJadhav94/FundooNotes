@@ -1,10 +1,13 @@
 const dotenv = require('dotenv');
 const express = require('express');
+const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./swagger/swagger.json');
 
 // create express app
 const app = express();
+
+app.use(cors());
 
 // Specifying path for .env
 dotenv.config({ path: './.env' });
