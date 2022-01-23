@@ -76,11 +76,11 @@ class UserModel {
         logger.error('Error while loging in');
         return callBack(error, null);
       } else if (data.verified == false) {
-        logger.error('Invalid User');
-        return callBack('Invalid Credential', null);
+        logger.error('Please verify your email');
+        return callBack('Please verify your email', null);
       } else {
         if (data.verified == true) {
-          logger.info('data found in database');
+          logger.info('Email Verified');
           return callBack(null, data);
         } else {
           return callBack(error, null);
@@ -128,10 +128,10 @@ class UserModel {
   verifyUser = (data, callback) => {
     User.findOneAndUpdate({ email: data.email }, { verified: true }, (error, data) => {
       if (error) {
-        logger.error('data not found in database');
+        logger.error('Error Verifying User');
         return callback(error, null);
       }
-      logger.info('data found in database');
+      logger.info('User Verified');
       return callback(null, data);
     });
   };

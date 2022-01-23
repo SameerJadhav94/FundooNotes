@@ -43,7 +43,7 @@ class NoteModel {
 
   // eslint-disable-next-line class-methods-use-this
   getNoteModel = (getNote) => new Promise((resolve, reject) => {
-    Note.find({ userId: getNote.id })
+    Note.find({ userId: getNote.id }).sort({ updatedAt: -1 })
       .then((data) => {
         resolve(data);
       })

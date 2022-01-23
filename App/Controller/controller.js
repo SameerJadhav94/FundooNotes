@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
@@ -98,7 +99,8 @@ class Controller {
         return res.status(200).json({
           success: true,
           message: 'User logged in successfully',
-          data,
+          token: data.token,
+          id: data.id,
         });
       });
     } catch (error) {

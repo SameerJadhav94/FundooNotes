@@ -4,6 +4,7 @@
 const amqp = require('amqplib/callback_api');
 
 class RabitMqServer {
+  // Publisher
   sender = (data, queue) => {
     amqp.connect('amqp://localhost', (error, connection) => {
       if (error) {
@@ -22,6 +23,7 @@ class RabitMqServer {
     });
   };
 
+  // Consumer
   receiver = (queue) => new Promise((resolve, reject) => {
     amqp.connect('amqp://localhost', (error, connection) => {
       if (error) {

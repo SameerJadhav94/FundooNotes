@@ -43,10 +43,12 @@ class UserService {
           logger.error('Error logging in');
           return callback('Error ocurred', null);
         }
-
+        // eslint-disable-next-line no-console
+        console.log(data);
         const token = encryption.token(data);
         logger.info('Login successfully');
-        return callback(null, token);
+        // eslint-disable-next-line object-shorthand
+        return callback(null, { token: token, id: data.id });
       }
       logger.error('Error ocurred');
       return callback(error, null);
